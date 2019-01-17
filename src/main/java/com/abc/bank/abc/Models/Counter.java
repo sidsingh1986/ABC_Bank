@@ -1,6 +1,7 @@
 package com.abc.bank.abc.Models;
 
 import com.abc.bank.abc.Enums.TypeOfService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Counter {
     @JoinTable(name="Counter_Services", joinColumns=@JoinColumn(name="Counter_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))
     private List<BankingService> servicesOffered;
 
+    @JsonIgnore
     @OneToMany
     private List<Token> tokens;
 }
