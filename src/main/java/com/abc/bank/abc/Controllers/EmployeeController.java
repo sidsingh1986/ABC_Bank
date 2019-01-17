@@ -35,7 +35,7 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "Updates a particular employee")
-    @PutMapping("/employees/")
+    @PutMapping("/employee")
     public void updateEmployee(@RequestBody Employee employee) {
         employeeService.updateEmployee(employee);
     }
