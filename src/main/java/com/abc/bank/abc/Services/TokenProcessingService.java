@@ -14,11 +14,13 @@ public interface TokenProcessingService {
 
     void cancelToken(Token token);
 
-    void assignCounter(Integer tokenId, Integer branchId, Integer serviceId, TypeOfService typeOfService);
+    void assignCounter(Integer tokenId, Integer branchId, Integer serviceId);
 
     Token getToken(Integer tokenId);
 
     List<Token> getTokens();
 
     void setTokenStatusToProcess(Token token);
+
+    TypeOfService getTypeOfServiceforToken(Integer tokenId);
 }

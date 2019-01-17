@@ -65,8 +65,9 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     }
 
     @Override
-    public void assignCounter(Integer tokenId, Integer branchId, Integer serviceId, TypeOfService typeOfService) {
+    public void assignCounter(Integer tokenId, Integer branchId, Integer serviceId) {
         int counterIndex = 0;
+        TypeOfService typeOfService = getTypeOfServiceforToken(tokenId);
         List<Counter> counters = branchService.getCountersForService(branchId, serviceId, typeOfService);
         for(int index = 0; index < counters.size(); index++) {
             int counterQueue = counters.get(index).getTokens().size();
@@ -97,5 +98,11 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     public void setTokenStatusToProcess(Token token) {
         token.setStatus(TokenStatus.IN_PROCESS);
         tokenRepository.save(token);
+    }
+
+    @Override
+    public TypeOfService getTypeOfServiceforToken(Integer tokenId) {
+        Token token = getToken(tokenId);
+        return token.getCustomer().getTypeOfService();
     }
 }
