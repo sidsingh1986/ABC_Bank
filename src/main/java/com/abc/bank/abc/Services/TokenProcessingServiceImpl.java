@@ -37,6 +37,8 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         token.setStatus(TokenStatus.ISSUED);
         List<TokenService> tokenServices = tokenServiceService.generateTokenServices(servicesPlaceholder);
         token.setTokenServices(tokenServices);
+        TokenService tokenService = tokenServiceService.getHighestOrderTokenService(token.getId());
+        assignCounter(token.getId(), branchId, tokenService.getService().getId());
         return tokenRepository.save(token);
     }
 
