@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MultiCounterServicesServiceImpl implements MultiCounterServicesService {
@@ -15,7 +16,13 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
 
     @Override
     public MultiCounterBankingService getMultiCounterService(Integer serviceId) {
-        return multiCounterRepository.findById(serviceId).get();
+        Optional<MultiCounterBankingService> optional = multiCounterRepository.findById(serviceId);
+
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RuntimeException("Multi counter service not found for id " + serviceId);
+        }
     }
 
     @Override

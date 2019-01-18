@@ -66,7 +66,7 @@ public class TokenServiceServiceImpl implements TokenServiceService {
             while (iterator.hasNext()) {
                 TokenService tokenService = iterator.next();
                 if (tokenService.getStatus().equals(TokenServiceStatus.QUEUED)
-                        && tokenService.getBankingService().getId() == bankingService.getId()) {
+                        && tokenService.getService().getId() == bankingService.getId()) {
                     return tokenService;
                 }
             }
@@ -124,7 +124,7 @@ public class TokenServiceServiceImpl implements TokenServiceService {
         List<TokenService> tokenServices = new ArrayList<>();
         for (int index = 0; index < cummilativeBankingServices.size(); index++) {
             tokenServices.add(new TokenService());
-            tokenServices.get(index).setBankingService(cummilativeBankingServices.get(index));
+            tokenServices.get(index).setService(cummilativeBankingServices.get(index));
             tokenServices.get(index).setRequestOrder(index+1);
             tokenServices.get(index).setStatus(TokenServiceStatus.CREATED);
         }

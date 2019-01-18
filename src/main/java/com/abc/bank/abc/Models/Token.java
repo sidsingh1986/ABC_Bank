@@ -14,12 +14,14 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
+    @Enumerated(EnumType.STRING)
     private TokenStatus status;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "Token_id")
     private List<TokenService> tokenServices;
 
     @Transient

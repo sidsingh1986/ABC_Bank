@@ -115,7 +115,7 @@ public class CounterServiceImpl implements CounterService {
         tokenServiceService.completeTokenService(tokenService);
 
         TokenService nextTokenService = tokenServiceService.getHighestOrderTokenService(tokenId);
-        if (bankingServices.contains(nextTokenService.getBankingService())) {
+        if (bankingServices.contains(nextTokenService.getService())) {
             token.setCurrentTokenService(nextTokenService);
             processToken(counterId, tokenId, actionOrComments, employee);
             completeOrForwardToken(branchId, counterId, tokenId,  actionOrComments, employee);

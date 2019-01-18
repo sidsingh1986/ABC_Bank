@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BranchServiceImpl implements BranchService {
@@ -28,7 +29,13 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Branch getBranch(Integer branchId) {
-        return branchRepository.findById(branchId).get();
+        Optional<Branch> branchOptional = branchRepository.findById(branchId);
+        if (branchOptional.isPresent()) {
+            return branchOptional.get();
+        } else {
+            throw new RuntimeException("Branch not found for branch id " + branchId);
+        }
+
     }
 
     @Override

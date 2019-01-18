@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
+@Table(name = "Token_Services")
 public class TokenService {
 
     @Id
@@ -15,9 +16,10 @@ public class TokenService {
     private int id;
 
     @ManyToOne
-    private BankingService bankingService;
+    @JoinColumn(name = "Services_id")
+    private BankingService service;
 
-    @Column(name = "action_or_comments")
+    @Column(name = "actions_or_comments")
     private String actionOrComments;
 
     @OneToOne
@@ -30,5 +32,6 @@ public class TokenService {
     private TokenServiceStatus status;
 
     @OneToOne
+    @JoinColumn(name = "served_by_id")
     private Employee servedBy;
 }

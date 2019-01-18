@@ -15,6 +15,7 @@ public class Customer {
 
     private String name;
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
@@ -25,5 +26,6 @@ public class Customer {
     private Address address;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Bank bank;
+    @JoinColumn(name = "Branch_id")
+    private Branch branch;
 }

@@ -25,7 +25,7 @@ public class Counter {
     @JoinTable(name="Counter_Services", joinColumns=@JoinColumn(name="Counter_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))
     private List<BankingService> servicesOffered;
 
-    @JsonIgnore
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "Counter_id")
     private List<Token> tokens;
 }

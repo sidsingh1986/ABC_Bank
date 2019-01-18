@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServicesSeviceImpl implements ServicesSevice {
@@ -15,7 +16,12 @@ public class ServicesSeviceImpl implements ServicesSevice {
 
     @Override
     public BankingService getService(Integer serviceId) {
-        return serviceRepository.findById(serviceId).get();
+        Optional<BankingService> optional = serviceRepository.findById(serviceId);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RuntimeException("Banking Service not found for id " + serviceId);
+        }
     }
 
     @Override
