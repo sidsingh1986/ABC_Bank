@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Models;
 
+import com.abc.bank.abc.DtoModels.AddressDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,5 +25,18 @@ public class Address {
     private String pincode;
 
     private String city;
+
+
+    public AddressDTO convertToDTO() {
+        AddressDTO address = new AddressDTO();
+        address.setId(this.getId());
+        address.setFirstLine(this.getFirstLine());
+        address.setSecondLine(this.getSecondLine());
+        address.setThirdLine(this.getThirdLine());
+        address.setPincode(this.getPincode());
+        address.setCity(this.getCity());
+
+        return address;
+    }
 
 }

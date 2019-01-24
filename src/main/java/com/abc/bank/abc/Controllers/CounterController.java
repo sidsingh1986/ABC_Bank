@@ -1,5 +1,8 @@
 package com.abc.bank.abc.Controllers;
 
+import com.abc.bank.abc.DtoModels.BankingServiceDTO;
+import com.abc.bank.abc.DtoModels.CounterDTO;
+import com.abc.bank.abc.DtoModels.TokenDTO;
 import com.abc.bank.abc.Models.BankingService;
 import com.abc.bank.abc.Models.Counter;
 import com.abc.bank.abc.Models.Employee;
@@ -7,11 +10,14 @@ import com.abc.bank.abc.Models.Token;
 import com.abc.bank.abc.Services.BranchService;
 import com.abc.bank.abc.Services.CounterService;
 import com.abc.bank.abc.Services.ServicesSevice;
+import com.abc.bank.abc.Services.TokenProcessingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "Counter", description = "Operations pertaining to the counters of a bank branch")
@@ -19,105 +25,107 @@ import java.util.List;
 public class CounterController {
 
     @Autowired
-    BranchService branchService;
-
-    @Autowired
     CounterService counterService;
 
     @Autowired
-    ServicesSevice servicesSevice;
-
-    /**
-     * For getting all counters in a specific branch
-     *
-     * @param branchId
-     * @return list of counters
-     */
-    @ApiOperation(value = "View all counters of a branch")
-    @GetMapping("/branches/{id}/counters")
-    public List<Counter> getBranchCounters(@PathVariable(value = "id") Integer branchId) {
-        return branchService.getCounters(branchId);
-    }
+    TokenProcessingService tokenProcessingService;
 
     /**
      * For creating a new counter in a branch
      *
-     * @param branchId
-     * @param counter
+     * @param counterDTO
      * @return new counter instance
      */
     @ApiOperation(value = "creates a counter")
-    @PostMapping("/branches/{id}/counters")
-    public Counter createCounter(@PathVariable(value = "id") Integer branchId, @RequestBody Counter counter) {
-        return counterService.createNewCounter(counter);
+    @PostMapping("/counters")
+    public CounterDTO createCounter(@Valid @RequestBody CounterDTO counterDTO) {
+        Counter counter = counterDTO.convertToEntity();
+        return counterService.createNewCounter(counter).convertToDTO();
+    }
+
+    @ApiOperation(value = "Gets all counters")
+    @GetMapping("/counters")
+    public List<CounterDTO> getCounters() {
+        List<Counter> counters = counterService.getAllCounters();
+        List<CounterDTO> counterDTOS = new ArrayList<>();
+
+        for(int index = 0; index < counters.size(); index++) {
+            counterDTOS.add(counters.get(index).convertToDTO());
+        }
+        return counterDTOS;
+    }
+
+    @ApiOperation(value = "Gets a particular counter")
+    @GetMapping("/counters/{id}")
+    public CounterDTO getCounter(@PathVariable("id") Integer counterId) {
+        return counterService.getCounter(counterId).convertToDTO();
     }
 
     /**
      * For getting a specific counter in a branch with all the service steps it currently serves
      *
-     * @param branchId
-     * @param counterNumber
-     * @return counter instance if exists
-     */
-    @ApiOperation(value = "View a particular counter of a branch")
-    @GetMapping("/branches/{id}/counters/{counterId}")
-    public Counter getBranchCounter(@PathVariable(value = "id") Integer branchId, @PathVariable(value = "counterId") Integer counterNumber) {
-        return branchService.getCounter(branchId, counterNumber);
-    }
-
-    /**
-     * For getting a specific counter in a branch with all the service steps it currently serves
-     *
-     * @param branchId
-     * @param counter
+     * @param counterDTO
      * @return counter instance if exists
      */
     @ApiOperation(value = "Updates a counter")
-    @PutMapping("/branches/{id}/counters/")
-    public void updateBranchCounter(@PathVariable(value = "id") Integer branchId, @RequestBody Counter counter) {
+    @PutMapping("/counters")
+    public void updateBranchCounter(@Valid @RequestBody CounterDTO counterDTO) {
+        Counter counter = counterDTO.convertToEntity();
         counterService.updateCounter(counter);
     }
 
     @ApiOperation(value = "Adds a service to list of services currently served by a counter")
-    @PutMapping("/counter/{counterId}/service/{serviceId}")
+    @PutMapping("/counters/{counterId}/services")
     public void addServiceToCounter(@PathVariable(value = "counterId") Integer counterId,
-                                    @PathVariable(value = "serviceId") Integer serviceId) {
-        BankingService bankingService = servicesSevice.getService(serviceId);
+                                    @RequestBody  BankingServiceDTO bankingServiceDTO) {
+        BankingService bankingService = bankingServiceDTO.convertToEntity();
         counterService.addServiceToCounter(counterId, bankingService);
     }
 
+    @ApiOperation(value = "Adds a service to list of services currently served by a counter")
+    @GetMapping("/counters/{counterId}/services")
+    public List<BankingServiceDTO> getServicesOfCounter(@PathVariable(value = "counterId") Integer counterId) {
+        List<BankingService> bankingServices = counterService.listServicesOfferedByCounter(counterId);
+        List<BankingServiceDTO> bankingServiceDTOS = new ArrayList<>();
+
+        for (int index = 0; index < bankingServices.size(); index++) {
+            bankingServiceDTOS.add(bankingServices.get(index).convertToDTO());
+        }
+        return bankingServiceDTOS;
+    }
+
+    @ApiOperation(value = "Adds a service to list of services currently served by a counter")
+    @DeleteMapping("/counters/{counterId}/services/{serviceId}")
+    public void deleteServiceFromCounter(@PathVariable(value = "counterId") Integer counterId, @RequestBody BankingServiceDTO bankingServiceDTO) {
+        BankingService bankingService = bankingServiceDTO.convertToEntity();
+        counterService.removeServiceFromCounter(counterId, bankingService);
+    }
+
+    @ApiOperation(value = "Adds a service to list of services currently served by a counter")
+    @GetMapping("/counters/{counterId}/services/{serviceId}")
+    public BankingServiceDTO getServiceOfCounter(@PathVariable(value = "counterId") Integer counterId,
+                                                 @PathVariable(value = "serviceId") Integer serviceId) {
+        return counterService.getServiceOfferedByCounter(counterId, serviceId).convertToDTO();
+    }
+
     @ApiOperation(value = "Get list of tokens currently assigned to a particular counter")
-    @GetMapping("/branches/{id}/counters/{counterId}/assignedTokens")
-    public List<Token> getAssignedTokensToCounter(@PathVariable(value = "id") Integer branchId, @PathVariable(value = "counterId") Integer counterNumber) {
-        return counterService.getAssignedTokens(counterNumber);
+    @GetMapping("/counters/{counterId}/tokens")
+    public List<TokenDTO> getAssignedTokensToCounter(@PathVariable(value = "counterId") Integer counterNumber) {
+        List<Token> tokens = counterService.getAssignedTokens(counterNumber);
+        List<TokenDTO> tokenDTOS = new ArrayList<>();
+
+        for(int index = 0; index < tokens.size();index++) {
+            tokenDTOS.add(tokens.get(index).convertToDTO());
+        }
+        return tokenDTOS;
     }
 
     @ApiOperation(value = "Get the token which is to be picked for processing")
-    @GetMapping("/counters/{counterId}/token_to_process")
-    public Token getToBeProcessedToken(@PathVariable(value = "counterId") Integer counterId) {
-        return counterService.getNextToken(counterId);
+    @PutMapping("/counters/{counterId}/next-token")
+    public TokenDTO getToBeProcessedToken(@PathVariable(value = "counterId") Integer counterId) {
+        Token token = counterService.getNextToken(counterId);
+        Token updatedToken = tokenProcessingService.pickToken(token);
+        return updatedToken.convertToDTO();
     }
 
-    @ApiOperation(value = "Picks the token and changes the status to in process")
-    @PutMapping("/counters/{counterId}/token/{tokenId}/pick_token")
-    public void pickToken(@PathVariable(value = "counterId") Integer counterId, @PathVariable(value = "tokenId") Integer tokenId ) {
-        counterService.pickToken(counterId, tokenId);
-    }
-
-    @ApiOperation(value = "Processes the token and adds comments")
-    @PutMapping("/counters/{counterId}/token/{tokenId}/process_token")
-    public void processToken(@PathVariable(value = "counterId") Integer counterId,
-                             @PathVariable(value = "tokenId") Integer tokenId,
-                             @RequestBody String actionOrComments, @RequestBody Employee employee) {
-        counterService.processToken(counterId, tokenId, actionOrComments, employee);
-    }
-
-    @ApiOperation(value = "Completes the token and assign the token to another counter for service if applicable")
-    @PutMapping("/branch/{branchId}/counters/{counterId}/token/{tokenId}/complete_token")
-    public void completeToken(@PathVariable(value = "branchId") Integer branchId,
-            @PathVariable(value = "counterId") Integer counterId,
-                             @PathVariable(value = "tokenId") Integer tokenId,
-                             @RequestBody String actionOrComments, @RequestBody Employee employee) {
-        counterService.completeOrForwardToken(branchId, counterId, tokenId, actionOrComments, employee);
-    }
 }

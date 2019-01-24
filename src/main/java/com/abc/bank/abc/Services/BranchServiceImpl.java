@@ -1,6 +1,7 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Enums.TypeOfService;
+import com.abc.bank.abc.Enums.CustomerType;
+import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.Models.BankingService;
 import com.abc.bank.abc.Models.Branch;
 import com.abc.bank.abc.Models.Counter;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("BranchService")
 public class BranchServiceImpl implements BranchService {
 
     @Autowired
@@ -24,7 +25,11 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public List<Branch> getAllBranches() {
-        return branchRepository.findAll();
+        List<Branch> branches = branchRepository.findAll();
+        if (branches == null)
+            throw new NullPointerException("branches list cannot be null");
+
+        return branches;
     }
 
     @Override
@@ -33,32 +38,48 @@ public class BranchServiceImpl implements BranchService {
         if (branchOptional.isPresent()) {
             return branchOptional.get();
         } else {
-            throw new RuntimeException("Branch not found for branch id " + branchId);
+            throw new ResourceNotFoundException(branchId, "branch not found");
         }
 
     }
 
     @Override
     public Branch createNewBranch(Branch branch) {
+        if (branch == null)
+            throw new IllegalArgumentException("The branch parameter passed can't be null");
         return branchRepository.save(branch);
     }
 
     @Override
-    public BankingService getService(Integer branchId, Integer serviceId) {
-        Branch branch = getBranch(branchId);
-        List<BankingService> bankingServices = branch.getBankingServices();
-
-        for(int index = 0; index < bankingServices.size(); index++) {
-            if(bankingServices.get(index).getId() == serviceId) {
-                return bankingServices.get(index);
-            }
-        }
-
-        return null;
+    public void updateBranch(Branch branch) {
+        if (branch == null)
+            throw new IllegalArgumentException("The branch parameter can't be null");
+        branchRepository.save(branch);
     }
 
     @Override
-    public Branch addService(Integer branchId, BankingService bankingService) {
+    public void deleteBranch(Integer branchId) {
+        branchRepository.deleteById(branchId);
+    }
+
+    @Override
+    public BankingService getBankingService(Integer branchId, Integer serviceId) {
+        Branch branch = getBranch(branchId);
+        List<BankingService> bankingServices = branch.getBankingServices();
+
+        if (bankingServices != null) {
+
+            for (int index = 0; index < bankingServices.size(); index++) {
+                if (bankingServices.get(index).getId() == serviceId) {
+                    return bankingServices.get(index);
+                }
+            }
+        }
+        throw new ResourceNotFoundException(serviceId, "The requested service is not found for branch");
+    }
+
+    @Override
+    public Branch addBankingService(Integer branchId, BankingService bankingService) {
         Branch branch = getBranch(branchId);
         branch.getBankingServices().add(bankingService);
         return branchRepository.save(branch);
@@ -77,7 +98,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public MultiCounterBankingService getMultiCounterService(Integer branchId, Integer serviceId) {
+    public MultiCounterBankingService getMultiCounterBankingService(Integer branchId, Integer serviceId) {
         Branch branch = getBranch(branchId);
         List<MultiCounterBankingService> multiCounterBankingServices = branch.getMultiCounterBankingServices();
 
@@ -90,7 +111,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public Branch addMultiCounterService(Integer branchId, MultiCounterBankingService multiCounterBankingService) {
+    public Branch addMultiCounterBankingService(Integer branchId, MultiCounterBankingService multiCounterBankingService) {
         Branch branch = getBranch(branchId);
         branch.getMultiCounterBankingServices().add(multiCounterBankingService);
         return branchRepository.save(branch);
@@ -111,7 +132,7 @@ public class BranchServiceImpl implements BranchService {
                 return counters.get(index);
             }
         }
-        return  null;
+        throw new ResourceNotFoundException(counterNumber, "Counter not found for branch with id " + branchId);
     }
 
     @Override
@@ -122,14 +143,14 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public List<Counter> getCountersForService(Integer branchId, Integer serviceId, TypeOfService typeOfService) {
+    public List<Counter> getCountersForService(Integer branchId, Integer serviceId, CustomerType customerType) {
         BankingService bankingService = servicesSevice.getService(serviceId);
         Branch branch = branchRepository.findById(branchId).get();
         List<Counter> counters = branch.getCounters();
         List<Counter> servicesCounter = new ArrayList<>();
         for (int index = 0; index < counters.size(); index++) {
             Counter counter = counters.get(index);
-            if (counter.getServicesOffered().contains(bankingService) && counter.getTypeOfService().equals(typeOfService))
+            if (counter.getServicesOffered().contains(bankingService) && counter.getCustomerType().equals(customerType))
                 servicesCounter.add(counter);
         }
         return servicesCounter;

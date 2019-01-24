@@ -34,4 +34,14 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
     public List<MultiCounterBankingService> getMultiCounterServices() {
         return multiCounterRepository.findAll();
     }
+
+    @Override
+    public void updateMultiCounterService(MultiCounterBankingService multiCounterBankingService) {
+        multiCounterRepository.save(multiCounterBankingService);
+    }
+
+    @Override
+    public void deleteMultiCounterService(Integer serviceId) {
+        multiCounterRepository.deleteById(serviceId);
+    }
 }

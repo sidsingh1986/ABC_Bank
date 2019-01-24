@@ -11,4 +11,8 @@ public interface MultiCounterServicesService {
     MultiCounterBankingService createMultiCounterService(MultiCounterBankingService multiCounterBankingService);
 
     List<MultiCounterBankingService> getMultiCounterServices();
+
+    void updateMultiCounterService(MultiCounterBankingService multiCounterBankingService);
+
+    void deleteMultiCounterService(Integer serviceId);
 }

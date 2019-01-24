@@ -1,5 +1,5 @@
 package com.abc.bank.abc.Enums;
 
-public enum TypeOfService {
+public enum CustomerType {
     REGULAR, PREMIUM;
 }

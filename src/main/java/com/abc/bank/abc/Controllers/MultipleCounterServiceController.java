@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api(value = "Multi Counter Service", description = "Operations pertaining to the Multi Counter Service")
@@ -18,7 +19,7 @@ public class MultipleCounterServiceController {
 
     @ApiOperation(value = "Create a new multi counter services")
     @PostMapping("/multipleCounterServices")
-    public MultiCounterBankingService createMultiCounterService(@RequestBody MultiCounterBankingService multiCounterBankingService) {
+    public MultiCounterBankingService createMultiCounterService(@Valid @RequestBody MultiCounterBankingService multiCounterBankingService) {
         return multiCounterServicesService.createMultiCounterService(multiCounterBankingService);
     }
 
@@ -32,6 +33,18 @@ public class MultipleCounterServiceController {
     @GetMapping("/multipleCounterServices/{serviceId}")
     public MultiCounterBankingService getMultiCounterService(@PathVariable(value = "serviceId") Integer serviceId) {
         return multiCounterServicesService.getMultiCounterService(serviceId);
+    }
+
+    @ApiOperation(value = "View a specific multi counter service")
+    @PutMapping("/multipleCounterServices")
+    public void updateMultiCounterService(@Valid @RequestBody MultiCounterBankingService multiCounterBankingService) {
+        multiCounterServicesService.updateMultiCounterService(multiCounterBankingService);
+    }
+
+    @ApiOperation(value = "Delete a specific multi counter service")
+    @DeleteMapping("/multipleCounterServices/{serviceId}")
+    public void deleteMultiCounterService(@PathVariable(value = "serviceId") Integer serviceId) {
+        multiCounterServicesService.deleteMultiCounterService(serviceId);
     }
 
 }

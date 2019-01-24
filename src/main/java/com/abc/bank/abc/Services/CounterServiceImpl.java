@@ -1,21 +1,22 @@
 package com.abc.bank.abc.Services;
 
 import com.abc.bank.abc.Enums.TokenServiceStatus;
+import com.abc.bank.abc.Enums.TokenStatus;
+import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.Models.*;
 import com.abc.bank.abc.Repositories.CounterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CounterServiceImpl implements CounterService {
 
     @Autowired
     CounterRepository counterRepository;
-
-    @Autowired
-    TokenServiceService tokenServiceService;
 
     @Autowired
     TokenProcessingService tokenProcessingService;
@@ -38,7 +39,13 @@ public class CounterServiceImpl implements CounterService {
 
     @Override
     public Counter getCounter(Integer counterId) {
-        return counterRepository.findById(counterId).get();
+        Optional<Counter> optional = counterRepository.findById(counterId);
+
+        if(optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new ResourceNotFoundException(counterId, "Counter not found");
+        }
     }
 
     @Override
@@ -82,48 +89,15 @@ public class CounterServiceImpl implements CounterService {
     }
 
     @Override
-    public void reassignTokenForNextService(Integer tokenId) {
-    }
+    public BankingService getServiceOfferedByCounter(Integer counterId, Integer serviceId) {
+        Counter counter = getCounter(counterId);
+        List<BankingService> bankingServices = counter.getServicesOffered();
 
-    @Override
-    public void pickToken(Integer counterId, Integer tokenId) {
-
-        Token token = tokenProcessingService.getToken(tokenId);
-        tokenProcessingService.setTokenStatusToProcess(token);
-
-        TokenService tokenService = tokenServiceService.getHighestOrderTokenService(tokenId);
-        tokenServiceService.setTokenStatusToProcess(tokenService);
-        token.setCurrentTokenService(tokenService);
-    }
-
-    @Override
-    public void processToken(Integer counterId, Integer tokenId, String actionOrComments, Employee employee) {
-        Token token = tokenProcessingService.getToken(tokenId);
-
-        TokenService tokenService = token.getCurrentTokenService();
-        tokenServiceService.addActionOrComments(tokenService, actionOrComments, employee);
-    }
-
-    @Override
-    public void completeOrForwardToken(Integer branchId, Integer counterId, Integer tokenId, String actionOrComments, Employee employee) {
-        List<BankingService> bankingServices = listServicesOfferedByCounter(counterId);
-
-        Token token = tokenProcessingService.getToken(tokenId);
-
-        TokenService tokenService = token.getCurrentTokenService();
-
-        tokenServiceService.completeTokenService(tokenService);
-
-        TokenService nextTokenService = tokenServiceService.getHighestOrderTokenService(tokenId);
-        if (bankingServices.contains(nextTokenService.getService())) {
-            token.setCurrentTokenService(nextTokenService);
-            processToken(counterId, tokenId, actionOrComments, employee);
-            completeOrForwardToken(branchId, counterId, tokenId,  actionOrComments, employee);
-        } else {
-            token.setCurrentTokenService(null);
-            tokenProcessingService.assignCounter(tokenId, branchId, nextTokenService.getId());
+        for (int index = 0; index < bankingServices.size(); index++) {
+            if(serviceId == bankingServices.get(index).getId()) {
+                return bankingServices.get(index);
+            }
         }
+        throw new ResourceNotFoundException(serviceId, "service not found counter");
     }
-
-
 }

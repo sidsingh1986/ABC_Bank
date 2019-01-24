@@ -1,6 +1,7 @@
 package com.abc.bank.abc.Models;
 
-import com.abc.bank.abc.Enums.TypeOfService;
+import com.abc.bank.abc.DtoModels.CustomerDTO;
+import com.abc.bank.abc.Enums.CustomerType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Customer {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type_of_service")
-    private TypeOfService typeOfService;
+    private CustomerType customerType;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
@@ -28,4 +29,16 @@ public class Customer {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Branch_id")
     private Branch branch;
+
+    public CustomerDTO convertToDTO() {
+        CustomerDTO customer = new CustomerDTO();
+        customer.setId(this.getId());
+        customer.setName(this.getName());
+        customer.setPhoneNumber(this.getPhoneNumber());
+        customer.setCustomerType(this.getCustomerType());
+        customer.setBranch(this.getBranch().convertToDTO());
+        customer.setAddress(this.getAddress().convertToDTO());
+
+        return customer;
+    }
 }

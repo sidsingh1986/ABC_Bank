@@ -33,4 +33,14 @@ public class ServicesSeviceImpl implements ServicesSevice {
     public List<BankingService> getServices() {
         return serviceRepository.findAll();
     }
+
+    @Override
+    public void updateService(BankingService bankingService) {
+        serviceRepository.save(bankingService);
+    }
+
+    @Override
+    public void deleteService(Integer serviceId) {
+        serviceRepository.deleteById(serviceId);
+    }
 }

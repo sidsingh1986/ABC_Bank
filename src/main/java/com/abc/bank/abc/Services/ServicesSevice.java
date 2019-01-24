@@ -10,4 +10,8 @@ public interface ServicesSevice {
     BankingService createService(BankingService bankingService);
 
     List<BankingService> getServices();
+
+    void updateService(BankingService bankingService);
+
+    void deleteService(Integer serviceId);
 }

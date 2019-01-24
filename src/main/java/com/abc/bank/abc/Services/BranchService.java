@@ -1,6 +1,7 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Enums.TypeOfService;
+import com.abc.bank.abc.DtoModels.BranchDTO;
+import com.abc.bank.abc.Enums.CustomerType;
 import com.abc.bank.abc.Models.BankingService;
 import com.abc.bank.abc.Models.Branch;
 import com.abc.bank.abc.Models.Counter;
@@ -15,17 +16,21 @@ public interface BranchService {
 
     Branch createNewBranch(Branch branch);
 
-    BankingService getService(Integer branchId, Integer serviceId);
+    void updateBranch(Branch branch);
 
-    Branch addService(Integer branchId, BankingService bankingService);
+    void deleteBranch(Integer branchId);
+
+    BankingService getBankingService(Integer branchId, Integer serviceId);
+
+    Branch addBankingService(Integer branchId, BankingService bankingService);
 
     List<BankingService> getBankingServices(Integer branchId);
 
     List<MultiCounterBankingService> getMultiCounterBankingServices(Integer branchId);
 
-    MultiCounterBankingService getMultiCounterService(Integer branchId, Integer serviceId);
+    MultiCounterBankingService getMultiCounterBankingService(Integer branchId, Integer serviceId);
 
-    Branch addMultiCounterService(Integer branchId, MultiCounterBankingService multiCounterBankingService);
+    Branch addMultiCounterBankingService(Integer branchId, MultiCounterBankingService multiCounterBankingService);
 
     List<Counter> getCounters(Integer branchId);
 
@@ -33,5 +38,5 @@ public interface BranchService {
 
     Branch addCounter(Integer branchId, Counter counter);
 
-    List<Counter> getCountersForService(Integer branchId, Integer serviceId, TypeOfService typeOfService);
+    List<Counter> getCountersForService(Integer branchId, Integer serviceId, CustomerType customerType);
 }

@@ -26,11 +26,5 @@ public interface CounterService {
 
     List<BankingService> listServicesOfferedByCounter(Integer counterId);
 
-    void reassignTokenForNextService(Integer tokenId);
-
-    void pickToken(Integer counterId, Integer tokenId);
-
-    void processToken(Integer counterId, Integer tokenId, String actionOrComments, Employee employee);
-
-    void completeOrForwardToken(Integer branchId, Integer counterId, Integer tokenId, String actionOrComments, Employee employee);
+    BankingService getServiceOfferedByCounter(Integer counterId, Integer serviceId);
 }

@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Models;
 
+import com.abc.bank.abc.DtoModels.ServicesPlaceholder;
 import lombok.Data;
 
 @Data

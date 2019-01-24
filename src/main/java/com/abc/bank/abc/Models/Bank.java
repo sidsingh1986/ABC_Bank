@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Models;
 
+import com.abc.bank.abc.DtoModels.BankDTO;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,4 +17,12 @@ public class Bank {
     private int id;
 
     private String name;
+
+    public BankDTO convertToDTO() {
+        BankDTO bank = new BankDTO();
+        bank.setId(this.getId());
+        bank.setName(this.getName());
+
+        return bank;
+    }
 }
