@@ -3,10 +3,9 @@ package com.abc.bank.abc.Models;
 import com.abc.bank.abc.DtoModels.EmployeeDTO;
 import com.abc.bank.abc.Enums.EmployeeRoles;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,20 +24,21 @@ public class Employee {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Enumerated(EnumType.STRING)
-    private EmployeeRoles role;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Employee_Roles", joinColumns = { @JoinColumn(name = "Employee_id") }, inverseJoinColumns = { @JoinColumn(name = "Roles_id") })
+    private List<Roles> roles;
 
     @Column(name = "enabled")
-    private short enabled;
+    private boolean enabled;
 
     public EmployeeDTO convertToDTO() {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         employeeDTO.setId(this.getId());
         employeeDTO.setName(this.getName());
         employeeDTO.setPhoneNumber(this.getPhoneNumber());
-        employeeDTO.setRole(this.getRole());
+        employeeDTO.setRoles(this.getRoles());
         employeeDTO.setPasswordHash(this.getPasswordHash());
-        employeeDTO.setEnabled(this.getEnabled());
+        employeeDTO.setEnabled(this.isEnabled());
 
         return employeeDTO;
     }

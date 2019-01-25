@@ -1,6 +1,5 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Enums.TokenServiceStatus;
 import com.abc.bank.abc.Enums.TokenStatus;
 import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.Models.*;
@@ -8,7 +7,6 @@ import com.abc.bank.abc.Repositories.CounterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +15,6 @@ public class CounterServiceImpl implements CounterService {
 
     @Autowired
     CounterRepository counterRepository;
-
-    @Autowired
-    TokenProcessingService tokenProcessingService;
 
     @Override
     public Counter createNewCounter(Counter counter) {
@@ -63,9 +58,8 @@ public class CounterServiceImpl implements CounterService {
         if(tokens != null && tokens.size() > 0) {
              return tokens.get(0);
         } else {
-            System.out.println("did not find any token to process");
+            throw new IllegalStateException("There should be atleast one token assigned to counter");
         }
-        return null;
     }
 
     @Override
@@ -99,5 +93,21 @@ public class CounterServiceImpl implements CounterService {
             }
         }
         throw new ResourceNotFoundException(serviceId, "service not found counter");
+    }
+
+    @Override
+    public Token getCurrentToken(Integer counterId) {
+        Counter counter = getCounter(counterId);
+        List<Token> tokens = counter.getTokens();
+
+        if (tokens == null) {
+            throw new IllegalStateException("There should be atleast one token assigned to counter");
+        }
+
+        for (int index = 0; index < tokens.size(); index++) {
+            if (tokens.get(index).getStatus() == TokenStatus.IN_PROCESS)
+                return tokens.get(index);
+        }
+        throw new IllegalArgumentException("No token is currently being processed for the counter");
     }
 }

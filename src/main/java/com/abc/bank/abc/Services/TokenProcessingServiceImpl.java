@@ -8,6 +8,7 @@ import com.abc.bank.abc.Enums.TokenServiceStatus;
 import com.abc.bank.abc.Enums.TokenStatus;
 import com.abc.bank.abc.Models.*;
 import com.abc.bank.abc.Repositories.TokenRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,13 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     TokenRepository tokenRepository;
 
     @Autowired
-    BranchServiceImpl branchService;
+    BranchService branchService;
     
     @Autowired
     TokenProcessingStepsService tokenProcessingStepsService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public Token createToken(Token token) {

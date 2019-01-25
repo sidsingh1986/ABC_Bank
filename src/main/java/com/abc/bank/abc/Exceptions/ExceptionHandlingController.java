@@ -18,13 +18,12 @@ public class ExceptionHandlingController {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ExceptionResponse> nullPointerAccess(NullPointerException nullEx) {
         ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setErrorCode(HttpStatus.NOT_FOUND.toString());
+        exceptionResponse.setErrorCode(HttpStatus.BAD_REQUEST.toString());
         exceptionResponse.setErrorMessage(nullEx.getMessage());
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

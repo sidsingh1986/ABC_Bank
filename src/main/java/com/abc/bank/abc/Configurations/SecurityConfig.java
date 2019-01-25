@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
@@ -27,11 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "select username,password_hash,enabled from Employee where username=?")
-                .authoritiesByUsernameQuery(
-                        "select username, role from Employee where username=?");
+
+        auth.userDetailsService(userDetailsService());
     }
 
     @Override
@@ -44,9 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+
         http.authorizeRequests()
                 .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").authenticated()
-                .antMatchers("/employees/*", "/employees/*/*").access("hasAuthority('MANAGER')")
                 .antMatchers("/customer-management/*", "/customer-management/*/*").access("hasAuthority('MANAGER')")
                 .antMatchers("/counters/*", "/counters/*/*").access("hasAnyAuthority('MANAGER','COUNTER_OPERATOR')")
                 .antMatchers("/branches/*", "/branches/*/*").access("hasAnyAuthority('MANAGER')")

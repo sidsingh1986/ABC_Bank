@@ -1,11 +1,12 @@
 package com.abc.bank.abc.DtoModels;
 
-import com.abc.bank.abc.Enums.EmployeeRoles;
 import com.abc.bank.abc.Models.Employee;
+import com.abc.bank.abc.Models.Roles;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 public class EmployeeDTO {
@@ -24,10 +25,10 @@ public class EmployeeDTO {
     private String phoneNumber;
 
     @NotNull
-    private EmployeeRoles role;
+    private List<Roles> roles;
 
     @NotNull
-    private short enabled;
+    private boolean enabled;
 
     public Employee convertToEntity() {
 
@@ -35,9 +36,9 @@ public class EmployeeDTO {
         employee.setId(this.getId());
         employee.setName(this.getName());
         employee.setPhoneNumber(this.getPhoneNumber());
-        employee.setRole(this.getRole());
+        employee.setRoles(this.getRoles());
         employee.setPasswordHash(this.getPasswordHash());
-        employee.setEnabled(this.getEnabled());
+        employee.setEnabled(this.isEnabled());
 
         return employee;
     }

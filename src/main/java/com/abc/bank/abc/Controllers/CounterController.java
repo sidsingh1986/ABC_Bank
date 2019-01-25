@@ -128,4 +128,11 @@ public class CounterController {
         return updatedToken.convertToDTO();
     }
 
+    @ApiOperation(value = "Get the token which is currently getting processed")
+    @PutMapping("/counters/{counterId}/current-token")
+    public TokenDTO getCurrentToken(@PathVariable(value = "counterId") Integer counterId) {
+        Token token = counterService.getCurrentToken(counterId);
+        return token.convertToDTO();
+    }
+
 }

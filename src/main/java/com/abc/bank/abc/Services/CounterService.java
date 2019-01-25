@@ -27,4 +27,6 @@ public interface CounterService {
     List<BankingService> listServicesOfferedByCounter(Integer counterId);
 
     BankingService getServiceOfferedByCounter(Integer counterId, Integer serviceId);
+
+    Token getCurrentToken(Integer counterId);
 }
