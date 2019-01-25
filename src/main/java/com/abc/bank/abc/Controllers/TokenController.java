@@ -1,8 +1,8 @@
 package com.abc.bank.abc.Controllers;
 
-import com.abc.bank.abc.DtoModels.TokenDTO;
-import com.abc.bank.abc.DtoModels.TokenProcessParameters;
-import com.abc.bank.abc.Models.Token;
+import com.abc.bank.abc.ViewModels.TokenModel;
+import com.abc.bank.abc.ViewModels.TokenProcessParameters;
+import com.abc.bank.abc.DataModels.Token;
 import com.abc.bank.abc.Services.TokenProcessingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,31 +19,31 @@ public class TokenController {
     TokenProcessingService tokenProcessingService;
 
     @GetMapping(value = "/tokens")
-    public List<TokenDTO> getTokens() {
+    public List<TokenModel> getTokens() {
 
         List<Token> tokens = tokenProcessingService.getTokens();
-        List<TokenDTO> tokenDTOS = new ArrayList<>();
+        List<TokenModel> tokenModels = new ArrayList<>();
 
         for (int index = 0; index < tokens.size(); index++) {
-            tokenDTOS.add(tokens.get(index).convertToDTO());
+            tokenModels.add(tokens.get(index).convertToDTO());
         }
-        return tokenDTOS;
+        return tokenModels;
     }
 
     @GetMapping(value = "/tokens/{id}")
-    public TokenDTO getToken(@PathVariable(value = "id") Integer tokenId) {
+    public TokenModel getToken(@PathVariable(value = "id") Integer tokenId) {
         return tokenProcessingService.getToken(tokenId).convertToDTO();
     }
 
     @PostMapping(value = "/tokens")
-    public TokenDTO createToken(@Valid @RequestBody TokenDTO tokenDTO) {
-        Token token = tokenDTO.convertToEntity();
+    public TokenModel createToken(@Valid @RequestBody TokenModel tokenModel) {
+        Token token = tokenModel.convertToEntity();
         return tokenProcessingService.createToken(token).convertToDTO();
     }
 
     @PutMapping(value = "/tokens")
-    public void updateToken(@Valid @RequestBody TokenDTO tokenDTO) {
-        Token token = tokenDTO.convertToEntity();
+    public void updateToken(@Valid @RequestBody TokenModel tokenModel) {
+        Token token = tokenModel.convertToEntity();
         tokenProcessingService.updateToken(token);
     }
 

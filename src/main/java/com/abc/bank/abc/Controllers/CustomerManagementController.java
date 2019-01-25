@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Controllers;
 
-import com.abc.bank.abc.DtoModels.CustomerDTO;
-import com.abc.bank.abc.Models.*;
+import com.abc.bank.abc.ViewModels.CustomerModel;
+import com.abc.bank.abc.DataModels.*;
 import com.abc.bank.abc.Services.CustomerManagementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(value = "customer", description = "Operations pertaining to the customer")
+@Api(value = "customer", description = "Operations pertaining to the customer management")
 @RequestMapping("/customer-management")
 @RestController
 public class CustomerManagementController {
@@ -22,21 +22,21 @@ public class CustomerManagementController {
 
     @ApiOperation(value = "Create a new Customer")
     @PostMapping("/customers")
-    public CustomerDTO createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-        Customer customer = customerDTO.convertToEntity();
+    public CustomerModel createCustomer(@Valid @RequestBody CustomerModel customerModel) {
+        Customer customer = customerModel.convertToEntity();
         return customerManagmentService.createCustomer(customer).convertToDTO();
     }
 
     @ApiOperation(value = "View all customers")
     @GetMapping("/customers")
-    public List<CustomerDTO> getCustomers() {
-        List<CustomerDTO> customerDTOS = new ArrayList<>();
+    public List<CustomerModel> getCustomers() {
+        List<CustomerModel> customerModels = new ArrayList<>();
         List<Customer> customers = customerManagmentService.getAllCustomer();
 
         for(int index = 0; index < customers.size(); index++) {
-            customerDTOS.add(customers.get(index).convertToDTO());
+            customerModels.add(customers.get(index).convertToDTO());
         }
-        return customerDTOS;
+        return customerModels;
     }
 
     @ApiOperation(value = "Gets a particular customer")
@@ -53,8 +53,8 @@ public class CustomerManagementController {
 
     @ApiOperation(value = "Updates a particular customer")
     @PutMapping("/customers")
-    public void updateCustomer( @Valid @RequestBody CustomerDTO customerDTO) {
-        Customer customer = customerDTO.convertToEntity();
+    public void updateCustomer( @Valid @RequestBody CustomerModel customerModel) {
+        Customer customer = customerModel.convertToEntity();
         customerManagmentService.updateCustomer(customer);
     }
 

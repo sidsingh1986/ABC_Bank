@@ -1,6 +1,6 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.BankDTO;
+import com.abc.bank.abc.ViewModels.BankModel;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,8 +18,8 @@ public class Bank {
 
     private String name;
 
-    public BankDTO convertToDTO() {
-        BankDTO bank = new BankDTO();
+    public BankModel convertToDTO() {
+        BankModel bank = new BankModel();
         bank.setId(this.getId());
         bank.setName(this.getName());
 

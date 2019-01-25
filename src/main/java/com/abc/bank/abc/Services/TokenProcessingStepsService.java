@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.TokenProcessingSteps;
+import com.abc.bank.abc.DataModels.TokenProcessingSteps;
 
 import java.util.List;
 

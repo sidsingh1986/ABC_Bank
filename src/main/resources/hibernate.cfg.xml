@@ -24,17 +24,17 @@
 
         <!-- mapping file, we can use Bean annotations too -->
 
-        <mapping class="com.abc.bank.abc.Models.Customer"/>
-        <mapping class="com.abc.bank.abc.Models.Address"/>
-        <mapping class="com.abc.bank.abc.Models.Bank"/>
-        <mapping class="com.abc.bank.abc.Models.Branch"/>
-        <mapping class="com.abc.bank.abc.Models.Account"/>
-        <mapping class="com.abc.bank.abc.Models.BankingService"/>
-        <mapping class="com.abc.bank.abc.Models.Counter"/>
-        <mapping class="com.abc.bank.abc.Models.Employee"/>
-        <mapping class="com.abc.bank.abc.Models.MultiCounterBankingService"/>
-        <mapping class="com.abc.bank.abc.Models.Token"/>
-        <mapping class="com.abc.bank.abc.Models.TokenService"/>
+        <mapping class="com.abc.bank.abc.DataModels.Customer"/>
+        <mapping class="com.abc.bank.abc.DataModels.Address"/>
+        <mapping class="com.abc.bank.abc.DataModels.Bank"/>
+        <mapping class="com.abc.bank.abc.DataModels.Branch"/>
+        <mapping class="com.abc.bank.abc.DataModels.Account"/>
+        <mapping class="com.abc.bank.abc.DataModels.BankingService"/>
+        <mapping class="com.abc.bank.abc.DataModels.Counter"/>
+        <mapping class="com.abc.bank.abc.DataModels.Employee"/>
+        <mapping class="com.abc.bank.abc.DataModels.MultiCounterBankingService"/>
+        <mapping class="com.abc.bank.abc.DataModels.Token"/>
+        <mapping class="com.abc.bank.abc.DataModels.TokenService"/>
 
 
     </session-factory>

@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Controllers;
 
-import com.abc.bank.abc.DtoModels.BankingServiceDTO;
-import com.abc.bank.abc.Models.BankingService;
+import com.abc.bank.abc.ViewModels.BankingServiceModel;
+import com.abc.bank.abc.DataModels.BankingService;
 import com.abc.bank.abc.Services.ServicesSevice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,21 +21,21 @@ public class ServiceController {
 
     @ApiOperation(value = "Create a new banking services")
     @PostMapping("/services")
-    public BankingServiceDTO createService(@Valid @RequestBody BankingServiceDTO bankingServiceDTO) {
-        BankingService bankingService = bankingServiceDTO.convertToEntity();
+    public BankingServiceModel createService(@Valid @RequestBody BankingServiceModel bankingServiceModel) {
+        BankingService bankingService = bankingServiceModel.convertToEntity();
         return servicesService.createService(bankingService).convertToDTO();
     }
 
     @ApiOperation(value = "View all banking services")
     @GetMapping("/services")
-    public List<BankingServiceDTO> getServices() {
-        List<BankingServiceDTO> bankingServiceDTOS = new ArrayList<>();
+    public List<BankingServiceModel> getServices() {
+        List<BankingServiceModel> bankingServiceRespons = new ArrayList<>();
         List<BankingService> bankingServices = servicesService.getServices();
 
         for(int index = 0; index < bankingServices.size(); index++) {
-            bankingServiceDTOS.add(bankingServices.get(index).convertToDTO());
+            bankingServiceRespons.add(bankingServices.get(index).convertToDTO());
         }
-        return bankingServiceDTOS;
+        return bankingServiceRespons;
     }
 
     @ApiOperation(value = "Gets a particular banking service")
@@ -52,8 +52,8 @@ public class ServiceController {
 
     @ApiOperation(value = "Updates a particular banking service")
     @PutMapping("/services")
-    public void updateService( @Valid @RequestBody BankingServiceDTO bankingServiceDTO) {
-        BankingService bankingService = bankingServiceDTO.convertToEntity();
+    public void updateService( @Valid @RequestBody BankingServiceModel bankingServiceModel) {
+        BankingService bankingService = bankingServiceModel.convertToEntity();
         servicesService.updateService(bankingService);
     }
 }

@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Repositories;
 
-import com.abc.bank.abc.Models.Employee;
+import com.abc.bank.abc.DataModels.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

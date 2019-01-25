@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import com.abc.bank.abc.Repositories.MultiCounterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

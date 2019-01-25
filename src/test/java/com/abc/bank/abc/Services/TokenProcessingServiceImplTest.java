@@ -1,17 +1,15 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.DtoModels.BankingServiceDTO;
-import com.abc.bank.abc.DtoModels.MultiCounterBankingServiceDTO;
-import com.abc.bank.abc.DtoModels.ServicesPlaceholder;
+import com.abc.bank.abc.ViewModels.BankingServiceModel;
+import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
+import com.abc.bank.abc.ViewModels.ServicesPlaceholder;
 import com.abc.bank.abc.Enums.CustomerType;
-import com.abc.bank.abc.Enums.EmployeeRoles;
 import com.abc.bank.abc.Enums.ServiceProcessingType;
 import com.abc.bank.abc.Enums.TokenServiceStatus;
-import com.abc.bank.abc.Models.*;
+import com.abc.bank.abc.DataModels.*;
 import com.abc.bank.abc.Repositories.TokenRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -43,36 +41,36 @@ public class TokenProcessingServiceImplTest {
         Token queryToken = new Token();
         queryToken.setId(1);
         List<ServicesPlaceholder> servicesPlaceholderList = new ArrayList<>();
-        BankingServiceDTO bankingServiceDTO1 = new BankingServiceDTO();
-        bankingServiceDTO1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        bankingServiceDTO1.setId(1);
-        bankingServiceDTO1.setName("Service 1");
+        BankingServiceModel bankingServiceModel1 = new BankingServiceModel();
+        bankingServiceModel1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel1.setId(1);
+        bankingServiceModel1.setName("Service 1");
 
         ServicesPlaceholder servicesPlaceholder = new ServicesPlaceholder();
-        servicesPlaceholder.setService(bankingServiceDTO1);
+        servicesPlaceholder.setService(bankingServiceModel1);
         servicesPlaceholder.setOrderOfService(1);
         servicesPlaceholder.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder);
 
-        BankingServiceDTO bankingServiceDTO2 = new BankingServiceDTO();
-        bankingServiceDTO2.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        bankingServiceDTO2.setId(2);
-        bankingServiceDTO2.setName("Service 2");
+        BankingServiceModel bankingServiceModel2 = new BankingServiceModel();
+        bankingServiceModel2.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel2.setId(2);
+        bankingServiceModel2.setName("Service 2");
 
-        MultiCounterBankingServiceDTO multiCounterBankingServiceDTO = new MultiCounterBankingServiceDTO();
-        multiCounterBankingServiceDTO.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
-        multiCounterBankingServiceDTO.setId(1);
-        multiCounterBankingServiceDTO.setName("Multi counter service 1");
-        multiCounterBankingServiceDTO.setBankingServices(Arrays.asList(bankingServiceDTO1, bankingServiceDTO2));
+        MultiCounterBankingServiceModel multiCounterBankingServiceModel = new MultiCounterBankingServiceModel();
+        multiCounterBankingServiceModel.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        multiCounterBankingServiceModel.setId(1);
+        multiCounterBankingServiceModel.setName("Multi counter service 1");
+        multiCounterBankingServiceModel.setBankingServices(Arrays.asList(bankingServiceModel1, bankingServiceModel2));
 
         ServicesPlaceholder servicesPlaceholder1 = new ServicesPlaceholder();
-        servicesPlaceholder1.setService(multiCounterBankingServiceDTO);
+        servicesPlaceholder1.setService(multiCounterBankingServiceModel);
         servicesPlaceholder1.setOrderOfService(2);
         servicesPlaceholder1.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder1);
 
         ServicesPlaceholder servicesPlaceholder2 = new ServicesPlaceholder();
-        servicesPlaceholder2.setService(bankingServiceDTO2);
+        servicesPlaceholder2.setService(bankingServiceModel2);
         servicesPlaceholder2.setOrderOfService(3);
         servicesPlaceholder2.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder2);
@@ -145,36 +143,36 @@ public class TokenProcessingServiceImplTest {
         Token queryToken = new Token();
         queryToken.setId(1);
         List<ServicesPlaceholder> servicesPlaceholderList = new ArrayList<>();
-        BankingServiceDTO bankingServiceDTO1 = new BankingServiceDTO();
-        bankingServiceDTO1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        bankingServiceDTO1.setId(1);
-        bankingServiceDTO1.setName("Service 1");
+        BankingServiceModel bankingServiceModel1 = new BankingServiceModel();
+        bankingServiceModel1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel1.setId(1);
+        bankingServiceModel1.setName("Service 1");
 
         ServicesPlaceholder servicesPlaceholder = new ServicesPlaceholder();
-        servicesPlaceholder.setService(bankingServiceDTO1);
+        servicesPlaceholder.setService(bankingServiceModel1);
         servicesPlaceholder.setOrderOfService(1);
         servicesPlaceholder.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder);
 
-        BankingServiceDTO bankingServiceDTO2 = new BankingServiceDTO();
-        bankingServiceDTO2.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        bankingServiceDTO2.setId(2);
-        bankingServiceDTO2.setName("Service 2");
+        BankingServiceModel bankingServiceModel2 = new BankingServiceModel();
+        bankingServiceModel2.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel2.setId(2);
+        bankingServiceModel2.setName("Service 2");
 
-        MultiCounterBankingServiceDTO multiCounterBankingServiceDTO = new MultiCounterBankingServiceDTO();
-        multiCounterBankingServiceDTO.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
-        multiCounterBankingServiceDTO.setId(1);
-        multiCounterBankingServiceDTO.setName("Multi counter service 1");
-        multiCounterBankingServiceDTO.setBankingServices(Arrays.asList(bankingServiceDTO1, bankingServiceDTO2));
+        MultiCounterBankingServiceModel multiCounterBankingServiceModel = new MultiCounterBankingServiceModel();
+        multiCounterBankingServiceModel.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        multiCounterBankingServiceModel.setId(1);
+        multiCounterBankingServiceModel.setName("Multi counter service 1");
+        multiCounterBankingServiceModel.setBankingServices(Arrays.asList(bankingServiceModel1, bankingServiceModel2));
 
         ServicesPlaceholder servicesPlaceholder1 = new ServicesPlaceholder();
-        servicesPlaceholder1.setService(multiCounterBankingServiceDTO);
+        servicesPlaceholder1.setService(multiCounterBankingServiceModel);
         servicesPlaceholder1.setOrderOfService(2);
         servicesPlaceholder1.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder1);
 
         ServicesPlaceholder servicesPlaceholder2 = new ServicesPlaceholder();
-        servicesPlaceholder2.setService(bankingServiceDTO2);
+        servicesPlaceholder2.setService(bankingServiceModel2);
         servicesPlaceholder2.setOrderOfService(3);
         servicesPlaceholder2.setTokenServiceStatus(TokenServiceStatus.CREATED);
         servicesPlaceholderList.add(servicesPlaceholder2);
@@ -257,13 +255,5 @@ public class TokenProcessingServiceImplTest {
 
         verify(tokenRepository, times(1)).deleteById(1);
 
-    }
-
-    @Test
-    public void pickToken() {
-    }
-
-    @Test
-    public void processToken() {
     }
 }

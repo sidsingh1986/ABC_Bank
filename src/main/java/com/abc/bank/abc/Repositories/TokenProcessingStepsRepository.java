@@ -1,7 +1,6 @@
 package com.abc.bank.abc.Repositories;
 
-import com.abc.bank.abc.Enums.TokenServiceStatus;
-import com.abc.bank.abc.Models.TokenProcessingSteps;
+import com.abc.bank.abc.DataModels.TokenProcessingSteps;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

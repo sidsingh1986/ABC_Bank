@@ -1,6 +1,6 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.BankingServiceDTO;
+import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,8 +16,8 @@ public class BankingService extends BaseBankingService {
 
     private String name;
 
-    public BankingServiceDTO convertToDTO() {
-        BankingServiceDTO bankingService = new BankingServiceDTO();
+    public BankingServiceModel convertToDTO() {
+        BankingServiceModel bankingService = new BankingServiceModel();
         bankingService.setId(this.getId());
         bankingService.setName(this.getName());
         bankingService.setServiceProcessingType(this.getServiceProcessingType());

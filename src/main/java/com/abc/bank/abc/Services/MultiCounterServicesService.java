@@ -1,7 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.MultiCounterBankingService;
-import org.springframework.stereotype.Service;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 
 import java.util.List;
 

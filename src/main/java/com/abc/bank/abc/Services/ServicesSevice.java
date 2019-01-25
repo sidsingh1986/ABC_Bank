@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.BankingService;
+import com.abc.bank.abc.DataModels.BankingService;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.DtoModels.BankingServiceDTO;
-import com.abc.bank.abc.DtoModels.MultiCounterBankingServiceDTO;
-import com.abc.bank.abc.DtoModels.ServicesPlaceholder;
+import com.abc.bank.abc.ViewModels.BankingServiceModel;
+import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
+import com.abc.bank.abc.ViewModels.ServicesPlaceholder;
 import com.abc.bank.abc.Enums.ServiceProcessingType;
 import com.abc.bank.abc.Enums.TokenServiceStatus;
 import com.abc.bank.abc.Enums.TokenStatus;
-import com.abc.bank.abc.Models.*;
+import com.abc.bank.abc.DataModels.*;
 import com.abc.bank.abc.Repositories.TokenRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +43,16 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         for(int index = 0; index < servicesPlaceholderList.size(); index++) {
             ServicesPlaceholder placeholder = servicesPlaceholderList.get(index);
             if (placeholder.getService().getServiceProcessingType().equals(ServiceProcessingType.MULTI_COUNTER)) {
-                MultiCounterBankingServiceDTO multiCounterBankingServiceDTO = (MultiCounterBankingServiceDTO) placeholder.getService();
-                MultiCounterBankingService multiCounterBankingService = multiCounterBankingServiceDTO.convertToEntity();
+                MultiCounterBankingServiceModel multiCounterBankingServiceModel = (MultiCounterBankingServiceModel) placeholder.getService();
+                MultiCounterBankingService multiCounterBankingService = multiCounterBankingServiceModel.convertToEntity();
                 TokenMultiCounterService tokenMultiCounterService = new TokenMultiCounterService();
                 tokenMultiCounterService.setService(multiCounterBankingService);
                 tokenMultiCounterService.setProcessingOrder(placeholder.getOrderOfService());
                 tokenMultiCounterService.setStatus(TokenServiceStatus.QUEUED);
                 tokenMultiCounterServices.add(tokenMultiCounterService);
             } else {
-                BankingServiceDTO bankingServiceDTO = (BankingServiceDTO) placeholder.getService();
-                BankingService bankingService = bankingServiceDTO.convertToEntity();
+                BankingServiceModel bankingServiceModel = (BankingServiceModel) placeholder.getService();
+                BankingService bankingService = bankingServiceModel.convertToEntity();
                 TokenService tokenService = new TokenService();
                 tokenService.setService(bankingService);
                 tokenService.setProcessingOrder(placeholder.getOrderOfService());

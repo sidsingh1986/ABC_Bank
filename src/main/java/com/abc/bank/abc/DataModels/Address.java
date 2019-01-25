@@ -1,34 +1,34 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.Models.Address;
+import com.abc.bank.abc.ViewModels.AddressModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 
 @Data
-public class AddressDTO {
+@Entity
+public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Size(min=1, max = 45)
+    @Column(name = "first_line")
     private String firstLine;
 
-    @Size(max = 45)
+    @Column(name = "second_line")
     private String secondLine;
 
-    @Size(max = 45)
+    @Column(name = "third_line")
     private String thirdLine;
 
-    @NotNull
     private String pincode;
 
-    @NotNull
     private String city;
 
-    public Address convertToEntity() {
-        Address address = new Address();
+
+    public AddressModel convertToDTO() {
+        AddressModel address = new AddressModel();
         address.setId(this.getId());
         address.setFirstLine(this.getFirstLine());
         address.setSecondLine(this.getSecondLine());
@@ -38,4 +38,5 @@ public class AddressDTO {
 
         return address;
     }
+
 }

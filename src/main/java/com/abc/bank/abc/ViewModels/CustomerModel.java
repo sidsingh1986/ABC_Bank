@@ -1,14 +1,14 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.CustomerType;
-import com.abc.bank.abc.Models.Customer;
+import com.abc.bank.abc.DataModels.Customer;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class CustomerDTO {
+public class CustomerModel {
     private int id;
 
     @NotNull
@@ -21,10 +21,10 @@ public class CustomerDTO {
     private CustomerType customerType;
 
     @NotNull
-    private AddressDTO address;
+    private AddressModel address;
 
     @NotNull
-    private BranchDTO branch;
+    private BranchModel branch;
 
     public Customer convertToEntity() {
         Customer customer = new Customer();

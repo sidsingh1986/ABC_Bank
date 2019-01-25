@@ -1,8 +1,8 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.ServiceProcessingType;
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class MultiCounterBankingServiceDTO extends BankingServiceInterface {
+public class MultiCounterBankingServiceModel extends BankingServiceInterface {
 
     private int id;
 
@@ -20,17 +20,17 @@ public class MultiCounterBankingServiceDTO extends BankingServiceInterface {
     private String name;
 
     @NotNull
-    List<BankingServiceDTO> bankingServices;
+    List<BankingServiceModel> bankingServices;
 
     public MultiCounterBankingService convertToEntity() {
         MultiCounterBankingService multiCounterBankingService = new MultiCounterBankingService();
 
         multiCounterBankingService.setId(this.getId());
         multiCounterBankingService.setName(this.getName());
-        List<BankingServiceDTO> bankingServiceDTOS = this.getBankingServices();
+        List<BankingServiceModel> bankingServiceRespons = this.getBankingServices();
         List<BankingService> bankingServices = new ArrayList<>();
-        for (int index = 0; index < bankingServiceDTOS.size(); index++) {
-            bankingServices.add(bankingServiceDTOS.get(index).convertToEntity());
+        for (int index = 0; index < bankingServiceRespons.size(); index++) {
+            bankingServices.add(bankingServiceRespons.get(index).convertToEntity());
         }
 
         multiCounterBankingService.setBankingServices(bankingServices);

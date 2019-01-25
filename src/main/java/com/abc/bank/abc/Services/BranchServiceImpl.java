@@ -2,10 +2,10 @@ package com.abc.bank.abc.Services;
 
 import com.abc.bank.abc.Enums.CustomerType;
 import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.Branch;
-import com.abc.bank.abc.Models.Counter;
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.Branch;
+import com.abc.bank.abc.DataModels.Counter;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import com.abc.bank.abc.Repositories.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

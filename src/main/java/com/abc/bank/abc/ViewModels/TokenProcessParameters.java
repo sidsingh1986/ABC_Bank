@@ -1,4 +1,4 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class TokenProcessParameters {
 
     @NotNull
-    EmployeeDTO employee;
+    EmployeeModel employee;
 
     @NotNull
     @Size(min = 1, max = 500)

@@ -1,9 +1,9 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.CustomerType;
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.Counter;
-import com.abc.bank.abc.Models.Token;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.Counter;
+import com.abc.bank.abc.DataModels.Token;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class CounterDTO {
+public class CounterModel {
 
     private int id;
 
@@ -23,9 +23,9 @@ public class CounterDTO {
     @NotNull
     private CustomerType customerType;
 
-    private List<BankingServiceDTO> servicesOffered;
+    private List<BankingServiceModel> servicesOffered;
 
-    private List<TokenDTO> tokens;
+    private List<TokenModel> tokens;
 
     public Counter convertToEntity() {
         Counter counter = new Counter();
@@ -34,20 +34,20 @@ public class CounterDTO {
         counter.setName(this.getName());
         counter.setCustomerType(this.getCustomerType());
 
-        List<BankingServiceDTO> bankingServiceDTOS = this.getServicesOffered();
+        List<BankingServiceModel> bankingServiceRespons = this.getServicesOffered();
 
         List<BankingService> bankingServices = new ArrayList<>();
-        for (int index = 0; index < bankingServiceDTOS.size(); index++) {
-            bankingServices.add(bankingServiceDTOS.get(index).convertToEntity());
+        for (int index = 0; index < bankingServiceRespons.size(); index++) {
+            bankingServices.add(bankingServiceRespons.get(index).convertToEntity());
         }
         counter.setServicesOffered(bankingServices);
 
-        List<TokenDTO> tokenDTOS = this.getTokens();
+        List<TokenModel> tokenModels = this.getTokens();
 
         List<Token> tokens = new ArrayList<>();
 
-        for (int index = 0;index < tokenDTOS.size(); index++) {
-            tokens.add(tokenDTOS.get(index).convertToEntity());
+        for (int index = 0; index < tokenModels.size(); index++) {
+            tokens.add(tokenModels.get(index).convertToEntity());
         }
 
         counter.setTokens(tokens);

@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.Employee;
-import com.abc.bank.abc.Models.Roles;
+import com.abc.bank.abc.DataModels.Employee;
+import com.abc.bank.abc.DataModels.Roles;
 import com.abc.bank.abc.Repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

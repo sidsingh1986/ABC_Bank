@@ -2,7 +2,7 @@ package com.abc.bank.abc.Services;
 
 import com.abc.bank.abc.Enums.TokenStatus;
 import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
-import com.abc.bank.abc.Models.*;
+import com.abc.bank.abc.DataModels.*;
 import com.abc.bank.abc.Repositories.CounterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

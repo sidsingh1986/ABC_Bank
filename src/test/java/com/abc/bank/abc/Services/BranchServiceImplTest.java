@@ -1,9 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Enums.TokenServiceStatus;
-import com.abc.bank.abc.Enums.TokenStatus;
-import com.abc.bank.abc.Enums.CustomerType;
-import com.abc.bank.abc.Models.*;
+import com.abc.bank.abc.DataModels.*;
 import com.abc.bank.abc.Repositories.BranchRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -251,25 +247,5 @@ public class BranchServiceImplTest {
 
         assertEquals(1, fetchedMultiCounterBankingService.getId());
         assertEquals("multi counter service 1", fetchedMultiCounterBankingService.getName());
-    }
-
-    @Test
-    public void addMultiCounterService() {
-    }
-
-    @Test
-    public void getCounters() {
-    }
-
-    @Test
-    public void getCounter() {
-    }
-
-    @Test
-    public void addCounter() {
-    }
-
-    @Test
-    public void getCountersForService() {
     }
 }

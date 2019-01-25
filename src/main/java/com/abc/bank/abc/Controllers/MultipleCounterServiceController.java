@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Controllers;
 
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import com.abc.bank.abc.Services.MultiCounterServicesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

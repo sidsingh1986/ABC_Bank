@@ -1,7 +1,7 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.BankingServiceDTO;
-import com.abc.bank.abc.DtoModels.MultiCounterBankingServiceDTO;
+import com.abc.bank.abc.ViewModels.BankingServiceModel;
+import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,18 +23,18 @@ public class MultiCounterBankingService extends BaseBankingService {
     @JoinTable(name = "Multi_counter_service_has_Services", joinColumns = { @JoinColumn(name = "Multi_counter_service_id") }, inverseJoinColumns = { @JoinColumn(name = "Services_id") })
     List<BankingService> bankingServices;
 
-    public MultiCounterBankingServiceDTO convertToDTO() {
-        MultiCounterBankingServiceDTO multiCounterBankingService = new MultiCounterBankingServiceDTO();
+    public MultiCounterBankingServiceModel convertToDTO() {
+        MultiCounterBankingServiceModel multiCounterBankingService = new MultiCounterBankingServiceModel();
 
         multiCounterBankingService.setId(this.getId());
         multiCounterBankingService.setName(this.getName());
         List<BankingService> bankingService = this.getBankingServices();
-        List<BankingServiceDTO> bankingServiceDTOS = new ArrayList<>();
+        List<BankingServiceModel> bankingServiceRespons = new ArrayList<>();
         for (int index = 0; index < bankingService.size(); index++) {
-            bankingServiceDTOS.add(bankingService.get(index).convertToDTO());
+            bankingServiceRespons.add(bankingService.get(index).convertToDTO());
         }
 
-        multiCounterBankingService.setBankingServices(bankingServiceDTOS);
+        multiCounterBankingService.setBankingServices(bankingServiceRespons);
         multiCounterBankingService.setServiceProcessingType(this.getServiceProcessingType());
         return multiCounterBankingService;
     }

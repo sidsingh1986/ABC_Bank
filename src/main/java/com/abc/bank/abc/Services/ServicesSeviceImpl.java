@@ -1,6 +1,6 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.BankingService;
+import com.abc.bank.abc.DataModels.BankingService;
 import com.abc.bank.abc.Repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

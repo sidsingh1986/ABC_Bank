@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Controllers;
 
-import com.abc.bank.abc.DtoModels.EmployeeDTO;
-import com.abc.bank.abc.Models.Employee;
+import com.abc.bank.abc.ViewModels.EmployeeModel;
+import com.abc.bank.abc.DataModels.Employee;
 import com.abc.bank.abc.Services.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,9 +20,9 @@ public class EmployeeController {
 
     @ApiOperation(value = "Create a new employee")
     @PostMapping("/employees")
-    public EmployeeDTO createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+    public EmployeeModel createEmployee(@Valid @RequestBody EmployeeModel employeeModel) {
 
-        Employee employee = employeeDTO.convertToEntity();
+        Employee employee = employeeModel.convertToEntity();
         return employeeService.createEmployee(employee).convertToDTO();
     }
 

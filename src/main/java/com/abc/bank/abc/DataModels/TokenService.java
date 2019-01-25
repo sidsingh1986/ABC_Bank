@@ -1,4 +1,4 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
 import com.abc.bank.abc.Enums.TokenServiceStatus;
 import lombok.Data;
@@ -7,15 +7,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "Token_Multi_counter_service")
-public class TokenMultiCounterService implements Comparable<TokenMultiCounterService> {
+@Table(name = "Token_Services")
+public class TokenService implements Comparable<TokenService> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "Multi_counter_service_id")
-    private MultiCounterBankingService service;
+    @JoinColumn(name = "Services_id")
+    private BankingService service;
 
     @ManyToOne
     @JoinColumn(name = "Token_id")
@@ -28,7 +29,7 @@ public class TokenMultiCounterService implements Comparable<TokenMultiCounterSer
     private TokenServiceStatus status;
 
     @Override
-    public int compareTo(TokenMultiCounterService service) {
+    public int compareTo(TokenService service) {
         if (service != null) {
             return Integer.compare(this.getProcessingOrder(), service.getProcessingOrder());
         } else {

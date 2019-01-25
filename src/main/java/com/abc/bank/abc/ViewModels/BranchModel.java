@@ -1,10 +1,10 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.ServiceProcessingType;
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.Branch;
-import com.abc.bank.abc.Models.Counter;
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.Branch;
+import com.abc.bank.abc.DataModels.Counter;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class BranchDTO {
+public class BranchModel {
 
     private int id;
 
@@ -22,15 +22,15 @@ public class BranchDTO {
     private String name;
 
     @NotNull
-    private AddressDTO address;
+    private AddressModel address;
 
     @NotNull
-    private BankDTO bank;
+    private BankModel bank;
 
     @NotNull
     private List<BankingServiceInterface> bankingServices;
 
-    List<CounterDTO> counters;
+    List<CounterModel> counters;
 
     public Branch convertToEntity() {
         Branch branch = new Branch();
@@ -39,10 +39,10 @@ public class BranchDTO {
         branch.setAddress(this.getAddress().convertToEntity());
         branch.setBank(this.getBank().convertToEntity());
 
-        List<CounterDTO> counterDTOS = this.getCounters();
+        List<CounterModel> counterModels = this.getCounters();
         List<Counter> counters = new ArrayList<>();
-        for (int index = 0; index < counterDTOS.size(); index++) {
-            counters.add(counterDTOS.get(index).convertToEntity());
+        for (int index = 0; index < counterModels.size(); index++) {
+            counters.add(counterModels.get(index).convertToEntity());
         }
         branch.setCounters(counters);
 
@@ -51,11 +51,11 @@ public class BranchDTO {
         List<BankingService> bankingServices = new ArrayList<>();
         for (int index = 0; index < bankingServiceList.size(); index++) {
             if (bankingServiceList.get(index).getServiceProcessingType().equals(ServiceProcessingType.MULTI_COUNTER)) {
-                MultiCounterBankingServiceDTO multiCounterBankingServiceDTO = (MultiCounterBankingServiceDTO)bankingServiceList.get(index);
-                multiCounterBankingServices.add(multiCounterBankingServiceDTO.convertToEntity());
+                MultiCounterBankingServiceModel multiCounterBankingServiceModel = (MultiCounterBankingServiceModel)bankingServiceList.get(index);
+                multiCounterBankingServices.add(multiCounterBankingServiceModel.convertToEntity());
             } else {
-                BankingServiceDTO bankingServiceDTO = (BankingServiceDTO) bankingServiceList.get(index);
-                bankingServices.add(bankingServiceDTO.convertToEntity());
+                BankingServiceModel bankingServiceModel = (BankingServiceModel) bankingServiceList.get(index);
+                bankingServices.add(bankingServiceModel.convertToEntity());
             }
         }
         branch.setMultiCounterBankingServices(multiCounterBankingServices);

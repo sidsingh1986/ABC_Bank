@@ -1,20 +1,19 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.TokenStatus;
-import com.abc.bank.abc.Models.Token;
+import com.abc.bank.abc.DataModels.Token;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class TokenDTO {
+public class TokenModel {
 
     private int id;
 
     @NotNull
-    private CustomerDTO customer;
+    private CustomerModel customer;
 
     @NotNull
     private TokenStatus status;

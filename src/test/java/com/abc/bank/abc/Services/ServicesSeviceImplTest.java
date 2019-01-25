@@ -1,13 +1,12 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.BankingService;
+import com.abc.bank.abc.DataModels.BankingService;
 import com.abc.bank.abc.Repositories.ServiceRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
 import java.util.List;

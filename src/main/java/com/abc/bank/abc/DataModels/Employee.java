@@ -1,7 +1,6 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.EmployeeDTO;
-import com.abc.bank.abc.Enums.EmployeeRoles;
+import com.abc.bank.abc.ViewModels.EmployeeModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,15 +30,15 @@ public class Employee {
     @Column(name = "enabled")
     private boolean enabled;
 
-    public EmployeeDTO convertToDTO() {
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setId(this.getId());
-        employeeDTO.setName(this.getName());
-        employeeDTO.setPhoneNumber(this.getPhoneNumber());
-        employeeDTO.setRoles(this.getRoles());
-        employeeDTO.setPasswordHash(this.getPasswordHash());
-        employeeDTO.setEnabled(this.isEnabled());
+    public EmployeeModel convertToDTO() {
+        EmployeeModel employeeModel = new EmployeeModel();
+        employeeModel.setId(this.getId());
+        employeeModel.setName(this.getName());
+        employeeModel.setPhoneNumber(this.getPhoneNumber());
+        employeeModel.setRoles(this.getRoles());
+        employeeModel.setPasswordHash(this.getPasswordHash());
+        employeeModel.setEnabled(this.isEnabled());
 
-        return employeeDTO;
+        return employeeModel;
     }
 }

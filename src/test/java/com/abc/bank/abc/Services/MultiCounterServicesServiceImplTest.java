@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 import com.abc.bank.abc.Repositories.MultiCounterRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;

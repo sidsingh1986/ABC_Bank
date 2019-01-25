@@ -1,8 +1,6 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
-import com.abc.bank.abc.DtoModels.BankingServiceInterface;
 import com.abc.bank.abc.Enums.TokenServiceStatus;
-import com.abc.bank.abc.Models.BaseBankingService;
 import lombok.Data;
 
 

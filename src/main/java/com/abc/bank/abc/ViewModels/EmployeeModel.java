@@ -1,7 +1,7 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
-import com.abc.bank.abc.Models.Employee;
-import com.abc.bank.abc.Models.Roles;
+import com.abc.bank.abc.DataModels.Employee;
+import com.abc.bank.abc.DataModels.Roles;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
-public class EmployeeDTO {
+public class EmployeeModel {
 
     private int id;
 

@@ -1,6 +1,6 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.CustomerDTO;
+import com.abc.bank.abc.ViewModels.CustomerModel;
 import com.abc.bank.abc.Enums.CustomerType;
 import lombok.Data;
 
@@ -30,8 +30,8 @@ public class Customer {
     @JoinColumn(name = "Branch_id")
     private Branch branch;
 
-    public CustomerDTO convertToDTO() {
-        CustomerDTO customer = new CustomerDTO();
+    public CustomerModel convertToDTO() {
+        CustomerModel customer = new CustomerModel();
         customer.setId(this.getId());
         customer.setName(this.getName());
         customer.setPhoneNumber(this.getPhoneNumber());

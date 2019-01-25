@@ -1,14 +1,14 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
 import com.abc.bank.abc.Enums.ServiceProcessingType;
-import com.abc.bank.abc.Models.BankingService;
+import com.abc.bank.abc.DataModels.BankingService;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
-public class BankingServiceDTO extends BankingServiceInterface{
+public class BankingServiceModel extends BankingServiceInterface{
 
     private int id;
 

@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.Models.Employee;
-import com.abc.bank.abc.Models.Token;
+import com.abc.bank.abc.DataModels.Employee;
+import com.abc.bank.abc.DataModels.Token;
 
 import java.util.List;
 

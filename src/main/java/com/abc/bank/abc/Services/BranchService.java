@@ -1,11 +1,10 @@
 package com.abc.bank.abc.Services;
 
-import com.abc.bank.abc.DtoModels.BranchDTO;
 import com.abc.bank.abc.Enums.CustomerType;
-import com.abc.bank.abc.Models.BankingService;
-import com.abc.bank.abc.Models.Branch;
-import com.abc.bank.abc.Models.Counter;
-import com.abc.bank.abc.Models.MultiCounterBankingService;
+import com.abc.bank.abc.DataModels.BankingService;
+import com.abc.bank.abc.DataModels.Branch;
+import com.abc.bank.abc.DataModels.Counter;
+import com.abc.bank.abc.DataModels.MultiCounterBankingService;
 
 import java.util.List;
 

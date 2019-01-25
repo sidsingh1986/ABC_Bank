@@ -1,7 +1,7 @@
 package com.abc.bank.abc.Services;
 
 import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
-import com.abc.bank.abc.Models.TokenProcessingSteps;
+import com.abc.bank.abc.DataModels.TokenProcessingSteps;
 import com.abc.bank.abc.Repositories.TokenProcessingStepsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

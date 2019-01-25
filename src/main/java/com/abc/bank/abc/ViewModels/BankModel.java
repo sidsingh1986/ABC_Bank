@@ -1,14 +1,13 @@
-package com.abc.bank.abc.DtoModels;
+package com.abc.bank.abc.ViewModels;
 
-import com.abc.bank.abc.Models.Bank;
+import com.abc.bank.abc.DataModels.Bank;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class BankDTO {
+public class BankModel {
 
     private int id;
 

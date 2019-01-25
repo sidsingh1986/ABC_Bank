@@ -1,7 +1,7 @@
-package com.abc.bank.abc.Models;
+package com.abc.bank.abc.DataModels;
 
-import com.abc.bank.abc.DtoModels.ServicesPlaceholder;
-import com.abc.bank.abc.DtoModels.TokenDTO;
+import com.abc.bank.abc.ViewModels.ServicesPlaceholder;
+import com.abc.bank.abc.ViewModels.TokenModel;
 import com.abc.bank.abc.Enums.TokenStatus;
 import lombok.Data;
 
@@ -36,8 +36,8 @@ public class Token implements Comparable<Token>{
     @Transient
     private TokenService currentTokenService;
 
-    public TokenDTO convertToDTO() {
-        TokenDTO token = new TokenDTO();
+    public TokenModel convertToDTO() {
+        TokenModel token = new TokenModel();
         token.setId(this.getId());
         token.setStatus(this.getStatus());
         token.setCustomer(this.getCustomer().convertToDTO());
