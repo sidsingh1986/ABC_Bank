@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Controllers;
 
+import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import com.abc.bank.abc.ViewModels.BranchModel;
 import com.abc.bank.abc.ViewModels.CounterModel;
@@ -46,9 +47,9 @@ public class BranchController {
     /**
      * For getting a specific branch
      *
-     * @param branchId
+     * @param branchId branch identifier
      * @return branch if existing null otherwise
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException if the branch with branchId is not found
+     * @throws ResourceNotFoundException if the branch with branchId is not found
      */
     @ApiOperation(value = "View a particular branches of bank")
     @GetMapping("/branches/{id}")
@@ -59,7 +60,7 @@ public class BranchController {
     /**
      * For creating a new branch
      *
-     * @param branchModel
+     * @param branchModel branch model instance
      * @return new branch instance
      */
     @ApiOperation(value = "Creates a new branch of the bank")
@@ -72,7 +73,7 @@ public class BranchController {
     /**
      * For updating a existing branch
      *
-     * @param branchModel
+     * @param branchModel branch model instance
      */
     @ApiOperation(value = "Updates a branch of the bank")
     @PutMapping("/branches")
@@ -84,7 +85,7 @@ public class BranchController {
     /**
      * For deleting a existing branch
      *
-     * @param branchId
+     * @param branchId branch identifier
      */
     @ApiOperation(value = "Deletes a branch of the bank")
     @DeleteMapping("/branches/{branchId}")
@@ -95,8 +96,8 @@ public class BranchController {
     /**
      * For getting the services offered by a branch
      *
-     * @param branchId
-     * @returns list of banking services
+     * @param branchId branch identifier
+     * @return list of banking services
      */
     @ApiOperation(value = "View the services handled by the branch")
     @GetMapping("/branches/{id}/services")
@@ -117,9 +118,9 @@ public class BranchController {
     /**
      * For getting a particular service offered by a branch
      *
-     * @param branchId
-     * @param serviceId
-     * @returns banking service
+     * @param branchId branch identifier
+     * @param serviceId service identifier
+     * @return banking service
      */
     @ApiOperation(value = "View the particular services handled by the branch")
     @GetMapping("/branches/{id}/service/{serviceId}")
@@ -131,9 +132,9 @@ public class BranchController {
     /**
      * Adds a service to the list of existing services served by a branch
      *
-     * @param branchId
-     * @param bankingServiceModel
-     * @returns branch with updated services
+     * @param branchId branch identifier
+     * @param bankingServiceModel banking service model
+     * @return branch with updated services
      */
     @ApiOperation(value = "Add a new service to the services a particular branch servers")
     @PutMapping("/branches/{id}/service")
@@ -146,8 +147,8 @@ public class BranchController {
     /**
      * Gets list of multi counter services offered by a branch
      *
-     * @param branchId
-     * @returns list of multi counter services
+     * @param branchId branch identifier
+     * @return list of multi counter services
      */
     @ApiOperation(value = "View the multi-counter services handled by branch")
     @GetMapping("/branches/{id}/multipleCounterServices")
@@ -165,10 +166,10 @@ public class BranchController {
     /**
      * Gets a particular multi counter service offered by a branch
      *
-     * @param branchId
-     * @param serviceId
-     * @returns multi counter service
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException when the service is not served by  branch
+     * @param branchId branch identifier
+     * @param serviceId service identifier
+     * @return multi counter service
+     * @throws ResourceNotFoundException when the service is not served by  branch
      */
     @ApiOperation(value = "View a particular multi-counter service handled by branch")
     @GetMapping("/branches/{id}/multipleCounterServices/{serviceId}")
@@ -180,10 +181,10 @@ public class BranchController {
     /**
      * Adds a multi counter service to the multi counter services offered by a branch
      *
-     * @param branchId
-     * @param multiCounterBankingServiceModel
-     * @returns branch with added multi counter service
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException when branch does not exist
+     * @param branchId branch identifier
+     * @param multiCounterBankingServiceModel multi counter banking service model
+     * @return branch with added multi counter service
+     * @throws ResourceNotFoundException when branch does not exist
      */
     @ApiOperation(value = "Add a new multi-counter service to the services a particular branch servers")
     @PutMapping("/branches/{id}/multipleCounterServices")
@@ -196,9 +197,9 @@ public class BranchController {
     /**
      * Gets the list of counters present in the branch
      *
-     * @param branchId
-     * @returns list of counters present in the branch
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException when branch does not exist or
+     * @param branchId branch identifier
+     * @return list of counters present in the branch
+     * @throws ResourceNotFoundException when branch does not exist or
      * no counter is present in branch
      */
     @ApiOperation(value = "View the counters present in a branch")
@@ -220,10 +221,10 @@ public class BranchController {
     /**
      * Gets a particular counter present in the branch
      *
-     * @param branchId
-     * @param counterId
-     * @returns counter with the id passed
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException when branch does not exist or
+     * @param branchId branch identifier
+     * @param counterId counter identifier
+     * @return counter with the id passed
+     * @throws ResourceNotFoundException when branch does not exist or
      * counter with passed id is not present in branch
      */
     @ApiOperation(value = "View a particular counter present in a branch")
@@ -236,10 +237,10 @@ public class BranchController {
     /**
      * Gets a particular counter present in the branch
      *
-     * @param branchId
-     * @param counterModel
-     * @returns branch with counter added
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException when branch does not exist or
+     * @param branchId branch identifier
+     * @param counterModel counter model instance
+     * @return branch with counter added
+     * @throws ResourceNotFoundException when branch does not exist or
      * counter with passed id is not present in branch
      */
     @ApiOperation(value = "Add a counter to a particular branch")

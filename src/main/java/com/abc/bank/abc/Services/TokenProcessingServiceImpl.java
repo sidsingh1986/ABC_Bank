@@ -169,6 +169,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         }
 
         tokenProcessingStepsService.updateTokenProcessingStep(tokenProcessingStep);
+        token.setStatus(TokenStatus.IN_PROCESS);
         updateToken(token);
         return  token;
     }
@@ -336,7 +337,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
             }
         }
         tokenMultiCounterService.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
-        token.setStatus(TokenStatus.IN_PROCESS);
+        token.setStatus(TokenStatus.COUNTER_ASSIGNED);
     }
 
     private Counter getMinQueueCounter(List<Counter> counters) {

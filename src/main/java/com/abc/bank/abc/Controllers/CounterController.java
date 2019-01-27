@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Controllers;
 
+import com.abc.bank.abc.Exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import com.abc.bank.abc.ViewModels.CounterModel;
 import com.abc.bank.abc.ViewModels.TokenModel;
@@ -30,7 +31,7 @@ public class CounterController {
     /**
      * For creating a new counter
      *
-     * @param counterModel
+     * @param counterModel counter model instance to be created
      * @return created counter instance
      */
     @ApiOperation(value = "creates a counter")
@@ -60,9 +61,9 @@ public class CounterController {
     /**
      * For getting a particular counter
      *
-     * @param counterId
+     * @param counterId counter identifier
      * @return counter with the counter id
-     * @throws com.abc.bank.abc.Exceptions.ResourceNotFoundException if the counter with passed id is not found
+     * @throws ResourceNotFoundException if the counter with passed id is not found
      */
     @ApiOperation(value = "Gets a particular counter")
     @GetMapping("/counters/{id}")
@@ -73,7 +74,7 @@ public class CounterController {
     /**
      * For updating a counter and creates it if the counter does not exists
      *
-     * @param counterModel
+     * @param counterModel counter model instance to be updated
      */
     @ApiOperation(value = "Updates a counter")
     @PutMapping("/counters")
@@ -85,8 +86,8 @@ public class CounterController {
     /**
      * For adding a services to services served by  a counter
      *
-     * @param counterId
-     * @param bankingServiceModel
+     * @param counterId counter identifier
+     * @param bankingServiceModel banking service model instance
      */
     @ApiOperation(value = "Adds a service to list of services currently served by a counter")
     @PutMapping("/counters/{counterId}/services")
@@ -99,7 +100,7 @@ public class CounterController {
     /**
      * For getting the list of services currently served by a counter
      *
-     * @param counterId
+     * @param counterId counter identifier
      * @return  list of banking services served by a particular counter
      */
     @ApiOperation(value = "Adds a service to list of services currently served by a counter")
@@ -117,8 +118,8 @@ public class CounterController {
     /**
      * For removing a service from the services currently served by a counter
      *
-     * @param counterId
-     * @param bankingServiceModel
+     * @param counterId counter identifier
+     * @param bankingServiceModel banking service model instance
      */
     @ApiOperation(value = "For removing a service currently served by a counter")
     @DeleteMapping("/counters/{counterId}/services/{serviceId}")
@@ -130,17 +131,24 @@ public class CounterController {
     /**
      * For viewing a service currently served by a counter
      *
-     * @param counterId
-     * @param serviceId
+     * @param counterId counter identifier
+     * @param serviceId banking service identifier
      * @return banking service
+     * @throws ResourceNotFoundException if the service is not served by counter
      */
-    @ApiOperation(value = "Adds a service to list of services currently served by a counter")
+    @ApiOperation(value = "Gets a service currently served by counter")
     @GetMapping("/counters/{counterId}/services/{serviceId}")
     public BankingServiceModel getServiceOfCounter(@PathVariable(value = "counterId") Integer counterId,
                                                    @PathVariable(value = "serviceId") Integer serviceId) {
         return counterService.getServiceOfferedByCounter(counterId, serviceId).convertToDTO();
     }
 
+    /**
+     * For viewing the tokens currently assigned to counter
+     *
+     * @param counterNumber counter identifier
+     * @return list of token
+     */
     @ApiOperation(value = "Get list of tokens currently assigned to a particular counter")
     @GetMapping("/counters/{counterId}/tokens")
     public List<TokenModel> getAssignedTokensToCounter(@PathVariable(value = "counterId") Integer counterNumber) {
@@ -153,6 +161,13 @@ public class CounterController {
         return tokenModels;
     }
 
+    /**
+     * For getting the next token which will be processed by counter. It changes the status of
+     * token to IN_PROCESS.
+     *
+     * @param counterId counter identifier
+     * @return Token to process
+     */
     @ApiOperation(value = "Get the token which is to be picked for processing")
     @PutMapping("/counters/{counterId}/next-token")
     public TokenModel getToBeProcessedToken(@PathVariable(value = "counterId") Integer counterId) {
@@ -161,6 +176,12 @@ public class CounterController {
         return updatedToken.convertToDTO();
     }
 
+    /**
+     * For getting the next token which is currently getting processed by counter.
+     *
+     * @param counterId counter identifier
+     * @return Token which is getting processed
+     */
     @ApiOperation(value = "Get the token which is currently getting processed")
     @PutMapping("/counters/{counterId}/current-token")
     public TokenModel getCurrentToken(@PathVariable(value = "counterId") Integer counterId) {
