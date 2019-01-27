@@ -1,6 +1,9 @@
 
-API Documentation
+API Documentation                                                    
 The API documentation is placed in repo folder API_documentation/ 
+
+Class Diagram 
+The class diagram is in file ABC_Bank_Class_diagram.jpg 
 
 Data Model
 
