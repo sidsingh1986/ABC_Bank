@@ -5,6 +5,7 @@ import com.abc.bank.abc.ViewModels.CounterModel;
 import com.abc.bank.abc.ViewModels.TokenModel;
 import com.abc.bank.abc.Enums.CustomerType;
 import lombok.Data;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Data
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Counter {
 
     @Id
@@ -24,10 +27,12 @@ public class Counter {
     @Column(name = "type_of_service")
     private CustomerType customerType;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="Counter_Services", joinColumns=@JoinColumn(name="Counter_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))
     private List<BankingService> servicesOffered;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "Counter_id")
     private List<Token> tokens;

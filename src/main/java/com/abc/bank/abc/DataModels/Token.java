@@ -4,12 +4,15 @@ import com.abc.bank.abc.ViewModels.ServicesPlaceholder;
 import com.abc.bank.abc.ViewModels.TokenModel;
 import com.abc.bank.abc.Enums.TokenStatus;
 import lombok.Data;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Token implements Comparable<Token>{
 
     @Id
@@ -25,10 +28,12 @@ public class Token implements Comparable<Token>{
     @Transient
     private List<ServicesPlaceholder> bankingServicesPlaceholder;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "Token_id")
     private List<TokenService> tokenServices;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "Token_id")
     private List<TokenMultiCounterService> tokenMultiCounterServices;

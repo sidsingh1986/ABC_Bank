@@ -2,12 +2,15 @@ package com.abc.bank.abc.DataModels;
 
 import com.abc.bank.abc.Enums.TokenServiceStatus;
 import lombok.Data;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "Token_Services")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TokenService implements Comparable<TokenService> {
 
     @Id

@@ -3,6 +3,7 @@ package com.abc.bank.abc.DataModels;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
 import lombok.Data;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Multi_counter_service")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MultiCounterBankingService extends BaseBankingService {
 
     @Id
@@ -19,6 +22,7 @@ public class MultiCounterBankingService extends BaseBankingService {
 
     private String name;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Multi_counter_service_has_Services", joinColumns = { @JoinColumn(name = "Multi_counter_service_id") }, inverseJoinColumns = { @JoinColumn(name = "Services_id") })
     List<BankingService> bankingServices;
