@@ -177,7 +177,7 @@ public class CounterController {
     }
 
     /**
-     * For getting the next token which is currently getting processed by counter.
+     * For getting the token which is currently getting processed by counter.
      *
      * @param counterId counter identifier
      * @return Token which is getting processed

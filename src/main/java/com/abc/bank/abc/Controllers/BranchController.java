@@ -235,7 +235,7 @@ public class BranchController {
     }
 
     /**
-     * Gets a particular counter present in the branch
+     * Adds a counter to the branch
      *
      * @param branchId branch identifier
      * @param counterModel counter model instance
