@@ -24,15 +24,15 @@ public class Branch {
     @ManyToOne(cascade = CascadeType.ALL)
     private Bank bank;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="Branch_Services", joinColumns=@JoinColumn(name="Branch_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))
     private List<BankingService> bankingServices;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="Branch_Multi_counter_services", joinColumns=@JoinColumn(name="Branch_id"), inverseJoinColumns=@JoinColumn(name="Multi_counter_service_id"))
     private List<MultiCounterBankingService> multiCounterBankingServices;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "Branch_id")
     List<Counter> counters;
 

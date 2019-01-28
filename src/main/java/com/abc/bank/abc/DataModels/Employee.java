@@ -23,7 +23,7 @@ public class Employee {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Employee_Roles", joinColumns = { @JoinColumn(name = "Employee_id") }, inverseJoinColumns = { @JoinColumn(name = "Roles_id") })
     private List<Roles> roles;
 

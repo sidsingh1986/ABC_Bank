@@ -24,11 +24,11 @@ public class Counter {
     @Column(name = "type_of_service")
     private CustomerType customerType;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="Counter_Services", joinColumns=@JoinColumn(name="Counter_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))
     private List<BankingService> servicesOffered;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "Counter_id")
     private List<Token> tokens;
 

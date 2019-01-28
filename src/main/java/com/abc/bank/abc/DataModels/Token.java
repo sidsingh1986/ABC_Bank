@@ -25,11 +25,11 @@ public class Token implements Comparable<Token>{
     @Transient
     private List<ServicesPlaceholder> bankingServicesPlaceholder;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "Token_id")
     private List<TokenService> tokenServices;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "Token_id")
     private List<TokenMultiCounterService> tokenMultiCounterServices;
 
