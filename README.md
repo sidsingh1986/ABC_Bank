@@ -24,10 +24,10 @@ Data Model
     Branch layer has the branch table and Branch_services and Branch_multi_counter_services which maps to the services and the multi-counter services the branch is serving.
     
 5. Token Layer
-  Token Layer follwing tables 
-  i. Token table which contains the information about token(customer, branch, status, priority etc). 
-  ii. Token_services table which contains the information about the services a customer has selected for the token along with the order in which the service needs to be processed.
-  iii. Token_multi_counter_services table which contains the information about the multi counter services a particular customer has selected along with the order in which these multi-counter services needs to be processed.
-  iv. Token_processing_steps has the details about the each step the token processing is taking. The highest order service/multi-counter service will be taken and it will be divided into steps which is required to process this service/multi-counter service along with order of steps. Each step is processed individually and then next service with highest order is picked and the process is repeated.
+  Token Layer follwing tables <br /> 
+  i. Token table which contains the information about token(customer, branch, status, priority etc). <br /> 
+  ii. Token_services table which contains the information about the services a customer has selected for the token along with the order in which the service needs to be processed.<br /> 
+  iii. Token_multi_counter_services table which contains the information about the multi counter services a particular customer has selected along with the order in which these multi-counter services needs to be processed.<br /> 
+  iv. Token_processing_steps has the details about the each step the token processing is taking. The highest order service/multi-counter service will be taken and it will be divided into steps which is required to process this service/multi-counter service along with order of steps. Each step is processed individually and then next service with highest order is picked and the process is repeated.<br /> 
   
   
