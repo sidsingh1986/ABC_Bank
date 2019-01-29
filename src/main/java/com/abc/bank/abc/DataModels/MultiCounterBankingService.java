@@ -1,5 +1,6 @@
 package com.abc.bank.abc.DataModels;
 
+import com.abc.bank.abc.Enums.ServiceProcessingType;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
 import lombok.Data;
@@ -39,7 +40,7 @@ public class MultiCounterBankingService extends BaseBankingService {
         }
 
         multiCounterBankingService.setBankingServices(bankingServiceRespons);
-        multiCounterBankingService.setServiceProcessingType(this.getServiceProcessingType());
+        multiCounterBankingService.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
         return multiCounterBankingService;
     }
 }

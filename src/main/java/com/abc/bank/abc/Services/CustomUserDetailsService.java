@@ -5,6 +5,7 @@ import com.abc.bank.abc.DataModels.Roles;
 import com.abc.bank.abc.Repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,6 +31,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         List<Roles> roles = employee.getRoles();
         HashSet<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(roles.size());
+
+        for (int index = 0; index < roles.size(); index++) {
+            authorities.add(new SimpleGrantedAuthority(roles.get(index).getName()));
+        }
 
         User user = new User(employee.getName(), employee.getPasswordHash(),employee.isEnabled(), true, true, true, authorities);
 

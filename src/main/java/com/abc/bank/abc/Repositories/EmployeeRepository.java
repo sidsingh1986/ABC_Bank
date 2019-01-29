@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    @Query(value = "select emp from Employee emp where emp.username = :username", nativeQuery = true)
+    @Query(value = "select * from Employee emp where emp.username = :username", nativeQuery = true)
     Employee findByUsername(String username);
 }

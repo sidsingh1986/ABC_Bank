@@ -1,5 +1,6 @@
 package com.abc.bank.abc.Services;
 
+import com.abc.bank.abc.Enums.TokenStatus;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import com.abc.bank.abc.ViewModels.MultiCounterBankingServiceModel;
 import com.abc.bank.abc.ViewModels.ServicesPlaceholder;
@@ -34,7 +35,10 @@ public class TokenProcessingServiceImplTest {
     @InjectMocks
     TokenProcessingServiceImpl tokenProcessingService;
 
-    @InjectMocks
+    @Mock
+    TokenProcessingStepsServiceImpl tokenProcessingStepsService;
+
+    @Mock
     BranchServiceImpl branchService;
 
     private Token createTokenStub() {
@@ -77,6 +81,11 @@ public class TokenProcessingServiceImplTest {
 
         queryToken.setBankingServicesPlaceholder(servicesPlaceholderList);
 
+        Customer customer = new Customer();
+        customer.setCustomerType(CustomerType.REGULAR);
+
+        queryToken.setCustomer(customer);
+
         when(tokenRepository.save(any(Token.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 return invocation.getArguments()[0];
@@ -84,6 +93,64 @@ public class TokenProcessingServiceImplTest {
         });
 
         Token fetchedToken = tokenProcessingService.createToken(queryToken);
+
+
+        return fetchedToken;
+    }
+
+    private Token createMultiCounterTokenStub() {
+        Token queryToken = new Token();
+        queryToken.setId(1);
+        List<ServicesPlaceholder> servicesPlaceholderList = new ArrayList<>();
+        BankingServiceModel bankingServiceModel1 = new BankingServiceModel();
+        bankingServiceModel1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel1.setId(1);
+        bankingServiceModel1.setName("Service 1");
+
+        ServicesPlaceholder servicesPlaceholder = new ServicesPlaceholder();
+        servicesPlaceholder.setService(bankingServiceModel1);
+        servicesPlaceholder.setOrderOfService(2);
+        servicesPlaceholder.setTokenServiceStatus(TokenServiceStatus.CREATED);
+        servicesPlaceholderList.add(servicesPlaceholder);
+
+        BankingServiceModel bankingServiceModel2 = new BankingServiceModel();
+        bankingServiceModel2.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingServiceModel2.setId(2);
+        bankingServiceModel2.setName("Service 2");
+
+        MultiCounterBankingServiceModel multiCounterBankingServiceModel = new MultiCounterBankingServiceModel();
+        multiCounterBankingServiceModel.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        multiCounterBankingServiceModel.setId(1);
+        multiCounterBankingServiceModel.setName("Multi counter service 1");
+        multiCounterBankingServiceModel.setBankingServices(Arrays.asList(bankingServiceModel1, bankingServiceModel2));
+
+        ServicesPlaceholder servicesPlaceholder1 = new ServicesPlaceholder();
+        servicesPlaceholder1.setService(multiCounterBankingServiceModel);
+        servicesPlaceholder1.setOrderOfService(1);
+        servicesPlaceholder1.setTokenServiceStatus(TokenServiceStatus.CREATED);
+        servicesPlaceholderList.add(servicesPlaceholder1);
+
+        ServicesPlaceholder servicesPlaceholder2 = new ServicesPlaceholder();
+        servicesPlaceholder2.setService(bankingServiceModel2);
+        servicesPlaceholder2.setOrderOfService(3);
+        servicesPlaceholder2.setTokenServiceStatus(TokenServiceStatus.CREATED);
+        servicesPlaceholderList.add(servicesPlaceholder2);
+
+        queryToken.setBankingServicesPlaceholder(servicesPlaceholderList);
+
+        Customer customer = new Customer();
+        customer.setCustomerType(CustomerType.REGULAR);
+
+        queryToken.setCustomer(customer);
+
+        when(tokenRepository.save(any(Token.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                return invocation.getArguments()[0];
+            }
+        });
+
+        Token fetchedToken = tokenProcessingService.createToken(queryToken);
+
 
         return fetchedToken;
     }
@@ -94,6 +161,7 @@ public class TokenProcessingServiceImplTest {
         Counter counter1 = new Counter();
         counter1.setId(1);
         counter1.setName("Counter 1");
+        counter1.setCustomerType(CustomerType.REGULAR);
 
         List<Token> tokens = new ArrayList<>();
         List<Token> tokens1 = new ArrayList<>();
@@ -130,6 +198,7 @@ public class TokenProcessingServiceImplTest {
         counter2.setId(2);
         counter2.setName("Counter 2");
         counter2.setTokens(tokens1);
+        counter2.setCustomerType(CustomerType.REGULAR);
 
         counters.add(counter1);
         counters.add(counter2);
@@ -202,9 +271,25 @@ public class TokenProcessingServiceImplTest {
         List<Counter> counters = createStubCounterList();
         when(tokenRepository.findById(any(Integer.class))).thenReturn(java.util.Optional.ofNullable(token));
 
-        when(branchService.getCountersForService(anyInt(), anyInt(), any(CustomerType.class))).thenReturn(counters);
+        when(branchService.getCountersForService(1, 1, CustomerType.REGULAR)).thenReturn(counters);
 
         tokenProcessingService.assignCounter(1,1);
+
+        assertEquals(1, token.getId());
+    }
+
+    @Test
+    public void assignCounterMultiCounterService() {
+
+        Token token = createMultiCounterTokenStub();
+        List<Counter> counters = createStubCounterList();
+        when(tokenRepository.findById(any(Integer.class))).thenReturn(java.util.Optional.ofNullable(token));
+
+        when(branchService.getCountersForService(1, 1, CustomerType.REGULAR)).thenReturn(counters);
+
+        tokenProcessingService.assignCounter(1,1);
+
+        assertEquals(1, token.getId());
     }
 
     @Test
@@ -255,5 +340,100 @@ public class TokenProcessingServiceImplTest {
 
         verify(tokenRepository, times(1)).deleteById(1);
 
+    }
+
+    @Test
+    public void pickToken() {
+
+        Token token = createTokenStub();
+
+        TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
+        tokenProcessingSteps.setServiceId(1);
+        tokenProcessingSteps.setId(1);
+        tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
+        tokenProcessingSteps.setToken(token);
+
+        TokenProcessingSteps tokenProcessingSteps1 = new TokenProcessingSteps();
+        tokenProcessingSteps1.setServiceId(1);
+        tokenProcessingSteps1.setId(2);
+        tokenProcessingSteps1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        tokenProcessingSteps1.setToken(token);
+
+        List<TokenProcessingSteps> tokenProcessingStepsList = new ArrayList<>();
+        tokenProcessingStepsList.add(tokenProcessingSteps);
+        tokenProcessingStepsList.add(tokenProcessingSteps1);
+
+        when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
+
+        Token fetchedToken = tokenProcessingService.pickToken(token);
+
+        assertEquals(TokenStatus.IN_PROCESS, fetchedToken.getStatus());
+        assertEquals(TokenServiceStatus.IN_PROCESS, fetchedToken.getTokenServices().get(0).getStatus());
+    }
+
+    @Test
+    public void pickTokenMultiCounterService() {
+
+        Token token = createMultiCounterTokenStub();
+
+        TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
+        tokenProcessingSteps.setServiceId(1);
+        tokenProcessingSteps.setId(1);
+        tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
+        tokenProcessingSteps.setToken(token);
+
+        TokenProcessingSteps tokenProcessingSteps1 = new TokenProcessingSteps();
+        tokenProcessingSteps1.setServiceId(1);
+        tokenProcessingSteps1.setId(2);
+        tokenProcessingSteps1.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        tokenProcessingSteps1.setToken(token);
+
+        List<TokenProcessingSteps> tokenProcessingStepsList = new ArrayList<>();
+        tokenProcessingStepsList.add(tokenProcessingSteps);
+        tokenProcessingStepsList.add(tokenProcessingSteps1);
+
+        when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
+
+        Token fetchedToken = tokenProcessingService.pickToken(token);
+
+        assertEquals(TokenStatus.IN_PROCESS, fetchedToken.getStatus());
+        assertEquals(TokenServiceStatus.IN_PROCESS, fetchedToken.getTokenMultiCounterServices().get(0).getStatus());
+    }
+
+    @Test
+    public void processToken() {
+
+        Token token = createTokenStub();
+
+        TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
+        tokenProcessingSteps.setServiceId(1);
+        tokenProcessingSteps.setId(1);
+        tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        tokenProcessingSteps.setStatus(TokenServiceStatus.IN_PROCESS);
+        tokenProcessingSteps.setToken(token);
+
+        List<TokenProcessingSteps> tokenProcessingStepsList = new ArrayList<>();
+        tokenProcessingStepsList.add(tokenProcessingSteps);
+
+        when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
+
+        Employee employee = new Employee();
+        employee.setId(1);
+        employee.setName("testUser");
+
+        TokenProcessingSteps tokenProcessingSteps1 = new TokenProcessingSteps();
+        tokenProcessingSteps1.setId(tokenProcessingSteps.getId());
+        tokenProcessingSteps1.setServiceId(tokenProcessingSteps.getServiceId());
+        tokenProcessingSteps1.setServiceProcessingType(tokenProcessingSteps.getServiceProcessingType());
+        tokenProcessingSteps1.setStatus(TokenServiceStatus.COMPLETED);
+        tokenProcessingSteps1.setToken(tokenProcessingSteps.getToken());
+        tokenProcessingSteps1.setEmployee(employee);
+        tokenProcessingSteps1.setActionOrComments("test update");
+
+        tokenProcessingService.processToken(1, token, "test update", employee);
+
+        verify(tokenProcessingStepsService, times(1)).updateTokenProcessingStep(tokenProcessingSteps1);
     }
 }

@@ -1,5 +1,6 @@
 package com.abc.bank.abc.DataModels;
 
+import com.abc.bank.abc.Enums.ServiceProcessingType;
 import com.abc.bank.abc.ViewModels.BankingServiceModel;
 import lombok.Data;
 
@@ -20,7 +21,7 @@ public class BankingService extends BaseBankingService {
         BankingServiceModel bankingService = new BankingServiceModel();
         bankingService.setId(this.getId());
         bankingService.setName(this.getName());
-        bankingService.setServiceProcessingType(this.getServiceProcessingType());
+        bankingService.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
         return bankingService;
     }
 }

@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService());
     }
 
     @Override
@@ -42,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-
         http.authorizeRequests()
                 .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").authenticated()
                 .antMatchers("/customer-management/*", "/customer-management/*/*").access("hasAuthority('MANAGER')")
@@ -53,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/multipleCounterServices/*", "/multipleCounterServices/*/*").access("hasAnyAuthority('MANAGER')")
                 .antMatchers("/services/*", "/services/*/*").access("hasAnyAuthority('MANAGER')")
                 .antMatchers("/tokens/*", "/tokens/*/*").access("hasAnyAuthority('MANAGER','COUNTER_OPERATOR')")
+                .antMatchers("/").permitAll()
                 .antMatchers("/").authenticated()
                 .and()
                 .formLogin()

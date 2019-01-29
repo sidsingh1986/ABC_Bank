@@ -28,9 +28,6 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     @Autowired
     TokenProcessingStepsService tokenProcessingStepsService;
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-
     @Override
     public Token createToken(Token token) {
         List<TokenMultiCounterService> tokenMultiCounterServices = new ArrayList<>();
@@ -95,7 +92,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         }
 
         if (tokenService != null && tokenMultiCounterService != null) {
-            if ( tokenService.getProcessingOrder() > tokenMultiCounterService.getProcessingOrder()) {
+            if ( tokenService.getProcessingOrder() < tokenMultiCounterService.getProcessingOrder()) {
                 updateTokenService(branchId, tokenService, token);
             } else {
                 updateTokenMultiCounterService(branchId, tokenMultiCounterService, token);
@@ -191,9 +188,9 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         tokenProcessingStep = null;
 
         for (int index = 0; index < tokenProcessingSteps.size(); index++) {
-            tokenProcessingStep = tokenProcessingSteps.get(index);
-            if (tokenProcessingStep.getStatus().equals(TokenServiceStatus.QUEUED))
-                break;
+            if (tokenProcessingSteps.get(index).getStatus().equals(TokenServiceStatus.QUEUED))
+                tokenProcessingStep = tokenProcessingSteps.get(index);
+            break;
         }
 
         if (tokenProcessingStep != null) {
