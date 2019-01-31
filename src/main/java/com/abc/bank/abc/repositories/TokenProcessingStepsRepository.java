@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TokenProcessingStepsRepository extends JpaRepository<TokenProcessingSteps, Integer> {
 
-    @Query(value = "select token_steps from Token_processing_steps token_steps where token_steps.Token_id = :tokenId", nativeQuery = true)
+    @Query(value = "select token_steps.* from Token_processing_steps token_steps where token_steps.Token_id = :tokenId", nativeQuery = true)
     List<TokenProcessingSteps> findTokenProcessingStepsById(@Param("tokenId") Integer tokenId);
 }

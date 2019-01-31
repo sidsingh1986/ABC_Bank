@@ -45,4 +45,6 @@ public interface ServicesSevice {
      * @param serviceId service identifier
      */
     void deleteService(Integer serviceId);
+
+    BankingService getServiceForMultiCounterService(Integer multiCounterServiceId, Integer serviceId);
 }

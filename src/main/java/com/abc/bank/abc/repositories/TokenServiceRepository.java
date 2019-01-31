@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TokenServiceRepository extends JpaRepository<TokenService, Integer> {
 
-    @Query(value = "select token_service from Token_Services token_service where token_service.Token_id = :tokenId " +
+    @Query(value = "select token_service.* from Token_Services token_service where token_service.Token_id = :tokenId " +
             "AND token_service.status = :tokenServiceStatus order by processing_order limit 1", nativeQuery = true)
-    TokenService getHighestOrderMultiCounterService(int tokenId, TokenServiceStatus tokenServiceStatus);
+    TokenService getHighestOrderTokenService(int tokenId, TokenServiceStatus tokenServiceStatus);
 }

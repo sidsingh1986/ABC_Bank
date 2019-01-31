@@ -53,4 +53,9 @@ public class ServicesSeviceImpl implements ServicesSevice {
         }
         serviceRepository.deleteById(serviceId);
     }
+
+    @Override
+    public BankingService getServiceForMultiCounterService(Integer multiCounterServiceId, Integer serviceId) {
+        return serviceRepository.getService(multiCounterServiceId,serviceId);
+    }
 }

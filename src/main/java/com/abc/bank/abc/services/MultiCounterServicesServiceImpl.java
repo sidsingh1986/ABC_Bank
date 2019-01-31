@@ -16,6 +16,9 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
     @Autowired
     MultiCounterRepository multiCounterRepository;
 
+    @Autowired
+    ServicesSevice servicesSevice;
+
     @Override
     public MultiCounterBankingService getMultiCounterService(Integer serviceId) {
         Optional<MultiCounterBankingService> optional = multiCounterRepository.findById(serviceId);
@@ -54,6 +57,6 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
 
     @Override
     public BankingService getService(Integer multiCounterServiceId, Integer serviceId) {
-        return multiCounterRepository.getService(multiCounterServiceId, serviceId);
+        return servicesSevice.getServiceForMultiCounterService(multiCounterServiceId, serviceId);
     }
 }
