@@ -33,7 +33,7 @@ public class TokenServicesServiceImpl implements TokenServicesService {
 
     @Override
     public TokenService getHighestOrderPendingTokenService(int tokenId) {
-        return tokenServiceRepository.getHighestOrderMultiCounterService(tokenId, TokenServiceStatus.QUEUED);
+        return tokenServiceRepository.getHighestOrderTokenService(tokenId, TokenServiceStatus.QUEUED);
     }
 
     @Override

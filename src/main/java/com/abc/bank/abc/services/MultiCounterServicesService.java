@@ -48,4 +48,6 @@ public interface MultiCounterServicesService {
     void deleteMultiCounterService(Integer serviceId);
 
     BankingService getService(Integer multiCounterServiceId, Integer serviceId);
+
+    MultiCounterBankingService getMultiCounterServiceForBranch(Integer branchId, Integer serviceId);
 }

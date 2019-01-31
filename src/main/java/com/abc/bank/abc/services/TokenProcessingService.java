@@ -72,4 +72,8 @@ public interface TokenProcessingService {
      * Or the if service processing type value passed is not SINGLE_COUNTER or MULTI_COUNTER.
      */
     Token processToken(Integer branchId, Token token, String comments, Employee servedBy);
+
+    Token getNextToken(Integer counterId);
+
+    Token getCurrentToken(Integer counterId);
 }

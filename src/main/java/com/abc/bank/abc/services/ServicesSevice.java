@@ -47,4 +47,8 @@ public interface ServicesSevice {
     void deleteService(Integer serviceId);
 
     BankingService getServiceForMultiCounterService(Integer multiCounterServiceId, Integer serviceId);
+
+    BankingService getBankingServiceForBranch(Integer branchId, Integer serviceId);
+
+    BankingService getServiceForCounter(Integer counterId, Integer serviceId);
 }

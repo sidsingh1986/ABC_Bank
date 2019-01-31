@@ -56,6 +56,16 @@ public class ServicesSeviceImpl implements ServicesSevice {
 
     @Override
     public BankingService getServiceForMultiCounterService(Integer multiCounterServiceId, Integer serviceId) {
-        return serviceRepository.getService(multiCounterServiceId,serviceId);
+        return serviceRepository.getServiceForMultiCounterService(multiCounterServiceId,serviceId);
+    }
+
+    @Override
+    public BankingService getBankingServiceForBranch(Integer branchId, Integer serviceId) {
+        return serviceRepository.getServiceforBranch(branchId, serviceId);
+    }
+
+    @Override
+    public BankingService getServiceForCounter(Integer counterId, Integer serviceId) {
+        return serviceRepository.getServiceForCounter(counterId, serviceId);
     }
 }

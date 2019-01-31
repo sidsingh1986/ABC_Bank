@@ -185,6 +185,16 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         return token;
     }
 
+    @Override
+    public Token getNextToken(Integer counterId) {
+        return tokenRepository.getNextToken(counterId);
+    }
+
+    @Override
+    public Token getCurrentToken(Integer counterId) {
+        return tokenRepository.getCurrentToken(counterId);
+    }
+
     private void changeTokenStatus(Token token, TokenStatus tokenStatus) {
 
         token.setStatus(tokenStatus);

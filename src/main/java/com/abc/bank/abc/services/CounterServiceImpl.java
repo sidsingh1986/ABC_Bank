@@ -18,6 +18,12 @@ public class CounterServiceImpl implements CounterService {
     @Autowired
     CounterRepository counterRepository;
 
+    @Autowired
+    TokenProcessingService tokenProcessingService;
+
+    @Autowired
+    ServicesSevice servicesSevice;
+
     @Override
     public Counter createNewCounter(Counter counter) {
         return counterRepository.save(counter);
@@ -61,7 +67,7 @@ public class CounterServiceImpl implements CounterService {
 
     @Override
     public Token getNextToken(Integer counterId) {
-        return counterRepository.getNextToken(counterId);
+        return tokenProcessingService.getNextToken(counterId);
     }
 
     @Override
@@ -90,12 +96,12 @@ public class CounterServiceImpl implements CounterService {
 
     @Override
     public BankingService getServiceOfferedByCounter(Integer counterId, Integer serviceId) {
-        return counterRepository.getServiceForCounter(counterId, serviceId);
+        return servicesSevice.getServiceForCounter(counterId, serviceId);
     }
 
     @Override
     public Token getCurrentToken(Integer counterId) {
-        Token token = counterRepository.getCurrentToken(counterId);
+        Token token = tokenProcessingService.getCurrentToken(counterId);
 
         if (token == null) {
             throw new IllegalInputException("There is no token which is being processed for this counter");
@@ -108,5 +114,10 @@ public class CounterServiceImpl implements CounterService {
 
         return counterRepository.getCountersForService(branchId, serviceId, customerType);
 
+    }
+
+    @Override
+    public Counter getCounterForBranch(Integer branchId, Integer counterNumber) {
+        return counterRepository.getCounterForBranch(branchId, counterNumber);
     }
 }

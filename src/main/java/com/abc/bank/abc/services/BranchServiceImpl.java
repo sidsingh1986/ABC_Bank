@@ -19,6 +19,15 @@ public class BranchServiceImpl implements BranchService {
     @Autowired
     BranchRepository branchRepository;
 
+    @Autowired
+    ServicesSevice servicesSevice;
+
+    @Autowired
+    MultiCounterServicesService multiCounterServicesService;
+
+    @Autowired
+    CounterService counterService;
+
     @Override
     public List<Branch> getAllBranches() {
         List<Branch> branches = branchRepository.findAll();
@@ -68,7 +77,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public BankingService getBankingService(Integer branchId, Integer serviceId) {
-        BankingService bankingService = branchRepository.findBankingService(branchId, serviceId);
+        BankingService bankingService = servicesSevice.getBankingServiceForBranch(branchId, serviceId);
         if (bankingService == null)
         throw new ResourceNotFoundException(serviceId, "The requested service is not found for branch");
 
@@ -98,7 +107,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public MultiCounterBankingService getMultiCounterBankingService(Integer branchId, Integer serviceId) {
-        MultiCounterBankingService multiCounterBankingService = branchRepository.findMultiCounterBankingService(branchId, serviceId);
+        MultiCounterBankingService multiCounterBankingService = multiCounterServicesService.getMultiCounterServiceForBranch(branchId, serviceId);
 
         if (multiCounterBankingService == null)
             throw new ResourceNotFoundException(serviceId, "The requested multi counter service is not found for branch");
@@ -120,7 +129,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public Counter getCounter(Integer branchId, Integer counterNumber) {
-        Counter counter = branchRepository.getCounter(branchId, counterNumber);
+        Counter counter = counterService.getCounterForBranch(branchId, counterNumber);
 
         if (counter == null)
             throw new ResourceNotFoundException(counterNumber, "The requested counter is not found in branch");

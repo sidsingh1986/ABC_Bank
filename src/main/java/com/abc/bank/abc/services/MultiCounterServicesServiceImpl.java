@@ -59,4 +59,9 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
     public BankingService getService(Integer multiCounterServiceId, Integer serviceId) {
         return servicesSevice.getServiceForMultiCounterService(multiCounterServiceId, serviceId);
     }
+
+    @Override
+    public MultiCounterBankingService getMultiCounterServiceForBranch(Integer branchId, Integer serviceId) {
+        return multiCounterRepository.getMultiCounterBankingServiceforBranch(branchId, serviceId);
+    }
 }

@@ -112,4 +112,6 @@ public interface CounterService {
      * counter with passed id is not present in branch
      */
     List<Counter> getCountersForService(Integer branchId, Integer serviceId, CustomerType customerType);
+
+    Counter getCounterForBranch(Integer branchId, Integer counterNumber);
 }
