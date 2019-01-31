@@ -48,8 +48,8 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/abc/bank/abc/Controllers/MultipleCounterServiceController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/MultipleCounterServiceController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/abc/bank/abc/Controllers/EmployeeController.html" target="_top">Frames</a></li>
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.abc.bank.abc.Controllers</div>
+<div class="subTitle">com.abc.bank.abc.controllers</div>
 <h2 title="Class EmployeeController" class="title">Class EmployeeController</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.abc.bank.abc.Controllers.EmployeeController</li>
+<li>com.abc.bank.abc.controllers.EmployeeController</li>
 </ul>
 </li>
 </ul>
@@ -147,8 +147,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#createEmployee-com.abc.bank.abc.ViewModels.EmployeeModel-">createEmployee</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;employeeModel)</code>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#createEmployee-com.abc.bank.abc.viewmodels.EmployeeModel-">createEmployee</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;employeeModel)</code>
 <div class="block">For creating a new Employee</div>
 </td>
 </tr>
@@ -159,20 +159,20 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a></code></td>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#getEmployee-java.lang.Integer-">getEmployee</a></span>(java.lang.Integer&nbsp;employeeId)</code>
 <div class="block">For getting a particular Employee</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#getEmployees--">getEmployees</a></span>()</code>
 <div class="block">For getting the list of all employees in the system</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#updateEmployee-com.abc.bank.abc.ViewModels.EmployeeModel-">updateEmployee</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;employeeModel)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html#updateEmployee-com.abc.bank.abc.viewmodels.EmployeeModel-">updateEmployee</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;employeeModel)</code>
 <div class="block">For updating a Employee or creating it if the Employee does not exists</div>
 </td>
 </tr>
@@ -215,15 +215,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="createEmployee-com.abc.bank.abc.ViewModels.EmployeeModel-">
+<a name="createEmployee-com.abc.bank.abc.viewmodels.EmployeeModel-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>createEmployee</h4>
 <pre>@PostMapping(value="/employees")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;createEmployee(@Valid @RequestBody
-                                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;employeeModel)</pre>
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;createEmployee(@Valid @RequestBody
+                                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;employeeModel)</pre>
 <div class="block">For creating a new Employee</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -240,7 +240,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.ht
 <li class="blockList">
 <h4>getEmployees</h4>
 <pre>@GetMapping(value="/employees")
-public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&gt;&nbsp;getEmployees()</pre>
+public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&gt;&nbsp;getEmployees()</pre>
 <div class="block">For getting the list of all employees in the system</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -255,7 +255,7 @@ public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModel
 <li class="blockList">
 <h4>getEmployee</h4>
 <pre>@GetMapping(value="/employees/{employeeId}")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;getEmployee(@PathVariable(value="employeeId")
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;getEmployee(@PathVariable(value="employeeId")
                                                                               java.lang.Integer&nbsp;employeeId)</pre>
 <div class="block">For getting a particular Employee</div>
 <dl>
@@ -264,11 +264,11 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.ht
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>employee with employee Id</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../../com/abc/bank/abc/Exceptions/ResourceNotFoundException.html" title="class in com.abc.bank.abc.Exceptions">ResourceNotFoundException</a></code> - if the Employee for the id is not found</dd>
+<dd><code><a href="../../../../../com/abc/bank/abc/Exceptions/ResourceNotFoundException.html" title="class in com.abc.bank.abc.exceptions">ResourceNotFoundException</a></code> - if the Employee for the id is not found</dd>
 </dl>
 </li>
 </ul>
-<a name="updateEmployee-com.abc.bank.abc.ViewModels.EmployeeModel-">
+<a name="updateEmployee-com.abc.bank.abc.viewmodels.EmployeeModel-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -276,7 +276,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.ht
 <h4>updateEmployee</h4>
 <pre>@PutMapping(value="/employees")
 public&nbsp;void&nbsp;updateEmployee(@Valid @RequestBody
-                                                           @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.ViewModels">EmployeeModel</a>&nbsp;employeeModel)</pre>
+                                                           @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/EmployeeModel.html" title="class in com.abc.bank.abc.viewmodels">EmployeeModel</a>&nbsp;employeeModel)</pre>
 <div class="block">For updating a Employee or creating it if the Employee does not exists</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -327,8 +327,8 @@ public&nbsp;void&nbsp;deleteEmployee(@PathVariable(value="employeeId")
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/abc/bank/abc/Controllers/MultipleCounterServiceController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/MultipleCounterServiceController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/abc/bank/abc/Controllers/EmployeeController.html" target="_top">Frames</a></li>

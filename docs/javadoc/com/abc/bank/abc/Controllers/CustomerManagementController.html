@@ -48,8 +48,8 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/CounterController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/CounterController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/abc/bank/abc/Controllers/CustomerManagementController.html" target="_top">Frames</a></li>
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.abc.bank.abc.Controllers</div>
+<div class="subTitle">com.abc.bank.abc.controllers</div>
 <h2 title="Class CustomerManagementController" class="title">Class CustomerManagementController</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.abc.bank.abc.Controllers.CustomerManagementController</li>
+<li>com.abc.bank.abc.controllers.CustomerManagementController</li>
 </ul>
 </li>
 </ul>
@@ -148,8 +148,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#createCustomer-com.abc.bank.abc.ViewModels.CustomerModel-">createCustomer</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;customerModel)</code>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#createCustomer-com.abc.bank.abc.viewmodels.CustomerModel-">createCustomer</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;customerModel)</code>
 <div class="block">For creating a new Customer</div>
 </td>
 </tr>
@@ -160,20 +160,20 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a></code></td>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#getCustomer-java.lang.Integer-">getCustomer</a></span>(java.lang.Integer&nbsp;customerId)</code>
 <div class="block">For getting a particular Customer</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#getCustomers--">getCustomers</a></span>()</code>
 <div class="block">For getting the list of all customers in the system</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#updateCustomer-com.abc.bank.abc.ViewModels.CustomerModel-">updateCustomer</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;customerModel)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/CustomerManagementController.html#updateCustomer-com.abc.bank.abc.viewmodels.CustomerModel-">updateCustomer</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;customerModel)</code>
 <div class="block">For updating a Customer or creating it if the Customer does not exists</div>
 </td>
 </tr>
@@ -216,15 +216,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="createCustomer-com.abc.bank.abc.ViewModels.CustomerModel-">
+<a name="createCustomer-com.abc.bank.abc.viewmodels.CustomerModel-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>createCustomer</h4>
 <pre>@PostMapping(value="/customers")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;createCustomer(@Valid @RequestBody
-                                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;customerModel)</pre>
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;createCustomer(@Valid @RequestBody
+                                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;customerModel)</pre>
 <div class="block">For creating a new Customer</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -241,7 +241,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.ht
 <li class="blockList">
 <h4>getCustomers</h4>
 <pre>@GetMapping(value="/customers")
-public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&gt;&nbsp;getCustomers()</pre>
+public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&gt;&nbsp;getCustomers()</pre>
 <div class="block">For getting the list of all customers in the system</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -256,7 +256,7 @@ public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModel
 <li class="blockList">
 <h4>getCustomer</h4>
 <pre>@GetMapping(value="/customers/{customerId}")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;getCustomer(@PathVariable(value="customerId")
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;getCustomer(@PathVariable(value="customerId")
                                                                               java.lang.Integer&nbsp;customerId)</pre>
 <div class="block">For getting a particular Customer</div>
 <dl>
@@ -265,7 +265,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.ht
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>customer with customer Id</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../../com/abc/bank/abc/Exceptions/ResourceNotFoundException.html" title="class in com.abc.bank.abc.Exceptions">ResourceNotFoundException</a></code> - if the Customer for the id is not found</dd>
+<dd><code><a href="../../../../../com/abc/bank/abc/Exceptions/ResourceNotFoundException.html" title="class in com.abc.bank.abc.exceptions">ResourceNotFoundException</a></code> - if the Customer for the id is not found</dd>
 </dl>
 </li>
 </ul>
@@ -285,7 +285,7 @@ public&nbsp;void&nbsp;deleteCustomer(@PathVariable(value="customerId")
 </dl>
 </li>
 </ul>
-<a name="updateCustomer-com.abc.bank.abc.ViewModels.CustomerModel-">
+<a name="updateCustomer-com.abc.bank.abc.viewmodels.CustomerModel-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -293,7 +293,7 @@ public&nbsp;void&nbsp;deleteCustomer(@PathVariable(value="customerId")
 <h4>updateCustomer</h4>
 <pre>@PutMapping(value="/customers")
 public&nbsp;void&nbsp;updateCustomer(@Valid @RequestBody
-                                                           @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.ViewModels">CustomerModel</a>&nbsp;customerModel)</pre>
+                                                           @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/CustomerModel.html" title="class in com.abc.bank.abc.viewmodels">CustomerModel</a>&nbsp;customerModel)</pre>
 <div class="block">For updating a Customer or creating it if the Customer does not exists</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -328,8 +328,8 @@ public&nbsp;void&nbsp;updateCustomer(@Valid @RequestBody
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/CounterController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/CounterController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/EmployeeController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/abc/bank/abc/Controllers/CustomerManagementController.html" target="_top">Frames</a></li>

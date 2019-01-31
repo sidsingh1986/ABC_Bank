@@ -48,7 +48,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/ServiceController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/ServiceController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.abc.bank.abc.Controllers</div>
+<div class="subTitle">com.abc.bank.abc.controllers</div>
 <h2 title="Class TokenController" class="title">Class TokenController</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.abc.bank.abc.Controllers.TokenController</li>
+<li>com.abc.bank.abc.controllers.TokenController</li>
 </ul>
 </li>
 </ul>
@@ -155,35 +155,35 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#createToken-com.abc.bank.abc.ViewModels.TokenModel-">createToken</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;tokenModel)</code>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#createToken-com.abc.bank.abc.viewmodels.TokenModel-">createToken</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;tokenModel)</code>
 <div class="block">For creating a new Token</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a></code></td>
+<td class="colFirst"><code><a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#getToken-java.lang.Integer-">getToken</a></span>(java.lang.Integer&nbsp;tokenId)</code>
 <div class="block">For getting a particuler Token based on id.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#getTokens--">getTokens</a></span>()</code>
 <div class="block">For getting the list of all the tokens.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#processToken-java.lang.Integer-java.lang.Integer-com.abc.bank.abc.ViewModels.TokenProcessParameters-">processToken</a></span>(java.lang.Integer&nbsp;branchId,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#processToken-java.lang.Integer-java.lang.Integer-com.abc.bank.abc.viewmodels.TokenProcessParameters-">processToken</a></span>(java.lang.Integer&nbsp;branchId,
             java.lang.Integer&nbsp;tokenId,
-            @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenProcessParameters.html" title="class in com.abc.bank.abc.ViewModels">TokenProcessParameters</a>&nbsp;tokenProcessParameters)</code>
+            @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenProcessParameters.html" title="class in com.abc.bank.abc.viewmodels">TokenProcessParameters</a>&nbsp;tokenProcessParameters)</code>
 <div class="block">Processes the token by taking the service or step of service for which counter is assigned and
  adding action/comments for the selected step.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#updateToken-com.abc.bank.abc.ViewModels.TokenModel-">updateToken</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;tokenModel)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/abc/bank/abc/Controllers/TokenController.html#updateToken-com.abc.bank.abc.viewmodels.TokenModel-">updateToken</a></span>(@Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;tokenModel)</code>
 <div class="block">For updating a existing Token</div>
 </td>
 </tr>
@@ -233,7 +233,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getTokens</h4>
 <pre>@GetMapping(value="/tokens")
-public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&gt;&nbsp;getTokens()</pre>
+public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&gt;&nbsp;getTokens()</pre>
 <div class="block">For getting the list of all the tokens.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -248,7 +248,7 @@ public&nbsp;java.util.List&lt;<a href="../../../../../com/abc/bank/abc/ViewModel
 <li class="blockList">
 <h4>getToken</h4>
 <pre>@GetMapping(value="/tokens/{id}")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;getToken(@PathVariable(value="id")
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;getToken(@PathVariable(value="id")
                                                              java.lang.Integer&nbsp;tokenId)</pre>
 <div class="block">For getting a particuler Token based on id.</div>
 <dl>
@@ -259,15 +259,15 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html"
 </dl>
 </li>
 </ul>
-<a name="createToken-com.abc.bank.abc.ViewModels.TokenModel-">
+<a name="createToken-com.abc.bank.abc.viewmodels.TokenModel-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>createToken</h4>
 <pre>@PostMapping(value="/tokens")
-public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;createToken(@Valid @RequestBody
-                                                            @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;tokenModel)</pre>
+public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;createToken(@Valid @RequestBody
+                                                            @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;tokenModel)</pre>
 <div class="block">For creating a new Token</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -277,7 +277,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html"
 </dl>
 </li>
 </ul>
-<a name="updateToken-com.abc.bank.abc.ViewModels.TokenModel-">
+<a name="updateToken-com.abc.bank.abc.viewmodels.TokenModel-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -285,7 +285,7 @@ public&nbsp;<a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html"
 <h4>updateToken</h4>
 <pre>@PutMapping(value="/tokens")
 public&nbsp;void&nbsp;updateToken(@Valid @RequestBody
-                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.ViewModels">TokenModel</a>&nbsp;tokenModel)</pre>
+                                                     @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenModel.html" title="class in com.abc.bank.abc.viewmodels">TokenModel</a>&nbsp;tokenModel)</pre>
 <div class="block">For updating a existing Token</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -293,7 +293,7 @@ public&nbsp;void&nbsp;updateToken(@Valid @RequestBody
 </dl>
 </li>
 </ul>
-<a name="processToken-java.lang.Integer-java.lang.Integer-com.abc.bank.abc.ViewModels.TokenProcessParameters-">
+<a name="processToken-java.lang.Integer-java.lang.Integer-com.abc.bank.abc.viewmodels.TokenProcessParameters-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -305,7 +305,7 @@ public&nbsp;void&nbsp;processToken(@PathVariable(value="branchId")
                                                                                           @PathVariable(value="tokenId")
                                                                                           java.lang.Integer&nbsp;tokenId,
                                                                                           @Valid @RequestBody
-                                                                                          @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenProcessParameters.html" title="class in com.abc.bank.abc.ViewModels">TokenProcessParameters</a>&nbsp;tokenProcessParameters)</pre>
+                                                                                          @Valid <a href="../../../../../com/abc/bank/abc/ViewModels/TokenProcessParameters.html" title="class in com.abc.bank.abc.viewmodels">TokenProcessParameters</a>&nbsp;tokenProcessParameters)</pre>
 <div class="block">Processes the token by taking the service or step of service for which counter is assigned and
  adding action/comments for the selected step. It also takes care of re-assigning the token to
  another counter if the token requires some other service or step of service to be processed.</div>
@@ -370,7 +370,7 @@ public&nbsp;void&nbsp;assignCounter(@PathVariable(value="branchId")
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/abc/bank/abc/Controllers/ServiceController.html" title="class in com.abc.bank.abc.Controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/abc/bank/abc/Controllers/ServiceController.html" title="class in com.abc.bank.abc.controllers"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">

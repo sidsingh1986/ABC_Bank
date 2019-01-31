@@ -1,9 +1,9 @@
 com.abc.bank.abc
-com.abc.bank.abc.Configurations
-com.abc.bank.abc.Controllers
-com.abc.bank.abc.DataModels
-com.abc.bank.abc.Enums
-com.abc.bank.abc.Exceptions
-com.abc.bank.abc.Repositories
-com.abc.bank.abc.Services
-com.abc.bank.abc.ViewModels
+com.abc.bank.abc.configurations
+com.abc.bank.abc.controllers
+com.abc.bank.abc.datamodels
+com.abc.bank.abc.enums
+com.abc.bank.abc.exceptions
+com.abc.bank.abc.repositories
+com.abc.bank.abc.services
+com.abc.bank.abc.viewmodels
