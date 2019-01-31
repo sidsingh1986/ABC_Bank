@@ -46,9 +46,33 @@ public interface ServicesSevice {
      */
     void deleteService(Integer serviceId);
 
+    /**
+     * For getting a particular Banking Service of a multi counter banking service
+     *
+     * @param multiCounterServiceId multi counter service identifier
+     * @param serviceId service identifier
+     * @return service with service Id
+     * @throws ResourceNotFoundException if the Banking service is not part of multi counter service
+     */
     BankingService getServiceForMultiCounterService(Integer multiCounterServiceId, Integer serviceId);
 
+    /**
+     * For getting a particular Banking Service for a branch
+     *
+     * @param branchId branch identifier
+     * @param serviceId service identifier
+     * @return service with service Id
+     * @throws ResourceNotFoundException if the Banking service is not served by branch
+     */
     BankingService getBankingServiceForBranch(Integer branchId, Integer serviceId);
 
+    /**
+     * For getting a particular Banking Service for a counter
+     *
+     * @param counterId counter identifier
+     * @param serviceId service identifier
+     * @return service with service Id
+     * @throws ResourceNotFoundException if the Banking service is not found served by counter
+     */
     BankingService getServiceForCounter(Integer counterId, Integer serviceId);
 }

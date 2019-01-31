@@ -13,9 +13,9 @@ public interface TokenProcessingStepsService {
 
     void updateTokenProcessingStep(TokenProcessingSteps tokenProcessingSteps);
 
-    TokenProcessingSteps getTokenProcessingSteps(Integer id);
+    TokenProcessingSteps getTokenProcessingSteps(Integer tokenProcessingStepId);
 
-    TokenProcessingSteps getStatusTokenProcessingStepForToken(int id, TokenServiceStatus tokenServiceStatus);
+    TokenProcessingSteps getStatusTokenProcessingStepForToken(int tokenId, TokenServiceStatus tokenServiceStatus);
 
     TokenProcessingSteps getHighestOrderPendingTokenProcessingStep(int serviceId);
 }

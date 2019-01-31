@@ -47,7 +47,13 @@ public interface MultiCounterServicesService {
      */
     void deleteMultiCounterService(Integer serviceId);
 
-    BankingService getService(Integer multiCounterServiceId, Integer serviceId);
-
+    /**
+     * For getting a particular Multi counter Banking Service of a branch
+     *
+     * @param branchId branch identifier
+     * @param serviceId service identifier
+     * @return Multi counter service with service Id
+     * @throws ResourceNotFoundException if the Banking service for the id is not found
+     */
     MultiCounterBankingService getMultiCounterServiceForBranch(Integer branchId, Integer serviceId);
 }

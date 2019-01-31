@@ -113,5 +113,13 @@ public interface CounterService {
      */
     List<Counter> getCountersForService(Integer branchId, Integer serviceId, CustomerType customerType);
 
+    /**
+     * For getting a particular counter for a branch
+     *
+     * @param branchId branch identifier
+     * @param counterNumber counter identifier
+     * @return counter with the counter id
+     * @throws ResourceNotFoundException if the counter with passed id is not found
+     */
     Counter getCounterForBranch(Integer branchId, Integer counterNumber);
 }

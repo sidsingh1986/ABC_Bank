@@ -27,7 +27,7 @@ public interface TokenProcessingService {
     void assignCounter(Integer tokenId, Integer branchId);
 
     /**
-     * For getting a particuler Token based on id.
+     * For getting a particular Token based on id.
      *
      * @param tokenId token identifier
      * @return Token instance
@@ -73,7 +73,19 @@ public interface TokenProcessingService {
      */
     Token processToken(Integer branchId, Token token, String comments, Employee servedBy);
 
+    /**
+     * For getting the token which is to be processed by counter.
+     *
+     * @param counterId counter identifier
+     * @return Token instance
+     */
     Token getNextToken(Integer counterId);
 
+    /**
+     * For getting the token which is currently getting processed by counter.
+     *
+     * @param counterId counter identifier
+     * @return Token instance
+     */
     Token getCurrentToken(Integer counterId);
 }

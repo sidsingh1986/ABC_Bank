@@ -1,10 +1,7 @@
 package com.abc.bank.abc.repositories;
 
-import com.abc.bank.abc.datamodels.BankingService;
 import com.abc.bank.abc.datamodels.Counter;
-import com.abc.bank.abc.datamodels.Token;
 import com.abc.bank.abc.enums.CustomerType;
-import com.abc.bank.abc.enums.TokenStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

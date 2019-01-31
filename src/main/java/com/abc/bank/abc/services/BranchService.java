@@ -1,6 +1,5 @@
 package com.abc.bank.abc.services;
 
-import com.abc.bank.abc.enums.CustomerType;
 import com.abc.bank.abc.datamodels.BankingService;
 import com.abc.bank.abc.datamodels.Branch;
 import com.abc.bank.abc.datamodels.Counter;
