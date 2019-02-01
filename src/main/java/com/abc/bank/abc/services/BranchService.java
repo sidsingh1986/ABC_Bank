@@ -37,9 +37,9 @@ public interface BranchService {
      * Updates a branch in the system
      *
      * @param branch branch instance
-     * @param branchId
+     * @param branchId branch identifer
      */
-    void updateBranch(Branch branch, Integer branchId);
+    Branch updateBranch(Branch branch, Integer branchId);
 
     /**
      * Deletes a branch in the system

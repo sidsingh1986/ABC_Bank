@@ -53,7 +53,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public void updateBranch(Branch branch, Integer branchId) {
+    public Branch updateBranch(Branch branch, Integer branchId) {
 
         Optional<Branch> branchOptional = branchRepository.findById(branchId);
         if (!branchOptional.isPresent()) {
@@ -63,7 +63,7 @@ public class BranchServiceImpl implements BranchService {
         if (branch == null)
             throw new IllegalArgumentException("The branch parameter can't be null");
         branch.setId(branchId);
-        branchRepository.save(branch);
+        return branchRepository.save(branch);
     }
 
     @Override

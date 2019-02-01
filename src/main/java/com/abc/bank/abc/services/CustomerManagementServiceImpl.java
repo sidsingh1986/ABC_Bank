@@ -37,13 +37,13 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
     }
 
     @Override
-    public void updateCustomer(Integer customerId, Customer customer) {
+    public Customer updateCustomer(Integer customerId, Customer customer) {
 
         if (!customerRepository.findById(customerId).isPresent()) {
             throw new ResourceNotFoundException(customerId, "The customer you are trying to update is not found");
         }
         customer.setId(customerId);
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override

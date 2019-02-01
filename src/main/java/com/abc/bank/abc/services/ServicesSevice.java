@@ -37,7 +37,7 @@ public interface ServicesSevice {
      * @param serviceId
      * @param bankingService banking service to be updated
      */
-    void updateService(Integer serviceId, BankingService bankingService);
+    BankingService updateService(Integer serviceId, BankingService bankingService);
 
     /**
      * For deleting a particular Banking Service

@@ -79,10 +79,9 @@ public class BranchController {
      */
     @ApiOperation(value = "Updates a branch of the bank")
     @PutMapping("/branches/{id}")
-    public ResponseEntity<HttpStatus> updateBranch(@Valid @RequestBody BranchModel branchModel, @PathVariable("id") Integer branchId) {
+    public ResponseEntity<Branch> updateBranch(@Valid @RequestBody BranchModel branchModel, @PathVariable("id") Integer branchId) {
         Branch branch = branchModel.convertToEntity();
-        branchService.updateBranch(branch, branchId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(branchService.updateBranch(branch, branchId), HttpStatus.OK);
     }
 
     /**

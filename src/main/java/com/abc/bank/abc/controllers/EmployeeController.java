@@ -72,10 +72,11 @@ public class EmployeeController {
      */
     @ApiOperation(value = "Updates a particular employee")
     @PutMapping("/employees/{employeeId}")
-    public ResponseEntity<String> updateEmployee(@PathVariable(value = "employeeId") Integer employeeId,
+    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "employeeId") Integer employeeId,
                                                  @Valid @RequestBody EmployeeModel employeeModel) {
-        employeeService.updateEmployee(employeeId, employeeModel.convertToEntity());
-        return new ResponseEntity<>("Employee update successful", HttpStatus.OK);
+        Employee employee = employeeModel.convertToEntity();
+        employeeService.updateEmployee(employeeId, employee);
+        return new ResponseEntity<>(employeeService.updateEmployee(employeeId, employee), HttpStatus.OK);
     }
 
     /**

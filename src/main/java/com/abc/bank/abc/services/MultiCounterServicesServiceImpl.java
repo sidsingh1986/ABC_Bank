@@ -41,13 +41,13 @@ public class MultiCounterServicesServiceImpl implements MultiCounterServicesServ
     }
 
     @Override
-    public void updateMultiCounterService(Integer serviceId, MultiCounterBankingService multiCounterBankingService) {
+    public MultiCounterBankingService updateMultiCounterService(Integer serviceId, MultiCounterBankingService multiCounterBankingService) {
 
         if (!multiCounterRepository.findById(serviceId).isPresent()) {
             throw new ResourceNotFoundException(serviceId, "The multi counter service you are trying to update is not found");
         }
         multiCounterBankingService.setId(serviceId);
-        multiCounterRepository.save(multiCounterBankingService);
+        return multiCounterRepository.save(multiCounterBankingService);
     }
 
     @Override

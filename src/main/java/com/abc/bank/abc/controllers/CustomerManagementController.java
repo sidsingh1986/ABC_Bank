@@ -83,11 +83,10 @@ public class CustomerManagementController {
      */
     @ApiOperation(value = "Updates a particular customer")
     @PutMapping("/customers/{customerId}")
-    public ResponseEntity<String> updateCustomer(@PathVariable(value = "customerId") Integer customerId,
+    public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "customerId") Integer customerId,
                                                  @Valid @RequestBody CustomerModel customerModel) {
         Customer customer = customerModel.convertToEntity();
-        customerManagmentService.updateCustomer(customerId, customer);
-        return new ResponseEntity<>("Customer update successful", HttpStatus.OK);
+        return new ResponseEntity<>(customerManagmentService.updateCustomer(customerId, customer), HttpStatus.OK);
     }
 
 }

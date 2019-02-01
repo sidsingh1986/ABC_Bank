@@ -37,7 +37,7 @@ public interface EmployeeService {
      * @param employeeId
      * @param employee employee instance to be updated
      */
-    void updateEmployee(Integer employeeId, Employee employee);
+    Employee updateEmployee(Integer employeeId, Employee employee);
 
     /**
      * For deleting a particular Employee

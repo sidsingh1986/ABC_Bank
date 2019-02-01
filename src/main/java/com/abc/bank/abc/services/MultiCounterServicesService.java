@@ -38,7 +38,7 @@ public interface MultiCounterServicesService {
      * @param serviceId
      * @param multiCounterBankingService multi counter banking service to be updated
      */
-    void updateMultiCounterService(Integer serviceId, MultiCounterBankingService multiCounterBankingService);
+    MultiCounterBankingService updateMultiCounterService(Integer serviceId, MultiCounterBankingService multiCounterBankingService);
 
     /**
      * For deleting a particular Multi Counter Banking Service

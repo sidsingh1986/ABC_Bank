@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Integer employeeId, Employee employee) {
+    public Employee updateEmployee(Integer employeeId, Employee employee) {
 
         if (!employeeRepository.findById(employeeId).isPresent()) {
             throw new ResourceNotFoundException(employeeId, "Employee not found for updating");
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new NullPointerException("The employee parameter can't be null");
         }
         employee.setId(employeeId);
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override

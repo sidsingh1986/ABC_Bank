@@ -30,14 +30,14 @@ public class CounterServiceImpl implements CounterService {
     }
 
     @Override
-    public void updateCounter(Integer counterId, Counter counter) {
+    public Counter updateCounter(Integer counterId, Counter counter) {
         Optional<Counter> optional = counterRepository.findById(counterId);
 
         if(!optional.isPresent()) {
             throw new ResourceNotFoundException(counterId, "Counter not found");
         }
         counter.setId(counterId);
-       counterRepository.save(counter);
+       return counterRepository.save(counter);
     }
 
     @Override

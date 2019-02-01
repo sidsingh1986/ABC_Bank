@@ -37,7 +37,7 @@ public interface CustomerManagementService {
      * @param customerId
      * @param customer customer instance to be updated
      */
-    void updateCustomer(Integer customerId, Customer customer);
+    Customer updateCustomer(Integer customerId, Customer customer);
 
     /**
      * For deleting a particular Customer

@@ -75,11 +75,10 @@ public class CounterController {
      */
     @ApiOperation(value = "Updates a counter")
     @PutMapping("/counters/{counterId}")
-    public ResponseEntity<HttpStatus> updateBranchCounter(@PathVariable("counterId") Integer counterId,
+    public ResponseEntity<Counter> updateCounter(@PathVariable("counterId") Integer counterId,
                                                           @Valid @RequestBody CounterModel counterModel) {
         Counter counter = counterModel.convertToEntity();
-        counterService.updateCounter(counterId, counter);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(counterService.updateCounter(counterId, counter), HttpStatus.OK);
     }
 
     /**

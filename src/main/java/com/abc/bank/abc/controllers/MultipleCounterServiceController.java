@@ -65,9 +65,9 @@ public class MultipleCounterServiceController {
      */
     @ApiOperation(value = "update a specific multi counter service")
     @PutMapping("/multipleCounterServices/{serviceId}")
-    public ResponseEntity<String> updateMultiCounterService(@PathVariable(value = "serviceId") Integer serviceId, @Valid @RequestBody MultiCounterBankingServiceModel multiCounterBankingServiceModel) {
+    public ResponseEntity<MultiCounterBankingService> updateMultiCounterService(@PathVariable(value = "serviceId") Integer serviceId, @Valid @RequestBody MultiCounterBankingServiceModel multiCounterBankingServiceModel) {
         multiCounterServicesService.updateMultiCounterService(serviceId, multiCounterBankingServiceModel.convertToSubEntity());
-        return new ResponseEntity<>("Multi Counter Service update Successful", HttpStatus.OK);
+        return new ResponseEntity<>(multiCounterServicesService.updateMultiCounterService(serviceId, multiCounterBankingServiceModel.convertToSubEntity()), HttpStatus.OK);
     }
 
     /**
@@ -80,12 +80,5 @@ public class MultipleCounterServiceController {
     public ResponseEntity<String> deleteMultiCounterService(@PathVariable(value = "serviceId") Integer serviceId) {
         multiCounterServicesService.deleteMultiCounterService(serviceId);
         return new ResponseEntity<>("Multi Counter Service deletion Successful", HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "View a specific multi counter service")
-    @GetMapping("/multipleCounterServices/{serviceId}/Services/{id}")
-    public ResponseEntity<BankingService> getBankingServiceForMultiCounterService(@PathVariable(value = "serviceId") Integer multiCounterServiceId, @PathVariable(value = "id") Integer serviceId) {
-        multiCounterServicesService.getService(multiCounterServiceId, serviceId);
-        return new ResponseEntity<>(multiCounterServicesService.getService(multiCounterServiceId, serviceId), HttpStatus.OK);
     }
 }

@@ -36,13 +36,13 @@ public class ServicesSeviceImpl implements ServicesSevice {
     }
 
     @Override
-    public void updateService(Integer serviceId, BankingService bankingService) {
+    public BankingService updateService(Integer serviceId, BankingService bankingService) {
 
         if (!serviceRepository.findById(serviceId).isPresent()) {
             throw new ResourceNotFoundException(serviceId, "The Service you are trying to update is not present");
         }
         bankingService.setId(serviceId);
-        serviceRepository.save(bankingService);
+        return serviceRepository.save(bankingService);
     }
 
     @Override

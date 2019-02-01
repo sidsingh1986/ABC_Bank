@@ -83,9 +83,8 @@ public class ServiceController {
      */
     @ApiOperation(value = "Updates a particular banking service")
     @PutMapping("/services/{id}")
-    public ResponseEntity<String> updateService( @PathVariable("id") Integer serviceId, @Valid @RequestBody BankingServiceModel bankingServiceModel) {
+    public ResponseEntity<BankingService> updateService( @PathVariable("id") Integer serviceId, @Valid @RequestBody BankingServiceModel bankingServiceModel) {
         BankingService bankingService = bankingServiceModel.convertToEntity();
-        servicesService.updateService(serviceId, bankingService);
-        return new ResponseEntity<>("updation of banking service successful", HttpStatus.OK);
+        return new ResponseEntity<>(servicesService.updateService(serviceId, bankingService), HttpStatus.OK);
     }
 }

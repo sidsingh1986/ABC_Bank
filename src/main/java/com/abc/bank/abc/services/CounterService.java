@@ -24,7 +24,7 @@ public interface CounterService {
      * @param counterId
      * @param counter counter instance to be updated
      */
-    void updateCounter(Integer counterId, Counter counter);
+    Counter updateCounter(Integer counterId, Counter counter);
 
     /**
      * For getting the list of all counters
