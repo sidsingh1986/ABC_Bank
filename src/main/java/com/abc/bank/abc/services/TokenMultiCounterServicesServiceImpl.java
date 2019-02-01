@@ -32,7 +32,7 @@ public class TokenMultiCounterServicesServiceImpl implements TokenMultiCounterSe
     }
 
     @Override
-    public TokenMultiCounterService getHighestOrderPendingMultiCounterService(int tokenId) {
+    public TokenMultiCounterService getHighestOrderPendingMultiCounterService(Integer tokenId) {
         return tokenMultiCounterServiceRepository.getHighestOrderMultiCounterService(tokenId, TokenServiceStatus.QUEUED);
     }
 

@@ -41,6 +41,12 @@ public class TokenProcessingServiceImplTest {
     BranchServiceImpl branchService;
 
     @Mock
+    TokenServicesService tokenServicesService;
+
+    @Mock
+    TokenMultiCounterServicesService tokenMultiCounterServicesService;
+
+    @Mock
     CounterServiceImpl counterService;
 
     private Token createTokenStub() {
@@ -87,6 +93,18 @@ public class TokenProcessingServiceImplTest {
         customer.setCustomerType(CustomerType.REGULAR);
 
         queryToken.setCustomer(customer);
+
+        when(tokenServicesService.createTokenService(any(TokenService.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                return invocation.getArguments()[0];
+            }
+        });
+
+        when(tokenMultiCounterServicesService.createTokenMultiCounterService(any(TokenMultiCounterService.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                return invocation.getArguments()[0];
+            }
+        });
 
         when(tokenRepository.save(any(Token.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {

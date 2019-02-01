@@ -25,6 +25,9 @@ public class BranchServiceImplTest {
     BranchRepository branchRepository;
 
     @Mock
+    MultiCounterServicesService multiCounterServicesService;
+
+    @Mock
     ServicesSevice servicesSevice;
 
     @Test
@@ -102,6 +105,8 @@ public class BranchServiceImplTest {
         branch.setBankingServices(bankingServices);
 
         when(branchRepository.findById(1)).thenReturn(Optional.ofNullable(branch));
+
+        when(servicesSevice.getBankingServiceForBranch(1, 1)).thenReturn(bankingService);
 
         BankingService fetchedBankingService = branchService.getBankingService(1,1);
 
@@ -242,6 +247,8 @@ public class BranchServiceImplTest {
         branch.setMultiCounterBankingServices(multiCounterBankingServices);
 
         when(branchRepository.findById(1)).thenReturn(Optional.ofNullable(branch));
+
+        when(multiCounterServicesService.getMultiCounterServiceForBranch(1, 1)).thenReturn(multiCounterBankingService);
 
         MultiCounterBankingService fetchedMultiCounterBankingService = branchService.getMultiCounterBankingService(1,1);
 
