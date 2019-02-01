@@ -120,4 +120,9 @@ public class CounterServiceImpl implements CounterService {
     public Counter getCounterForBranch(Integer branchId, Integer counterNumber) {
         return counterRepository.getCounterForBranch(branchId, counterNumber);
     }
+
+    @Override
+    public Token pickToken(Token token) {
+        return tokenProcessingService.pickToken(token);
+    }
 }

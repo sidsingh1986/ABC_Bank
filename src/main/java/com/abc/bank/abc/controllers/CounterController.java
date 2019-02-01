@@ -27,9 +27,6 @@ public class CounterController {
     @Autowired
     CounterService counterService;
 
-    @Autowired
-    TokenProcessingService tokenProcessingService;
-
     /**
      * For creating a new counter
      *
@@ -170,7 +167,7 @@ public class CounterController {
     @PutMapping("/counters/{counterId}/next-token")
     public ResponseEntity<Token> getToBeProcessedToken(@PathVariable(value = "counterId") Integer counterId) {
         Token token = counterService.getNextToken(counterId);
-        Token updatedToken = tokenProcessingService.pickToken(token);
+        Token updatedToken = counterService.pickToken(token);
         return new ResponseEntity<>(updatedToken, HttpStatus.OK);
     }
 

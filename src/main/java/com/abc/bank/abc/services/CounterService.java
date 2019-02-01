@@ -122,4 +122,12 @@ public interface CounterService {
      * @throws ResourceNotFoundException if the counter with passed id is not found
      */
     Counter getCounterForBranch(Integer branchId, Integer counterNumber);
+
+    /**
+     * For picking a particular token by a counter
+     *
+     * @param token token to pick
+     * @return Token picked with status change
+     */
+    Token pickToken(Token token);
 }
