@@ -20,6 +20,7 @@ import org.mockito.stubbing.Answer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -289,13 +290,39 @@ public class TokenProcessingServiceImplTest {
 
         Token token = createTokenStub();
         List<Counter> counters = createStubCounterList();
+
+        BankingService bankingService = new BankingService();
+        bankingService.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingService.setId(1);
+        bankingService.setName("Service 1");
+
+        TokenService tokenService = new TokenService();
+        tokenService.setProcessingOrder(1);
+        tokenService.setService(bankingService);
+        tokenService.setToken(token);
+
+        TokenService updatedTokenService = new TokenService();
+        updatedTokenService.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
+        updatedTokenService.setToken(tokenService.getToken());
+        updatedTokenService.setProcessingOrder(tokenService.getProcessingOrder());
+        updatedTokenService.setService(tokenService.getService());
+
         when(tokenRepository.findById(any(Integer.class))).thenReturn(java.util.Optional.ofNullable(token));
 
         when(counterService.getCountersForService(1, 1, CustomerType.REGULAR)).thenReturn(counters);
 
-        tokenProcessingService.assignCounter(1,1);
+        when(tokenServicesService.getHighestOrderPendingTokenService(1)).thenReturn(tokenService);
 
-        assertEquals(1, token.getId());
+        when(tokenMultiCounterServicesService.getHighestOrderPendingMultiCounterService(1)).thenReturn(null);
+
+        when(tokenServicesService.updateTokenServiceStatus(tokenService, TokenServiceStatus.COUNTER_ASSIGNED)).thenReturn(updatedTokenService);
+
+        Token updatedToken = tokenProcessingService.assignCounter(1,1);
+
+        assertEquals(1, updatedToken.getId());
+
+        assertEquals(TokenStatus.COUNTER_ASSIGNED, updatedToken.getStatus());
+
     }
 
     @Test
@@ -303,13 +330,41 @@ public class TokenProcessingServiceImplTest {
 
         Token token = createMultiCounterTokenStub();
         List<Counter> counters = createStubCounterList();
+
+        MultiCounterBankingService multiCounterBankingService = new MultiCounterBankingService();
+        multiCounterBankingService.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+        multiCounterBankingService.setId(1);
+        multiCounterBankingService.setName("Multi Counter Service 1");
+
+        BankingService bankingService = new BankingService();
+        bankingService.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingService.setId(1);
+        bankingService.setName("Service 1");
+
+        List<BankingService> bankingServices = new ArrayList<>();
+        bankingServices.add(bankingService);
+
+        multiCounterBankingService.setBankingServices(bankingServices);
+
+        TokenMultiCounterService tokenMultiCounterService = new TokenMultiCounterService();
+        tokenMultiCounterService.setService(multiCounterBankingService);
+        tokenMultiCounterService.setProcessingOrder(1);
+        tokenMultiCounterService.setToken(token);
+        tokenMultiCounterService.setId(1);
+
         when(tokenRepository.findById(any(Integer.class))).thenReturn(java.util.Optional.ofNullable(token));
 
         when(counterService.getCountersForService(1, 1, CustomerType.REGULAR)).thenReturn(counters);
 
-        tokenProcessingService.assignCounter(1,1);
+        when(tokenServicesService.getHighestOrderPendingTokenService(1)).thenReturn(null);
 
-        assertEquals(1, token.getId());
+        when(tokenMultiCounterServicesService.getHighestOrderPendingMultiCounterService(1)).thenReturn(tokenMultiCounterService);
+
+        Token updatedToken = tokenProcessingService.assignCounter(1,1);
+
+        assertEquals(1, updatedToken.getId());
+
+        assertEquals(TokenStatus.COUNTER_ASSIGNED, updatedToken.getStatus());
     }
 
     @Test
@@ -347,11 +402,19 @@ public class TokenProcessingServiceImplTest {
     public void updateToken() {
 
         Token token = new Token();
-        token.setId(1);
+        token.setStatus(TokenStatus.ISSUED);
 
-        tokenProcessingService.updateToken(token.getId(), token);
+        when(tokenRepository.findById(1)).thenReturn(Optional.of(token));
+        when(tokenRepository.save(any(Token.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                return invocation.getArguments()[0];
+            }
+        });
 
-        verify(tokenRepository, times(1)).save(token);
+        Token updatedToken = tokenProcessingService.updateToken(1, token);
+
+        assertEquals(1, updatedToken.getId());
+        assertEquals(TokenStatus.ISSUED, updatedToken.getStatus());
     }
 
     @Test
@@ -366,30 +429,48 @@ public class TokenProcessingServiceImplTest {
     public void pickToken() {
 
         Token token = createTokenStub();
+        List<Counter> counters = createStubCounterList();
+
+        BankingService bankingService = new BankingService();
+        bankingService.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        bankingService.setId(1);
+        bankingService.setName("Service 1");
+
+        TokenService tokenService = new TokenService();
+        tokenService.setProcessingOrder(1);
+        tokenService.setService(bankingService);
+        tokenService.setToken(token);
+
+        TokenService updatedTokenService = new TokenService();
+        updatedTokenService.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
+        updatedTokenService.setToken(tokenService.getToken());
+        updatedTokenService.setProcessingOrder(tokenService.getProcessingOrder());
+        updatedTokenService.setService(tokenService.getService());
+
+        when(tokenRepository.findById(any(Integer.class))).thenReturn(java.util.Optional.ofNullable(token));
+
+        when(counterService.getCountersForService(1, 1, CustomerType.REGULAR)).thenReturn(counters);
+
+        when(tokenServicesService.getHighestOrderPendingTokenService(1)).thenReturn(tokenService);
+
+        when(tokenMultiCounterServicesService.getHighestOrderPendingMultiCounterService(1)).thenReturn(null);
+
+        when(tokenServicesService.updateTokenServiceStatus(tokenService, TokenServiceStatus.COUNTER_ASSIGNED)).thenReturn(updatedTokenService);
+
+        Token updatedToken = tokenProcessingService.assignCounter(1,1);
 
         TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
         tokenProcessingSteps.setServiceId(1);
-        tokenProcessingSteps.setId(1);
+        tokenProcessingSteps.setService(updatedToken.getTokenServices().get(0).getService());
         tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
         tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
-        tokenProcessingSteps.setToken(token);
+        tokenProcessingSteps.setToken(updatedToken);
+        tokenProcessingSteps.setId(1);
+        when(tokenProcessingStepsService.getStatusTokenProcessingStepForToken(1, TokenServiceStatus.COUNTER_ASSIGNED)).thenReturn(tokenProcessingSteps);
 
-        TokenProcessingSteps tokenProcessingSteps1 = new TokenProcessingSteps();
-        tokenProcessingSteps1.setServiceId(1);
-        tokenProcessingSteps1.setId(2);
-        tokenProcessingSteps1.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        tokenProcessingSteps1.setToken(token);
-
-        List<TokenProcessingSteps> tokenProcessingStepsList = new ArrayList<>();
-        tokenProcessingStepsList.add(tokenProcessingSteps);
-        tokenProcessingStepsList.add(tokenProcessingSteps1);
-
-        when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
-
-        Token fetchedToken = tokenProcessingService.pickToken(token);
+        Token fetchedToken = tokenProcessingService.pickToken(updatedToken);
 
         assertEquals(TokenStatus.IN_PROCESS, fetchedToken.getStatus());
-        assertEquals(TokenServiceStatus.IN_PROCESS, fetchedToken.getTokenServices().get(0).getStatus());
     }
 
     @Test

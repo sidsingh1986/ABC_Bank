@@ -83,7 +83,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     }
 
     @Override
-    public void assignCounter(Integer tokenId, Integer branchId) {
+    public Token assignCounter(Integer tokenId, Integer branchId) {
         Token token = getToken(tokenId);
 
         if (token != null && token.getStatus() == TokenStatus.ISSUED) {
@@ -93,14 +93,14 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
 
             if (tokenService != null && tokenMultiCounterService != null) {
                 if (tokenService.getProcessingOrder() < tokenMultiCounterService.getProcessingOrder()) {
-                    assignCounterToTokenService(branchId, tokenService, token);
+                    return assignCounterToTokenService(branchId, tokenService, token);
                 } else {
-                    assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
+                    return assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
                 }
             } else if (tokenService != null) {
-                assignCounterToTokenService(branchId, tokenService, token);
+                return assignCounterToTokenService(branchId, tokenService, token);
             } else if (tokenMultiCounterService != null) {
-                assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
+                return assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
             } else {
                 throw new IllegalArgumentException("There are no pending services found in the token which you are trying to assign");
             }
@@ -240,7 +240,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     }
 
 
-    private void assignCounterToTokenService(Integer branchId, TokenService tokenService, Token token) {
+    private Token assignCounterToTokenService(Integer branchId, TokenService tokenService, Token token) {
         TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
         tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
         tokenProcessingSteps.setService(tokenService.getService());
@@ -258,10 +258,10 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         tokenProcessingStepsService.createTokenProcessingStep(tokenProcessingSteps);
         tokenServicesService.updateTokenServiceStatus(tokenService, TokenServiceStatus.COUNTER_ASSIGNED);
         token.setStatus(TokenStatus.COUNTER_ASSIGNED);
-        tokenRepository.save(token);
+        return tokenRepository.save(token);
     }
 
-    private void assignCounterToTokenMultiCounterService(Integer branchId, TokenMultiCounterService tokenMultiCounterService, Token token) {
+    private Token assignCounterToTokenMultiCounterService(Integer branchId, TokenMultiCounterService tokenMultiCounterService, Token token) {
         List<BankingService> bankingServices = tokenMultiCounterService.getService().getBankingServices();
 
         for (int index = 0; index < bankingServices.size(); index++) {
@@ -285,7 +285,7 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         }
         tokenMultiCounterServicesService.updateTokenMultiCounterServiceStatus(tokenMultiCounterService, TokenServiceStatus.COUNTER_ASSIGNED);
         token.setStatus(TokenStatus.COUNTER_ASSIGNED);
-        tokenRepository.save(token);
+        return tokenRepository.save(token);
     }
 
     private Counter getBestCounterForService(Integer branchId, BankingService bankingService, Token token) {

@@ -24,7 +24,7 @@ public interface TokenProcessingService {
      * @param tokenId token identifier
      * @throws IllegalArgumentException if there are no services pending in the token to be served
      */
-    void assignCounter(Integer tokenId, Integer branchId);
+    Token assignCounter(Integer tokenId, Integer branchId);
 
     /**
      * For getting a particular Token based on id.
