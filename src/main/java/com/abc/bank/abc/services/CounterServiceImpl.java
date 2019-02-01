@@ -112,7 +112,7 @@ public class CounterServiceImpl implements CounterService {
     @Override
     public List<Counter> getCountersForService(Integer branchId, Integer serviceId, CustomerType customerType) {
 
-        return counterRepository.getCountersForService(branchId, serviceId, customerType);
+        return counterRepository.getCountersForService(branchId, serviceId, customerType.toString());
 
     }
 
