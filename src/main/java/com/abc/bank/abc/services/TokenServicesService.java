@@ -40,4 +40,12 @@ public interface TokenServicesService {
      * @return updated Token service instance
      */
     TokenService updateTokenServiceStatus(TokenService tokenService, TokenServiceStatus tokenServiceStatus);
+
+    /**
+     * For cancelling all the Token Services for a particular token
+     *
+     * @param tokenId token identifier
+     * @return status of operation
+     */
+    boolean cancelAllServicesForToken(Integer tokenId);
 }

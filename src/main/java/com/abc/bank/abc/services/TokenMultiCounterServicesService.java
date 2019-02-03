@@ -40,4 +40,12 @@ public interface TokenMultiCounterServicesService {
      * @throws ResourceNotFoundException if the Token multi counter service is not found
      */
     TokenMultiCounterService updateTokenMultiCounterServiceStatus(TokenMultiCounterService tokenMultiCounterService, TokenServiceStatus tokenServiceStatus);
+
+    /**
+     * For cancelling all the Token Multi counter Services for a particular token
+     *
+     * @param tokenId token identifier
+     * @return status of operation
+     */
+    boolean cancelAllMultiCounterServicesForToken(Integer tokenId);
 }

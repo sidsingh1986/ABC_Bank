@@ -51,4 +51,9 @@ public class TokenProcessingStepsServiceImpl implements TokenProcessingStepsServ
     public TokenProcessingSteps getHighestOrderPendingTokenProcessingStep(int serviceId) {
         return null;
     }
+
+    @Override
+    public boolean cancelTokenProcessingStepsForToken(Integer tokenId) {
+        return tokenProcessingStepsRepository.cancelTokenProcessingStepsForToken(tokenId);
+    }
 }

@@ -129,6 +129,14 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         if (!tokenRepository.findById(tokenId).isPresent()) {
             throw new ResourceNotFoundException(tokenId, "The token you are trying to update is not present");
         }
+        if (token ==  null) {
+            throw new NullPointerException("The token parameter passed to update can't be null");
+        }
+        if (token.getStatus() == TokenStatus.CANCELLED) {
+            tokenProcessingStepsService.cancelTokenProcessingStepsForToken(tokenId);
+            tokenServicesService.cancelAllServicesForToken(tokenId);
+            tokenMultiCounterServicesService.cancelAllMultiCounterServicesForToken(tokenId);
+        }
         token.setId(tokenId);
         return tokenRepository.save(token);
     }

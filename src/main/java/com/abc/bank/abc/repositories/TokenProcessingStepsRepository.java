@@ -11,4 +11,8 @@ public interface TokenProcessingStepsRepository extends JpaRepository<TokenProce
 
     @Query(value = "select token_steps.* from Token_processing_steps token_steps where token_steps.Token_id = :tokenId", nativeQuery = true)
     List<TokenProcessingSteps> findTokenProcessingStepsById(@Param("tokenId") Integer tokenId);
+
+    @Query(value = "update Token_processing_steps set status = 'CANCELLED' where Token_id = :tokenId " +
+            "AND status <> 'COMPLETED' ", nativeQuery = true)
+    boolean cancelTokenProcessingStepsForToken(Integer tokenId);
 }

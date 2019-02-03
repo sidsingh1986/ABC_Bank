@@ -497,10 +497,12 @@ public class TokenProcessingServiceImplTest {
 
         when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
 
+        when(tokenProcessingStepsService.getStatusTokenProcessingStepForToken(token.getId(), TokenServiceStatus.COUNTER_ASSIGNED)).thenReturn(tokenProcessingSteps);
+
         Token fetchedToken = tokenProcessingService.pickToken(token);
 
         assertEquals(TokenStatus.IN_PROCESS, fetchedToken.getStatus());
-        assertEquals(TokenServiceStatus.IN_PROCESS, fetchedToken.getTokenMultiCounterServices().get(0).getStatus());
+        assertEquals(1, fetchedToken.getTokenMultiCounterServices().size());
     }
 
     @Test
@@ -520,21 +522,15 @@ public class TokenProcessingServiceImplTest {
 
         when(tokenProcessingStepsService.getTokenProcessingStepsForToken(token.getId())).thenReturn(tokenProcessingStepsList);
 
+        when(tokenProcessingStepsService.getStatusTokenProcessingStepForToken(token.getId(), TokenServiceStatus.IN_PROCESS)).thenReturn(tokenProcessingSteps);
+
+
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("testUser");
 
-        TokenProcessingSteps tokenProcessingSteps1 = new TokenProcessingSteps();
-        tokenProcessingSteps1.setId(tokenProcessingSteps.getId());
-        tokenProcessingSteps1.setServiceId(tokenProcessingSteps.getServiceId());
-        tokenProcessingSteps1.setServiceProcessingType(tokenProcessingSteps.getServiceProcessingType());
-        tokenProcessingSteps1.setStatus(TokenServiceStatus.COMPLETED);
-        tokenProcessingSteps1.setToken(tokenProcessingSteps.getToken());
-        tokenProcessingSteps1.setEmployee(employee);
-        tokenProcessingSteps1.setActionOrComments("test update");
+        Token fetchedToken = tokenProcessingService.processToken(1, token, "test update", employee);
 
-        tokenProcessingService.processToken(1, token, "test update", employee);
-
-        verify(tokenProcessingStepsService, times(1)).updateTokenProcessingStep(tokenProcessingSteps1);
+        assertEquals(TokenStatus.COMPLETED, fetchedToken.getStatus());
     }
 }

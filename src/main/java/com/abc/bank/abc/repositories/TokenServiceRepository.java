@@ -10,4 +10,8 @@ public interface TokenServiceRepository extends JpaRepository<TokenService, Inte
     @Query(value = "select token_service.* from Token_Services token_service where token_service.Token_id = :tokenId " +
             "AND token_service.status = :tokenServiceStatus order by processing_order limit 1", nativeQuery = true)
     TokenService getHighestOrderTokenService(int tokenId, TokenServiceStatus tokenServiceStatus);
+
+    @Query(value = "update Token_Services set status = 'CANCELLED' where Token_id = :tokenId " +
+            "AND status <> 'COMPLETED' ", nativeQuery = true)
+    boolean cancelAllServicesForToken(Integer tokenId);
 }

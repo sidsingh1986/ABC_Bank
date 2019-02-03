@@ -18,4 +18,6 @@ public interface TokenProcessingStepsService {
     TokenProcessingSteps getStatusTokenProcessingStepForToken(int tokenId, TokenServiceStatus tokenServiceStatus);
 
     TokenProcessingSteps getHighestOrderPendingTokenProcessingStep(int serviceId);
+
+    boolean cancelTokenProcessingStepsForToken(Integer tokenId);
 }

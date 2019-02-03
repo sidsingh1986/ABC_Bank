@@ -47,4 +47,9 @@ public class TokenMultiCounterServicesServiceImpl implements TokenMultiCounterSe
         tokenMultiCounterService.setStatus(tokenServiceStatus);
         return tokenMultiCounterServiceRepository.save(tokenMultiCounterService);
     }
+
+    @Override
+    public boolean cancelAllMultiCounterServicesForToken(Integer tokenId) {
+        return tokenMultiCounterServiceRepository.cancelAllMultiCounterServicesForToken(tokenId);
+    }
 }

@@ -46,4 +46,9 @@ public class TokenServicesServiceImpl implements TokenServicesService {
         tokenService.setStatus(tokenServiceStatus);
         return tokenServiceRepository.save(tokenService);
     }
+
+    @Override
+    public boolean cancelAllServicesForToken(Integer tokenId) {
+        return tokenServiceRepository.cancelAllServicesForToken(tokenId);
+    }
 }

@@ -10,4 +10,8 @@ public interface TokenMultiCounterServiceRepository extends JpaRepository<TokenM
     @Query(value = "select multi_counter_service.* from Token_Multi_counter_service multi_counter_service where multi_counter_service.Token_id = :tokenId " +
             "AND multi_counter_service.status = :tokenServiceStatus order by processing_order limit 1", nativeQuery = true)
     TokenMultiCounterService getHighestOrderMultiCounterService(int tokenId, TokenServiceStatus tokenServiceStatus);
+
+    @Query(value = "update Token_Multi_counter_service set status = 'CANCELLED' where Token_id = :tokenId " +
+            "AND status <> 'COMPLETED' ", nativeQuery = true)
+    boolean cancelAllMultiCounterServicesForToken(Integer tokenId);
 }
