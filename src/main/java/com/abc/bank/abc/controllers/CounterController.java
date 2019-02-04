@@ -184,10 +184,18 @@ public class CounterController {
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Get the next token highest order token for the counter")
+    /**
+     * For assigning the next to the counter based on the request of the counter. This checks for the services
+     * offered by  counter and then checks the token earliest generated requesting any of those services. Then it
+     * fetches that token and assigns counter to token for it's processing
+     *
+     * @param counterId counter identifier
+     * @return Token to which counter is assigned
+     */
+    @ApiOperation(value = "Assigns the next highest order token to the counter")
     @PutMapping("/counters/{counterId}/token")
-    public ResponseEntity<Token> pickNextToken(@PathVariable(value = "counterId") Integer counterId) {
-        Token token = counterService.pickNextToken(counterId);
+    public ResponseEntity<Token> assignNextToken(@PathVariable(value = "counterId") Integer counterId) {
+        Token token = counterService.assignNextToken(counterId);
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 

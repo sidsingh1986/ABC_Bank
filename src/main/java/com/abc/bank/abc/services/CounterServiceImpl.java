@@ -1,6 +1,8 @@
 package com.abc.bank.abc.services;
 
 import com.abc.bank.abc.enums.CustomerType;
+import com.abc.bank.abc.enums.ServiceProcessingType;
+import com.abc.bank.abc.enums.TokenServiceStatus;
 import com.abc.bank.abc.enums.TokenStatus;
 import com.abc.bank.abc.exceptions.IllegalInputException;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
@@ -23,6 +25,15 @@ public class CounterServiceImpl implements CounterService {
 
     @Autowired
     ServicesSevice servicesSevice;
+
+    @Autowired
+    TokenProcessingStepsService tokenProcessingStepsService;
+
+    @Autowired
+    TokenMultiCounterServicesService tokenMultiCounterServicesService;
+
+    @Autowired
+    TokenServicesService tokenServicesService;
 
     @Override
     public Counter createNewCounter(Counter counter) {
@@ -127,7 +138,7 @@ public class CounterServiceImpl implements CounterService {
     }
 
     @Override
-    public Token pickNextToken(Integer counterId) {
+    public Token assignNextToken(Integer counterId) {
         List<BankingService> bankingServices = servicesSevice.getServicesForCounter(counterId);
 
         if (bankingServices == null) {

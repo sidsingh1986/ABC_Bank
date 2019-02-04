@@ -7,6 +7,7 @@ import com.abc.bank.abc.repositories.TokenMultiCounterServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,7 @@ public class TokenMultiCounterServicesServiceImpl implements TokenMultiCounterSe
 
     @Override
     public TokenMultiCounterService createTokenMultiCounterService(TokenMultiCounterService tokenMultiCounterService) {
+
         return tokenMultiCounterServiceRepository.save(tokenMultiCounterService);
     }
 
@@ -51,5 +53,10 @@ public class TokenMultiCounterServicesServiceImpl implements TokenMultiCounterSe
     @Override
     public boolean cancelAllMultiCounterServicesForToken(Integer tokenId) {
         return tokenMultiCounterServiceRepository.cancelAllMultiCounterServicesForToken(tokenId);
+    }
+
+    @Override
+    public List<TokenMultiCounterService> getAllTokenMultiCounterServicesForToken(Integer tokenId) {
+        return tokenMultiCounterServiceRepository.getAllTokenServicesForTokenOrderByProcessingOrder(tokenId);
     }
 }

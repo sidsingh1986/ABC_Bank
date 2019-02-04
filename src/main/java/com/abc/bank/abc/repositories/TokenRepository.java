@@ -20,4 +20,7 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
     @Query(value = "select distinct token.* from Token token join Token_processing_steps token_steps on token.id =  token_steps.Token_id where token.priority = :customerType " +
             "AND token_steps.Services_id IN :bankingServices order by token.id", nativeQuery = true)
     Token pickNextToken(String customerType, List<BankingService> bankingServices);
+
+    @Query(value = "select token.* from Token token order by token.id desc limit 1", nativeQuery = true)
+    Token getLastTokenCreated();
 }

@@ -25,6 +25,16 @@ public class CounterModel {
 
     private List<TokenModel> tokens;
 
+    private Integer displayNumber;
+
+    public Integer getDisplayNumber() {
+        return displayNumber;
+    }
+
+    public void setDisplayNumber(Integer displayNumber) {
+        this.displayNumber = displayNumber;
+    }
+
     public int getId() {
         return id;
     }
@@ -101,6 +111,7 @@ public class CounterModel {
         }
 
         counter.setTokens(tokens);
+        counter.setDisplayNumber(this.getDisplayNumber());
 
         return counter;
     }

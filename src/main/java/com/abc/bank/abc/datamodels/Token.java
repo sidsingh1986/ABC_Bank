@@ -6,6 +6,8 @@ import com.abc.bank.abc.enums.TokenStatus;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -23,6 +25,9 @@ public class Token implements Comparable<Token>{
     @Enumerated(EnumType.STRING)
     private TokenStatus status;
 
+    @Column(name = "token_number")
+    private Integer tokenNumber;
+
     @ManyToOne
     @JoinColumn(name = "Counter_id")
     private Counter counter;
@@ -37,6 +42,9 @@ public class Token implements Comparable<Token>{
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "token", cascade = CascadeType.ALL)
     private List<TokenMultiCounterService> tokenMultiCounterServices;
+
+    @Column(name = "issued_at")
+    private Timestamp issuedAt;
 
     public int getId() {
         return id;
@@ -110,6 +118,25 @@ public class Token implements Comparable<Token>{
             throw new NullPointerException("The tokenMultiCounterServices of a token can't be set to null");
         }
         this.tokenMultiCounterServices = tokenMultiCounterServices;
+    }
+
+    public void setTokenNumber(int tokenNumber) {
+        this.tokenNumber = tokenNumber;
+    }
+
+    public Integer getTokenNumber() {
+        return tokenNumber;
+    }
+
+    public void setIssuedAt(Timestamp issuedAt) {
+        if (issuedAt == null) {
+            throw new NullPointerException("The issued at time for a token can't be set to null");
+        }
+        this.issuedAt = issuedAt;
+    }
+
+    public Timestamp getIssuedAt() {
+        return issuedAt;
     }
 
     public TokenModel convertToDTO() {

@@ -3,6 +3,8 @@ package com.abc.bank.abc.services;
 import com.abc.bank.abc.enums.CustomerType;
 import com.abc.bank.abc.exceptions.IllegalInputException;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
+import com.abc.bank.abc.utilities.DateUtility;
+import com.abc.bank.abc.utilities.TokenNumberGenerator;
 import com.abc.bank.abc.viewmodels.BankingServiceModel;
 import com.abc.bank.abc.viewmodels.MultiCounterBankingServiceModel;
 import com.abc.bank.abc.viewmodels.ServicesPlaceholder;
@@ -14,7 +16,9 @@ import com.abc.bank.abc.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +37,6 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     @Autowired
     TokenServicesService tokenServicesService;
 
-    @Autowired
-    CounterService counterService;
-
     @Override
     public Token createToken(Token token) {
         List<ServicesPlaceholder> servicesPlaceholderList = token.getBankingServicesPlaceholder();
@@ -44,6 +45,14 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
             throw new IllegalArgumentException("Atleast one service should be requested before creating token");
         }
 
+        Token lastTokenCreated = tokenRepository.getLastTokenCreated();
+        Date date = new Date();
+        token.setIssuedAt(new Timestamp(date.getTime()));
+        if (lastTokenCreated != null &&
+                !DateUtility.getInstance().isSameWithCurrentDate(new Date(lastTokenCreated.getIssuedAt().getTime()))) {
+            TokenNumberGenerator.getInstance().resetCounter();
+        }
+        token.setTokenNumber(TokenNumberGenerator.getInstance().getCounter());
         token.setStatus(TokenStatus.ISSUED);
         Token createdToken = tokenRepository.save(token);
 
@@ -79,35 +88,92 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         }
         createdToken.setTokenServices(tokenServices);
         createdToken.setTokenMultiCounterServices(multiCounterServices);
-
+        createTokenProcessingSteps(createdToken);
         return createdToken;
     }
 
-    @Override
-    public Token assignCounter(Integer tokenId, Integer branchId) {
-        Token token = getToken(tokenId);
+    private void createTokenProcessingSteps(Token token) {
 
         if (token != null && token.getStatus() == TokenStatus.ISSUED) {
-            TokenService tokenService = tokenServicesService.getHighestOrderPendingTokenService(tokenId);
+            List<TokenService> tokenServices = tokenServicesService.getAllTokenServicesForToken(token.getId());
+            List<TokenMultiCounterService> tokenMultiCounterServices = tokenMultiCounterServicesService.getAllTokenMultiCounterServicesForToken(token.getId());
 
-            TokenMultiCounterService tokenMultiCounterService = tokenMultiCounterServicesService.getHighestOrderPendingMultiCounterService(token.getId());
-
-            if (tokenService != null && tokenMultiCounterService != null) {
-                if (tokenService.getProcessingOrder() < tokenMultiCounterService.getProcessingOrder()) {
-                    return assignCounterToTokenService(branchId, tokenService, token);
-                } else {
-                    return assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
-                }
-            } else if (tokenService != null) {
-                return assignCounterToTokenService(branchId, tokenService, token);
-            } else if (tokenMultiCounterService != null) {
-                return assignCounterToTokenMultiCounterService(branchId, tokenMultiCounterService, token);
+            if (tokenServices != null && tokenMultiCounterServices != null) {
+                processBothTypeOfServices(tokenServices, tokenMultiCounterServices);
+            } else if (tokenServices != null) {
+                processTokenService(tokenServices);
+            } else if (tokenMultiCounterServices != null) {
+                processTokenMultiCounterService(tokenMultiCounterServices);
             } else {
-                throw new IllegalArgumentException("There are no pending services found in the token which you are trying to assign");
+                throw new IllegalArgumentException("There are no pending services found for which token processing step needs to be created");
             }
         } else {
-            throw new IllegalInputException("Cannot assign counter because token is not valid or not in issued state");
+            throw new IllegalInputException("The token passed to create token processing steps is either null or not in ISSUED state");
         }
+    }
+
+    private void processTokenMultiCounterService(List<TokenMultiCounterService> tokenMultiCounterServices) {
+
+        for (int index = 0; index < tokenMultiCounterServices.size(); index++) {
+            createTokenProcessingStepsForTokenMultiCounterService(tokenMultiCounterServices.get(index));
+        }
+    }
+
+    private void processTokenService(List<TokenService> tokenServices) {
+        for (int index = 0; index < tokenServices.size(); index++) {
+            createTokenProcessingStepsForTokenService(tokenServices.get(index));
+        }
+    }
+
+    private void processBothTypeOfServices(List<TokenService> tokenServices,
+                                                           List<TokenMultiCounterService> tokenMultiCounterServices) {
+        int tokenServicesIndex = 0, tokenMultiCounterServicesIndex = 0;
+        for ( ; tokenServicesIndex < tokenServices.size() && tokenMultiCounterServicesIndex <tokenMultiCounterServices.size(); ) {
+            if (tokenServices.get(tokenServicesIndex).getProcessingOrder() < tokenMultiCounterServices.get(tokenMultiCounterServicesIndex).getProcessingOrder()) {
+                createTokenProcessingStepsForTokenService(tokenServices.get(tokenServicesIndex));
+                tokenServicesIndex++;
+            } else {
+                createTokenProcessingStepsForTokenMultiCounterService(tokenMultiCounterServices.get(tokenMultiCounterServicesIndex));
+                tokenMultiCounterServicesIndex++;
+            }
+        }
+
+        if (tokenServicesIndex < tokenServices.size()) {
+            for (int index = tokenServicesIndex; index < tokenServices.size(); index++) {
+                createTokenProcessingStepsForTokenService(tokenServices.get(index));
+            }
+        } else {
+            for (int index = tokenMultiCounterServicesIndex; index < tokenMultiCounterServices.size(); index++) {
+                createTokenProcessingStepsForTokenMultiCounterService(tokenMultiCounterServices.get(index));
+            }
+        }
+    }
+
+    private List<TokenProcessingSteps> createTokenProcessingStepsForTokenMultiCounterService(TokenMultiCounterService tokenMultiCounterService) {
+
+        List<BankingService> bankingServices = tokenMultiCounterService.getService().getBankingServices();
+        List<TokenProcessingSteps> tokenProcessingStepsList = new ArrayList<>();
+
+        for (int index = 0; index < bankingServices.size(); index++) {
+            TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
+            tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
+            tokenProcessingSteps.setService(bankingServices.get(index));
+            tokenProcessingSteps.setToken(tokenMultiCounterService.getToken());
+            tokenProcessingSteps.setServiceId(tokenMultiCounterService.getId());
+            tokenProcessingSteps.setStatus(TokenServiceStatus.QUEUED);
+            tokenProcessingStepsList.add(tokenProcessingStepsService.createTokenProcessingStep(tokenProcessingSteps));
+        }
+        return tokenProcessingStepsList;
+    }
+
+    private TokenProcessingSteps createTokenProcessingStepsForTokenService(TokenService tokenService) {
+        TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
+        tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
+        tokenProcessingSteps.setService(tokenService.getService());
+        tokenProcessingSteps.setServiceId(tokenService.getId());
+        tokenProcessingSteps.setStatus(TokenServiceStatus.QUEUED);
+        tokenProcessingSteps.setToken(tokenService.getToken());
+        return tokenProcessingStepsService.createTokenProcessingStep(tokenProcessingSteps);
     }
 
     @Override
@@ -206,7 +272,19 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
 
     @Override
     public Token pickNextToken(CustomerType customerType, List<BankingService> bankingServices) {
-        return  tokenRepository.pickNextToken(customerType.toString(), bankingServices);
+        Token token = tokenRepository.pickNextToken(customerType.toString(), bankingServices);
+        if (token != null) {
+            TokenProcessingSteps tokenProcessingSteps = tokenProcessingStepsService.getStatusTokenProcessingStepForToken(token.getId(),
+                    TokenServiceStatus.QUEUED);
+            if (tokenProcessingSteps != null) {
+                tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
+                tokenProcessingStepsService.updateTokenProcessingStep(tokenProcessingSteps);
+            } else {
+                throw new NullPointerException("The token processing step for the token picked is null");
+            }
+            changeParentServiceStatusForTokenProcessingStep(tokenProcessingSteps, TokenServiceStatus.COUNTER_ASSIGNED);
+        }
+        return  token;
     }
 
     private void changeTokenStatus(Token token, TokenStatus tokenStatus) {
@@ -232,98 +310,6 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
         else {
             return null;
         }
-    }
-
-    private boolean checkForAllTokenServicesCompletion(Token token) {
-
-        List<TokenMultiCounterService> tokenMultiCounterServices = token.getTokenMultiCounterServices();
-
-        List<TokenService> tokenServices = token.getTokenServices();
-
-        for (TokenService tokenService : tokenServices) {
-            if (tokenService.getStatus() != TokenServiceStatus.COMPLETED)
-                return false;
-        }
-
-        for (TokenMultiCounterService tokenMultiCounterService : tokenMultiCounterServices) {
-            if (tokenMultiCounterService.getStatus() != TokenServiceStatus.COMPLETED)
-                return false;
-        }
-
-        return true;
-    }
-
-
-    private Token assignCounterToTokenService(Integer branchId, TokenService tokenService, Token token) {
-        TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
-        tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.SINGLE_COUNTER);
-        tokenProcessingSteps.setService(tokenService.getService());
-        Counter counter = getBestCounterForService(branchId, tokenService.getService(), token);
-        if (counter != null) {
-            tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
-            tokenProcessingSteps.setCounter(counter);
-        } else {
-            throw new IllegalInputException("The counter could not be assigned assigned at this time");
-        }
-        tokenProcessingSteps.setCounter(counter);
-        tokenProcessingSteps.setServiceId(tokenService.getId());
-        tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
-        tokenProcessingSteps.setToken(token);
-        tokenProcessingStepsService.createTokenProcessingStep(tokenProcessingSteps);
-        tokenServicesService.updateTokenServiceStatus(tokenService, TokenServiceStatus.COUNTER_ASSIGNED);
-        token.setStatus(TokenStatus.COUNTER_ASSIGNED);
-        return tokenRepository.save(token);
-    }
-
-    private Token assignCounterToTokenMultiCounterService(Integer branchId, TokenMultiCounterService tokenMultiCounterService, Token token) {
-        List<BankingService> bankingServices = tokenMultiCounterService.getService().getBankingServices();
-
-        for (int index = 0; index < bankingServices.size(); index++) {
-            TokenProcessingSteps tokenProcessingSteps = new TokenProcessingSteps();
-            tokenProcessingSteps.setServiceProcessingType(ServiceProcessingType.MULTI_COUNTER);
-            tokenProcessingSteps.setService(bankingServices.get(index));
-            tokenProcessingSteps.setToken(token);
-            tokenProcessingSteps.setServiceId(tokenMultiCounterService.getId());
-            if (index == 0) {
-                Counter counter = getBestCounterForService(branchId, bankingServices.get(index), token);
-                if (counter != null) {
-                    tokenProcessingSteps.setStatus(TokenServiceStatus.COUNTER_ASSIGNED);
-                    tokenProcessingSteps.setCounter(counter);
-                } else {
-                    throw new IllegalInputException("The counter could not be assigned assigned at this time");
-                }
-            } else {
-                tokenProcessingSteps.setStatus(TokenServiceStatus.QUEUED);
-            }
-            tokenProcessingStepsService.createTokenProcessingStep(tokenProcessingSteps);
-        }
-        tokenMultiCounterServicesService.updateTokenMultiCounterServiceStatus(tokenMultiCounterService, TokenServiceStatus.COUNTER_ASSIGNED);
-        token.setStatus(TokenStatus.COUNTER_ASSIGNED);
-        return tokenRepository.save(token);
-    }
-
-    private Counter getBestCounterForService(Integer branchId, BankingService bankingService, Token token) {
-        List<Counter> counters = counterService.getCountersForService(branchId,
-                bankingService.getId(), token.getCustomer().getCustomerType());
-
-        Counter counter = getMinQueueCounter(counters);
-
-        return counter;
-    }
-    private Counter getMinQueueCounter(List<Counter> counters) {
-        int numCounters = counters.size();
-
-        int minQueue = Integer.MAX_VALUE;
-
-        Counter bestCounter = null;
-
-        for (int index = 0; index < numCounters; index++) {
-            Counter counter = counters.get(index);
-            if (minQueue > counter.getTokens().size())
-                bestCounter = counter;
-        }
-
-        return bestCounter;
     }
 
     private TokenProcessingSteps changeTokenProcessingStepStatus(TokenProcessingSteps tokenProcessingSteps,

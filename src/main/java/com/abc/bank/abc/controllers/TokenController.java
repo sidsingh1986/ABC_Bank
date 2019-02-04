@@ -94,20 +94,4 @@ public class TokenController {
                 tokenProcessParameters.getEmployee().convertToEntity());
         return new ResponseEntity<>("Token processing complete", HttpStatus.OK);
     }
-
-    /**
-     * Assigns a token to counter based on the highest order service selected in counter. It checks for the
-     * counter serving the highest order pending service and then assigns the token to counter which has the
-     * minimum number of tokens to be served.
-     *
-     * @param branchId branch identifier
-     * @param tokenId token identifier
-     * @throws IllegalArgumentException if there are no services pending in the token to be served
-     */
-    @PutMapping(value = "/branch/{branchId}/tokens/{tokenId}/counter")
-    public ResponseEntity<String> assignCounter(@PathVariable(value = "branchId") Integer branchId,
-                             @PathVariable(value = "tokenId") Integer tokenId) {
-        tokenProcessingService.assignCounter(tokenId, branchId);
-        return new ResponseEntity<>("Token assignment complete", HttpStatus.OK);
-    }
 }

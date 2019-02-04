@@ -100,6 +100,7 @@ public class CounterRepositoryTest {
         counter.setName("Counter 1");
         counter.setBranch(createdBranch);
         counter.setServicesOffered(Arrays.asList(createdBankingService, createdBankingService2));
+        counter.setDisplayNumber(1);
         Counter createdCounter = entityManager.persist(counter);
 
         Counter counter1 = new Counter();
@@ -107,6 +108,7 @@ public class CounterRepositoryTest {
         counter1.setName("Counter 2");
         counter1.setBranch(createdBranch);
         counter1.setServicesOffered(Arrays.asList(createdBankingService2, createdBankingService3));
+        counter1.setDisplayNumber(2);
         Counter createdCounter1 = entityManager.persist(counter1);
 
         Counter counter2 = new Counter();
@@ -114,6 +116,7 @@ public class CounterRepositoryTest {
         counter2.setName("Counter 3");
         counter2.setBranch(createdBranch);
         counter2.setServicesOffered(Arrays.asList(createdBankingService, createdBankingService2));
+        counter2.setDisplayNumber(3);
         Counter createdCounter2 = entityManager.persist(counter2);
 
         Counter counter3 = new Counter();
@@ -121,6 +124,7 @@ public class CounterRepositoryTest {
         counter3.setName("Counter 4");
         counter3.setBranch(createdBranch);
         counter3.setServicesOffered(Arrays.asList(createdBankingService2, createdBankingService3));
+        counter3.setDisplayNumber(4);
         Counter createdCounter3 = entityManager.persist(counter3);
 
         List<Counter> counters = counterRepository.getCountersForService(createdBranch.getId(), createdBankingService2.getId(), CustomerType.REGULAR.toString());
@@ -199,6 +203,7 @@ public class CounterRepositoryTest {
         counter.setName("Counter 1");
         counter.setBranch(createdBranch);
         counter.setServicesOffered(Arrays.asList(createdBankingService, createdBankingService2));
+        counter.setDisplayNumber(1);
         Counter createdCounter = entityManager.persist(counter);
 
         Counter counter1 = new Counter();
@@ -206,6 +211,7 @@ public class CounterRepositoryTest {
         counter1.setName("Counter 2");
         counter1.setBranch(createdBranch);
         counter1.setServicesOffered(Arrays.asList(createdBankingService2, createdBankingService3));
+        counter1.setDisplayNumber(2);
         Counter createdCounter1 = entityManager.persist(counter1);
 
         Counter counter2 = new Counter();
@@ -213,6 +219,7 @@ public class CounterRepositoryTest {
         counter2.setName("Counter 3");
         counter2.setBranch(createdBranch);
         counter2.setServicesOffered(Arrays.asList(createdBankingService, createdBankingService2));
+        counter2.setDisplayNumber(3);
         Counter createdCounter2 = entityManager.persist(counter2);
 
         Counter counter3 = new Counter();
@@ -220,6 +227,7 @@ public class CounterRepositoryTest {
         counter3.setName("Counter 4");
         counter3.setBranch(createdBranch);
         counter3.setServicesOffered(Arrays.asList(createdBankingService2, createdBankingService3));
+        counter3.setDisplayNumber(4);
         Counter createdCounter3 = entityManager.persist(counter3);
 
         Counter counterForBranch = counterRepository.getCounterForBranch(createdBranch.getId(), createdCounter.getId());

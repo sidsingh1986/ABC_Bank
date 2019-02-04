@@ -17,7 +17,7 @@ public interface TokenProcessingService {
      */
     Token createToken(Token token);
 
-    /**
+/*    *//**
      * Assigns a token to counter based on the highest order service selected in counter. It checks for the
      * counter serving the highest order pending service and then assigns the token to counter which has the
      * minimum number of tokens to be served.
@@ -25,8 +25,8 @@ public interface TokenProcessingService {
      * @param branchId branch identifier
      * @param tokenId token identifier
      * @throws IllegalArgumentException if there are no services pending in the token to be served
-     */
-    Token assignCounter(Integer tokenId, Integer branchId);
+     *//*
+    Token assignCounter(Integer tokenId, Integer branchId);*/
 
     /**
      * For getting a particular Token based on id.
@@ -91,5 +91,12 @@ public interface TokenProcessingService {
      */
     Token getCurrentToken(Integer counterId);
 
+    /**
+     * For getting a highest order token which is requesting any of the services in the list passed.
+     *
+     * @param customerType type of customer(REGULAR, PREMIUM)
+     * @param bankingServices list of banking services
+     * @return Token instance found
+     */
     Token pickNextToken(CustomerType customerType, List<BankingService> bankingServices);
 }

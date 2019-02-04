@@ -1,12 +1,15 @@
 package com.abc.bank.abc.services;
 
+import com.abc.bank.abc.datamodels.TokenProcessingSteps;
 import com.abc.bank.abc.datamodels.TokenService;
+import com.abc.bank.abc.enums.ServiceProcessingType;
 import com.abc.bank.abc.enums.TokenServiceStatus;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.repositories.TokenServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +53,10 @@ public class TokenServicesServiceImpl implements TokenServicesService {
     @Override
     public boolean cancelAllServicesForToken(Integer tokenId) {
         return tokenServiceRepository.cancelAllServicesForToken(tokenId);
+    }
+
+    @Override
+    public List<TokenService> getAllTokenServicesForToken(Integer tokenId) {
+        return tokenServiceRepository.getAllTokenServicesForTokenOrderByProcessingOrder(tokenId);
     }
 }

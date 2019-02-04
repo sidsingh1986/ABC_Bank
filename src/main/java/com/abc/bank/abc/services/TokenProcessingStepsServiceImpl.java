@@ -43,13 +43,13 @@ public class TokenProcessingStepsServiceImpl implements TokenProcessingStepsServ
     }
 
     @Override
-    public TokenProcessingSteps getStatusTokenProcessingStepForToken(int id, TokenServiceStatus tokenServiceStatus) {
-        return null;
+    public TokenProcessingSteps getStatusTokenProcessingStepForToken(int tokenId, TokenServiceStatus tokenServiceStatus) {
+        return tokenProcessingStepsRepository.getTokenProcessingStepForStatus(tokenId, tokenServiceStatus.toString());
     }
 
     @Override
     public TokenProcessingSteps getHighestOrderPendingTokenProcessingStep(int serviceId) {
-        return null;
+        return tokenProcessingStepsRepository.getHighestOrderTokenProcessingStepForMultiCounterService(serviceId);
     }
 
     @Override

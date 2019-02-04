@@ -4,6 +4,8 @@ import com.abc.bank.abc.datamodels.TokenService;
 import com.abc.bank.abc.enums.TokenServiceStatus;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
 
+import java.util.List;
+
 public interface TokenServicesService {
 
     /**
@@ -48,4 +50,12 @@ public interface TokenServicesService {
      * @return status of operation
      */
     boolean cancelAllServicesForToken(Integer tokenId);
+
+    /**
+     * For getting all the Token Services for a particular token
+     *
+     * @param tokenId token identifier
+     * @return list of token services
+     */
+    List<TokenService> getAllTokenServicesForToken(Integer tokenId);
 }

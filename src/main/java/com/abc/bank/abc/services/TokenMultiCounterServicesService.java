@@ -4,6 +4,8 @@ import com.abc.bank.abc.datamodels.TokenMultiCounterService;
 import com.abc.bank.abc.enums.TokenServiceStatus;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
 
+import java.util.List;
+
 public interface TokenMultiCounterServicesService {
 
     /**
@@ -48,4 +50,12 @@ public interface TokenMultiCounterServicesService {
      * @return status of operation
      */
     boolean cancelAllMultiCounterServicesForToken(Integer tokenId);
+
+    /**
+     * For getting all the Token Multi counter Services for a particular token
+     *
+     * @param tokenId token identifier
+     * @return list of token multi counter services
+     */
+    List<TokenMultiCounterService> getAllTokenMultiCounterServicesForToken(Integer tokenId);
 }

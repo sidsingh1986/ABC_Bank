@@ -132,10 +132,10 @@ public interface CounterService {
     Token pickToken(Token token);
 
     /**
-     * For picking the next token by a counter
+     * For assigning the next earliest token to the counter
      *
      * @param counterId counter identifier
      * @return Token picked with status change
      */
-    Token pickNextToken(Integer counterId);
+    Token assignNextToken(Integer counterId);
 }

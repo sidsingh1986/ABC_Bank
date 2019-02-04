@@ -26,6 +26,17 @@ public class Counter {
     @Column(name = "type_of_service")
     private CustomerType customerType;
 
+    @Column(name = "display_number")
+    private Integer displayNumber;
+
+    public Integer getDisplayNumber() {
+        return displayNumber;
+    }
+
+    public void setDisplayNumber(Integer displayNumber) {
+        this.displayNumber = displayNumber;
+    }
+
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="Counter_Services", joinColumns=@JoinColumn(name="Counter_id"), inverseJoinColumns=@JoinColumn(name="Services_id"))

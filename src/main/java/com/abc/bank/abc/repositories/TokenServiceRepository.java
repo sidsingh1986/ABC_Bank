@@ -5,6 +5,8 @@ import com.abc.bank.abc.enums.TokenServiceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface TokenServiceRepository extends JpaRepository<TokenService, Integer> {
 
     @Query(value = "select token_service.* from Token_Services token_service where token_service.Token_id = :tokenId " +
@@ -14,4 +16,7 @@ public interface TokenServiceRepository extends JpaRepository<TokenService, Inte
     @Query(value = "update Token_Services set status = 'CANCELLED' where Token_id = :tokenId " +
             "AND status <> 'COMPLETED' ", nativeQuery = true)
     boolean cancelAllServicesForToken(Integer tokenId);
+
+    @Query(value = "select token_service.* from Token_Services token_service where token_service.Token_id = :tokenId order by processing_order", nativeQuery = true)
+    List<TokenService> getAllTokenServicesForTokenOrderByProcessingOrder(Integer tokenId);
 }
