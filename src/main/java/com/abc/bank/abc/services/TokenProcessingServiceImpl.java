@@ -1,5 +1,6 @@
 package com.abc.bank.abc.services;
 
+import com.abc.bank.abc.enums.CustomerType;
 import com.abc.bank.abc.exceptions.IllegalInputException;
 import com.abc.bank.abc.exceptions.ResourceNotFoundException;
 import com.abc.bank.abc.viewmodels.BankingServiceModel;
@@ -201,6 +202,11 @@ public class TokenProcessingServiceImpl implements TokenProcessingService {
     @Override
     public Token getCurrentToken(Integer counterId) {
         return tokenRepository.getCurrentToken(counterId);
+    }
+
+    @Override
+    public Token pickNextToken(CustomerType customerType, List<BankingService> bankingServices) {
+        return  tokenRepository.pickNextToken(customerType.toString(), bankingServices);
     }
 
     private void changeTokenStatus(Token token, TokenStatus tokenStatus) {

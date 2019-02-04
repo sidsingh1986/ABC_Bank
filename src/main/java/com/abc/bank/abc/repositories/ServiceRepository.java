@@ -4,6 +4,8 @@ import com.abc.bank.abc.datamodels.BankingService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface ServiceRepository extends JpaRepository<BankingService, Integer> {
 
     @Query(value = "select service.* from Services service join Multi_counter_service_has_Services multi_ser on service.id = multi_ser.Services_id where service.id = :serviceId" +
@@ -17,4 +19,8 @@ public interface ServiceRepository extends JpaRepository<BankingService, Integer
     @Query(value = "select serv.* from Services serv join Counter_Services coun_serv  on serv.id = coun_serv.Services_id where " +
             "coun_serv.Counter_id = :counterId AND coun_serv.Services_id = :serviceId", nativeQuery = true)
     BankingService getServiceForCounter(Integer counterId, Integer serviceId);
+
+    @Query(value = "select serv.* from Services serv join Counter_Services coun_serv  on serv.id = coun_serv.Services_id where " +
+            "coun_serv.Counter_id = :counterId", nativeQuery = true)
+    List<BankingService> getServicesForCounter(Integer counterId);
 }

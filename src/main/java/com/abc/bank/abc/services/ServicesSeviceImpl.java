@@ -68,4 +68,9 @@ public class ServicesSeviceImpl implements ServicesSevice {
     public BankingService getServiceForCounter(Integer counterId, Integer serviceId) {
         return serviceRepository.getServiceForCounter(counterId, serviceId);
     }
+
+    @Override
+    public List<BankingService> getServicesForCounter(Integer counterId) {
+        return serviceRepository.getServicesForCounter(counterId);
+    }
 }

@@ -75,4 +75,14 @@ public interface ServicesSevice {
      * @throws ResourceNotFoundException if the Banking service is not found served by counter
      */
     BankingService getServiceForCounter(Integer counterId, Integer serviceId);
+
+
+    /**
+     * For getting all Banking Services served by a counter
+     *
+     * @param counterId counter identifier
+     * @return service with service Id
+     * @throws ResourceNotFoundException if the Banking service is not found served by counter
+     */
+    List<BankingService> getServicesForCounter(Integer counterId);
 }

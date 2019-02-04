@@ -125,4 +125,26 @@ public class CounterServiceImpl implements CounterService {
     public Token pickToken(Token token) {
         return tokenProcessingService.pickToken(token);
     }
+
+    @Override
+    public Token pickNextToken(Integer counterId) {
+        List<BankingService> bankingServices = servicesSevice.getServicesForCounter(counterId);
+
+        if (bankingServices == null) {
+            throw new NullPointerException("The services offered by the counter is empty");
+        }
+
+        Counter counter = getCounter(counterId);
+        if (counter == null) {
+            throw new NullPointerException("The counter for which token is picked is null");
+        }
+
+        Token token = tokenProcessingService.pickNextToken(counter.getCustomerType(), bankingServices);
+        if (token != null) {
+            token.setCounter(counter);
+            return tokenProcessingService.updateToken(token.getId(), token);
+        } else {
+            throw new NullPointerException("No token found for which counter can be assigned");
+        }
+    }
 }

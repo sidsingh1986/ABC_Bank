@@ -184,4 +184,11 @@ public class CounterController {
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get the next token highest order token for the counter")
+    @PutMapping("/counters/{counterId}/token")
+    public ResponseEntity<Token> pickNextToken(@PathVariable(value = "counterId") Integer counterId) {
+        Token token = counterService.pickNextToken(counterId);
+        return new ResponseEntity<>(token, HttpStatus.OK);
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.abc.bank.abc.services;
 
+import com.abc.bank.abc.datamodels.BankingService;
 import com.abc.bank.abc.datamodels.Employee;
 import com.abc.bank.abc.datamodels.Token;
+import com.abc.bank.abc.enums.CustomerType;
 
 import java.util.List;
 
@@ -88,4 +90,6 @@ public interface TokenProcessingService {
      * @return Token instance
      */
     Token getCurrentToken(Integer counterId);
+
+    Token pickNextToken(CustomerType customerType, List<BankingService> bankingServices);
 }
